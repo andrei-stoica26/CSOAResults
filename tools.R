@@ -6,7 +6,8 @@ hashMap <- function(hashKeys, hashValues){
 }
 
 updateHashKeys <- function(df, colStr, hashKeys){
-    hashKeys[[length(hashKeys) + 1]] <- setdiff(unique(df[[colStr]]), unlist(hashKeys))
+    hashKeys[[length(hashKeys) + 1]] <- setdiff(unique(df[[colStr]]),
+                                                unlist(hashKeys))
     return(hashKeys)
 }
 
@@ -23,12 +24,21 @@ addCategory <- function(df, colStr, newColStr, hashKeys, hashValues){
     return(df)
 }
 
-addSeuratCategory <- function(seuratObj, colStr, newColStr, hashKeys, hashValues, newColStr2 = NULL, hashValues2 = NULL){
-    seuratObj[[]] <- addCategory(seuratObj[[]], colStr, newColStr, hashKeys, hashValues)
+addSeuratCategory <- function(seuratObj,
+                              colStr,
+                              newColStr,
+                              hashKeys,
+                              hashValues,
+                              newColStr2 = NULL,
+                              hashValues2 = NULL){
+    seuratObj[[]] <- addCategory(seuratObj[[]], colStr, newColStr,
+                                 hashKeys, hashValues)
     if (!is.null(newColStr2))
     {
-        hashValues2 <- unlist(lapply(hashValues2, function(x) paste0(x, collapse = '/')))
-        seuratObj[[]] <- addCategory(seuratObj[[]], colStr, newColStr2, hashKeys, hashValues2)
+        hashValues2 <- unlist(lapply(hashValues2, function(x)
+            paste0(x, collapse = '/')))
+        seuratObj[[]] <- addCategory(seuratObj[[]], colStr, newColStr2,
+                                     hashKeys, hashValues2)
     }
     return(seuratObj)
 }
