@@ -3,5 +3,5 @@
 .Rproj.user
 CSOAResults.Rproj
 *.qs
-*.Rdata
+*.sparse.Rdata
 *.txt
