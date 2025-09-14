@@ -7,6 +7,7 @@ library(scuttle)
 library(Seurat)
 
 source('baron_pancreas_human.R')
+source('lung_proximal_airway_stromal.R')
 source('tools.R')
 source('load_seurats.R')
 

@@ -2,5 +2,6 @@
 .Rhistory
 .Rproj.user
 CSOAResults.Rproj
-seuratPanc.qs
-seuratPancGSA.qs
+*.qs
+*.Rdata
+*.txt
