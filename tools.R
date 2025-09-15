@@ -1,50 +1,3 @@
-hashMap <- function(hashKeys, hashValues){
-    hashNames <- unlist(hashKeys)
-    hash <- unlist(mapply(function(x, y) rep(y, length(x)), hashKeys, hashValues))
-    names(hash) <- hashNames
-    return(hash)
-}
-
-updateHashKeys <- function(df, colStr, hashKeys){
-    hashKeys[[length(hashKeys) + 1]] <- setdiff(unique(df[[colStr]]),
-                                                unlist(hashKeys))
-    return(hashKeys)
-}
-
-addCategory <- function(df, colStr, newColStr, hashKeys, hashValues){
-    remainder <- setdiff(unique(df[[colStr]]), unlist(hashKeys))
-    if (length(hashKeys) + 1 == length(hashValues))
-        hashKeys <- updateHashKeys(df, colStr, hashKeys)
-    else if (length(remainder) > 0){
-        hashKeys <- c(hashKeys, remainder)
-        hashValues <- c(hashValues, remainder)
-    }
-    hash <- hashMap(hashKeys, hashValues)
-    df[[newColStr]] <- hash[as.character(df[[colStr]])]
-    return(df)
-}
-
-addSeuratCategory <- function(seuratObj,
-                              colStr,
-                              newColStr,
-                              hashKeys,
-                              hashValues,
-                              newColStr2 = NULL,
-                              hashValues2 = NULL){
-    seuratObj[[]] <- addCategory(seuratObj[[]], colStr, newColStr,
-                                 hashKeys, hashValues)
-    if (!is.null(newColStr2))
-    {
-        hashValues2 <- unlist(lapply(hashValues2, function(x)
-            paste0(x, collapse = '/')))
-        seuratObj[[]] <- addCategory(seuratObj[[]], colStr, newColStr2,
-                                     hashKeys, hashValues2)
-    }
-    return(seuratObj)
-}
-
-
-
 chooseUMAPDims <- function(seuratObj, reduction='pca'){
     pct <- seuratObj[[reduction]]@stdev /
         sum(seuratObj[[reduction]]@stdev) * 100
@@ -82,3 +35,33 @@ processSeurat <- function(seuratObj, fileName=NULL){
         qsave(seuratObj, paste0(fileName, '.qs'))
     return(seuratObj)
 }
+
+metadataDF(seuratLung) <- addMetadataCategory(seuratLung,
+                                      'cluster',
+                                      'celltype2',
+                                      list(c(0, 1, 3, 4, 6, 10, 16),
+                                           c(2, 5, 8, 11, 15),
+                                           7,
+                                           9,
+                                           12,
+                                           13,
+                                           14,
+                                           17,
+                                           18,
+                                           19,
+                                           20,
+                                           21,
+                                           22),
+                                      c('Fibroblasts',
+                                        'PulmonaryAlveolarIICells',
+                                        'BasalCells',
+                                        'LuminalEpithelialCells',
+                                        'SmoothMuscleCells',
+                                        'EpendymalCells',
+                                        'Keratinocytes',
+                                        'EndothelialCells',
+                                        'MesothelialCells',
+                                        'DendriticCells',
+                                        'TCells',
+                                        'BCells',
+                                        'HepaticStellateCells'))

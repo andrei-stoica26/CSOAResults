@@ -1,6 +1,7 @@
 .Rbuildignore
 .Rhistory
 .Rproj.user
+R/.test_code.R
 CSOAResults.Rproj
 *.qs
 *.RData
