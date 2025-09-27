@@ -46,18 +46,3 @@ seuratLung <- addMetadataCategory(seuratLung,
                                     'BCells',
                                     'HepaticStellateCells'))
 qsave(seuratLung, 'seuratLung.qs')
-
-####################################Xin pancreas################################
-seuratDemo <- LawlorPancreasData()
-seuratDemo <- logNormCounts(seuratDemo)
-seuratDemo <- as.Seurat(seuratDemo)
-seuratDemo <- processSeurat(seuratDemo, 'seuratDemo')
-dim(seuratDemo)
-class(seuratDemo)
-findRareFeatures(seuratDemo)
-?findRareFeatures
-
-scColCounts(seuratDemo, 'cell.type')
-View(metadataDF(seuratDemo))
-
-View(data.frame(listDatasets()))
