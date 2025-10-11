@@ -7,13 +7,7 @@ library(scuttle)
 library(Seurat)
 library(LISTO)
 
-source('baron_pancreas_human.R')
-source('lung_proximal_airway_stromal.R')
 source('tools.R')
-source('load_seurats.R')
 
-gsaMethods <- supportedMethods()
-seuratPanc <- timeFun(runGSAMethods, seuratPanc, 'label', geneSetsPanc,
-                      gsaMethods)
-qsave(seuratPanc, 'seuratPancGSA.qs')
+
 
