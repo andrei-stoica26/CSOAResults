@@ -1,8 +1,8 @@
 markerList <- buildMarkerList(seuratBreast, 'funct')
 erList <- lapply(markerList, function(x) genesER(rownames(x), 'human'))
 
-geneSetsBreast <- list(termGenes(erList[[1]], 'chromosome segregation'),
-                       termGenes(erList[[2]], 'DNA replication'),
+geneSetsBreast <- list(termGenes(erList[[2]], 'chromosome segregation'),
+                       termGenes(erList[[3]], 'DNA replication'),
                        termGenes(erList[[4]], 'ncRNA processing'),
                        termGenes(erList[[5]], 'cellular response to transforming growth factor beta stimulus'))
 

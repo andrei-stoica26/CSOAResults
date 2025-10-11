@@ -24,11 +24,17 @@ smrPanc <-  timeFun(runBenchmark, seuratPanc, 'label', geneSetsPanc,
                     gsaMethods)
 qsave(smrPanc, 'smrPanc.qs')
 
-smrLung <-  timeFun(runBenchmark, seuratLung, 'label', geneSetsLung,
+smrLung <-  timeFun(runBenchmark, seuratLung, 'celltype', geneSetsLung,
                     gsaMethods)
 qsave(smrLung, 'smrLung.qs')
 
-smrBreast <-  timeFun(runBenchmark, seuratBreast, 'label', geneSetsBreast,
+smrBreast <-  timeFun(runBenchmark, seuratBreast, 'funct', geneSetsBreast,
                     gsaMethods)
 qsave(smrBreast, 'smrBreast.qs')
 
+smrBlood <- qread('Peripheral blood mononuclear cells.qs')
+qsave(smrBlood, 'smrBlood.qs')
+
+smrBreast
+p <- allBenchmarkPlots(smrBreast)
+p[[2]]
