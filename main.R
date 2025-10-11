@@ -5,6 +5,7 @@ library(qs)
 library(scRNAseq)
 library(scuttle)
 library(Seurat)
+library(LISTO)
 
 source('baron_pancreas_human.R')
 source('lung_proximal_airway_stromal.R')

@@ -11,7 +11,7 @@ clusterInfo <- read.table('SRA640325_SRS2769051.clusters.txt')
 sm <- sm[, clusterInfo$V1]
 seuratLung <- CreateSeuratObject(sm,
                                  project='lungProximalAirwayStromal')
-seuratLung <- removeRareFeatures(seuratLung, 10)
+seuratLung <- removeRareGenes(seuratLung, 10)
 seuratLung <- NormalizeData(seuratLung)
 seuratLung <- processSeurat(seuratLung)
 
@@ -46,3 +46,33 @@ seuratLung <- addMetadataCategory(seuratLung,
                                     'BCells',
                                     'HepaticStellateCells'))
 qsave(seuratLung, 'seuratLung.qs')
+
+#############################Breast cancer cell line############################
+load('SRA704181_SRS3305832.sparse.RData')
+rownames(sm) <- make.unique(gsub('_.*', '', rownames(sm)))
+seuratBreast <- CreateSeuratObject(sm, project='breastCancer')
+
+seuratBreast  <- PercentageFeatureSet(seuratBreast,
+                                      pattern = "^MT-",
+                                      col.name = "percent.mt")
+seuratBreast  <- PercentageFeatureSet(seuratBreast,
+                                      pattern="^RP[SL][[:digit:]]|^RPLP[[:digit:]]|^RPSA",
+                                      col.name="percent.ribo")
+
+seuratBreast <- subset(seuratBreast, percent.mt < 10)
+seuratBreast <- processSeurat(seuratBreast, varsToRegress=c('nCount_RNA',
+                                                          'percent.mt',
+                                                          'percent.ribo'))
+
+seuratBreast <- FindNeighbors(seuratBreast, reduction='umap', dims=1:2)
+seuratBreast <- FindClusters(seuratBreast, resolution=0.13)
+seuratBreast <- addMetadataCategory(seuratBreast,
+                                    'seurat_clusters',
+                                    'funct',
+                                    list(c(0, 4), 1, 2, 3, 5),
+                                    c('Bulk cells',
+                                      'DNA.replication',
+                                      'TGF.beta.response',
+                                      'Chromosome.segregation',
+                                      'ncRNA.processing'))
+qsave(seuratBreast, 'seuratBreast.qs')
