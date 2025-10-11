@@ -8,5 +8,4 @@ geneSetsBreast <- list(termGenes(erList[[1]], 'chromosome segregation'),
 
 names(geneSetsBreast) <- c('Chromosome.segregation', 'DNA.replication',
                            'ncRNA.processing', 'TGF.beta.response')
-
 qsave(geneSetsBreast, 'geneSetsBreast.qs')

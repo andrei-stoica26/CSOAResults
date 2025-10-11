@@ -49,4 +49,5 @@ gammaMarkers <- c('PPY', 'ABCC9', 'FGB', 'ZNF503', 'MEIS1', 'LMO3', 'EGR3',
 geneSetsPanc <- list(acinarMarkers, alphaMarkers, betaMarkers, deltaMarkers,
                  ductalMarkers, gammaMarkers)
 names(geneSetsPanc) <- c('acinar', 'alpha', 'beta', 'delta', 'ductal', 'gamma')
+qsave(geneSetsPanc, 'geneSetsPanc.qs')
 

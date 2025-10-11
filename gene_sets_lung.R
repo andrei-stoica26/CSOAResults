@@ -85,7 +85,12 @@ smoothMuscleMarkers <- c('ACTA2', 'MYL9', 'RGS5', 'MYLK', 'HHIP', 'MYH11',
                          'AAED1'
 )
 
-geneSets <- list(alveolarMarkers, basalMarkers, ependymalMarkers,
+geneSetsLung <- list(alveolarMarkers, basalMarkers, ependymalMarkers,
                  fibroblastMarkers, luminarMarkers, smoothMuscleMarkers)
-names(geneSets) <- c('PulmonaryAlveolarIICells', 'BasalCells', 'EpendymalCells',
-                  'Fibroblasts', 'LuminalEpithelialCells', 'SmoothMuscleCells')
+names(geneSetsLung) <- c('PulmonaryAlveolarIICells',
+                         'BasalCells',
+                         'EpendymalCells',
+                         'Fibroblasts',
+                         'LuminalEpithelialCells',
+                         'SmoothMuscleCells')
+qsave(geneSetsLung, 'geneSetsLung.qs')
