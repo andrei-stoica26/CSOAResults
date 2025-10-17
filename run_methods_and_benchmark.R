@@ -16,7 +16,7 @@ qsave(seuratPanc, 'seuratPancGSA.qs')
 
 seuratLung <- timeFun(runGSAMethods, seuratLung, 'celltype', geneSetsLung,
                       gsaMethods)
-qsave(seuratPanc, 'seuratLungGSA.qs')
+qsave(seuratLung, 'seuratLungGSA.qs')
 
 seuratBreast <- timeFun(runGSAMethods, seuratBreast, 'funct', geneSetsBreast,
                       gsaMethods)
@@ -42,8 +42,3 @@ smrBlood <- qread('Peripheral blood mononuclear cells.qs')
 qsave(smrBlood, 'smrBlood.qs')
 
 smrBlood <- qread('smrBlood.qs')
-
-v <- mdsPlots(seuratPanc, smrPanc)
-v <- mdsPlots(seuratLung, smrLung)
-v <- mdsPlots(seuratBlood, smrBlood)
-v[[5]]

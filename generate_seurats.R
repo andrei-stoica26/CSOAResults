@@ -77,7 +77,4 @@ seuratBreast <- addMetadataCategory(seuratBreast,
                                       'ncRNA.processing'))
 qsave(seuratBreast, 'seuratBreast.qs')
 
-##########################Peripheral blood mononuclear cells####################
-load('seuratBlood.RData')
-qsave(scrna, 'seuratBloodGSA.qs')
-qsave(geneSets, 'geneSetsBlood.qs')
+########################Peripheral blood mononuclear cells######################
