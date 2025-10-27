@@ -78,3 +78,37 @@ seuratBreast <- addMetadataCategory(seuratBreast,
 qsave(seuratBreast, 'seuratBreast.qs')
 
 ########################Peripheral blood mononuclear cells######################
+load('SRA550660_SRS2089639.sparse.RData')
+
+rownames(sm) <- make.unique(gsub('_.*', '', rownames(sm)))
+clusterInfo <- read.table("SRA550660_SRS2089639.clusters.txt")
+sm <- sm[, clusterInfo$V1]
+
+seuratBlood <- CreateSeuratObject(counts = sm, project = "pbmc")
+seuratBlood$seurat_clusters <- clusterInfo$V2
+seuratBlood <- subset(seuratBlood, subset = !(seurat_clusters %in% c("8", "12")))
+
+
+seuratBlood  <- PercentageFeatureSet(seuratBlood,
+                                      pattern = "^MT-",
+                                      col.name = "percent.mt")
+seuratBlood  <- PercentageFeatureSet(seuratBlood,
+                                      pattern="^RP[SL][[:digit:]]|^RPLP[[:digit:]]|^RPSA",
+                                      col.name="percent.ribo")
+
+seuratBlood <- subset(seuratBlood, subset = percent.mt < 5)
+seuratBlood <- processSeurat(seuratBlood,  varsToRegress = 'percent.ribo')
+seuratBlood <- FindNeighbors(seuratBlood, reduction='umap', dims=1:2)
+seuratBlood <- FindClusters(seuratBlood, resolution=0.1)
+seuratBlood <- addMetadataCategory(seuratBlood,
+                                   'seurat_clusters',
+                                   'funct',
+                                   list(c(1,2,5,6,7,9,10),0,3,4,8),
+                                   c('Bulk.cells',
+                                     'immune.response.regulating.signaling.pathway',
+                                     'B.cell.receptor.signaling.pathway',
+                                     'cell.killing',
+                                     'positive.regulation.of.leukocyte.activation')
+)
+ 
+qsave(seuratBlood,'seuratBlood.qs')
