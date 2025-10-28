@@ -79,7 +79,6 @@ qsave(seuratBreast, 'seuratBreast.qs')
 
 ########################Peripheral blood mononuclear cells######################
 load('SRA550660_SRS2089639.sparse.RData')
-
 rownames(sm) <- make.unique(gsub('_.*', '', rownames(sm)))
 clusterInfo <- read.table("SRA550660_SRS2089639.clusters.txt")
 sm <- sm[, clusterInfo$V1]
@@ -108,7 +107,6 @@ seuratBlood <- addMetadataCategory(seuratBlood,
                                      'immune.response.regulating.signaling.pathway',
                                      'B.cell.receptor.signaling.pathway',
                                      'cell.killing',
-                                     'positive.regulation.of.leukocyte.activation')
-)
+                                     'positive.regulation.of.leukocyte.activation'))
 
 qsave(seuratBlood,'seuratBlood.qs')
