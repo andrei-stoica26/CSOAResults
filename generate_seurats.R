@@ -110,5 +110,5 @@ seuratBlood <- addMetadataCategory(seuratBlood,
                                      'cell.killing',
                                      'positive.regulation.of.leukocyte.activation')
 )
- 
+
 qsave(seuratBlood,'seuratBlood.qs')

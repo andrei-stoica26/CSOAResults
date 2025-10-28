@@ -25,7 +25,7 @@ qsave(seuratBreast, 'seuratBreastGSA.qs')
 seuratBlood <- timeFun(runGSAMethods, seuratBlood, 'funct', geneSetsBlood,
                         gsaMethods) 
 qsave(seuratBlood, 'seuratBloodGSA.qs')
-  
+
 seuratPanc <- qread('seuratPancGSA.qs')
 seuratLung <- qread('seuratLungGSA.qs')
 seuratBreast <- qread('seuratBreastGSA.qs')
