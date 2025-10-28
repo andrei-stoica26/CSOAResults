@@ -20,4 +20,5 @@ names(geneSetsBlood) <- c('immune.response.regulating.signaling.pathway',
                           'cell.killing',
                           'positive.regulation.of.leukocyte.activation'
 )
-qsave(geneSetsBlood, 'geneSetsBlood.qs')    
+
+qsave(geneSetsBlood, 'geneSetsBlood.qs')
