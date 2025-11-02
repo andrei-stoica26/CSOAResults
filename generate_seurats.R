@@ -61,8 +61,8 @@ seuratBreast  <- PercentageFeatureSet(seuratBreast,
 
 seuratBreast <- subset(seuratBreast, percent.mt < 10)
 seuratBreast <- processSeurat(seuratBreast, varsToRegress=c('nCount_RNA',
-                                                          'percent.mt',
-                                                          'percent.ribo'))
+                                                            'percent.mt',
+                                                            'percent.ribo'))
 
 seuratBreast <- FindNeighbors(seuratBreast, reduction='umap', dims=1:2)
 seuratBreast <- FindClusters(seuratBreast, resolution=0.13)
@@ -89,11 +89,11 @@ seuratBlood <- subset(seuratBlood, subset = !(seurat_clusters %in% c("8", "12"))
 
 
 seuratBlood  <- PercentageFeatureSet(seuratBlood,
-                                      pattern = "^MT-",
-                                      col.name = "percent.mt")
+                                     pattern = "^MT-",
+                                     col.name = "percent.mt")
 seuratBlood  <- PercentageFeatureSet(seuratBlood,
-                                      pattern="^RP[SL][[:digit:]]|^RPLP[[:digit:]]|^RPSA",
-                                      col.name="percent.ribo")
+                                     pattern="^RP[SL][[:digit:]]|^RPLP[[:digit:]]|^RPSA",
+                                     col.name="percent.ribo")
 
 seuratBlood <- subset(seuratBlood, subset = percent.mt < 5)
 seuratBlood <- processSeurat(seuratBlood,  varsToRegress = 'percent.ribo')

@@ -2,7 +2,7 @@
 .Rhistory
 .Rproj.user
 R/.test_code.R
-CSOAResults.Rproj
+*.Rproj
 *.qs
 *.RData
 *.txt
