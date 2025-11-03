@@ -1,4 +1,4 @@
-library(Seurat)
+source('visualization.R')
 
 seuratPanc <- qread('seuratPancGSA.qs')
 seuratLung <- qread('seuratLungGSA.qs')
@@ -28,7 +28,3 @@ mdsBlood <- list(mdsPlots(seuratBlood, smrBlood, pointSize=0.5,
                           labelSize=2, segWidth=0.2, legendTitle='Density')$aggregate)
 
 devPlot(quadPlot, mdsPanc, mdsLung, mdsBreast, mdsBlood, 1, 'right')
-
-?henna::densityPlot
-
-View(henna::densityPlot)
