@@ -5,21 +5,23 @@ paper.
 
 ## 1 Preparation
 
-It is assumed that all CRAN and Bioconductor dependencies have already been 
-installed.
+It is assumed that all required CRAN and Bioconductor packages have already 
+been installed.
 
 ### 1.1 Data
 
 The data necessary to reproduce our results is available online:
 
-- [Baron pancreas data (human)](https://bioconductor.org/packages/release/data/experiment/html/scRNAseq.html);
-- [Lung proximal airway stromal cells (SRA640325_SRS2769051)](https://www.panglaodb.se/view_data.php?sra=SRA640325&srs=SRS2769051);
-- [Breast cancer cell line (SRA704181_SRS3305832)](https://www.panglaodb.se/view_data.php?sra=SRA704181&srs=SRS3305832);
-- [Peripheral blood mononuclear cells (SRA550660_SRS2089639)](https://www.panglaodb.se/view_data.php?sra=SRA550660&srs=SRS2089639).
+- [Baron pancreas data (human)](https://bioconductor.org/packages/release/data/experiment/html/scRNAseq.html)
+- [Lung proximal airway stromal cells (SRA640325_SRS2769051)](https://www.panglaodb.se/view_data.php?sra=SRA640325&srs=SRS2769051)
+- [Breast cancer cell line (SRA704181_SRS3305832)](https://www.panglaodb.se/view_data.php?sra=SRA704181&srs=SRS3305832)
+- [Peripheral blood mononuclear cells (SRA550660_SRS2089639)](https://www.panglaodb.se/view_data.php?sra=SRA550660&srs=SRS2089639)
 
 ### 1.2 Installing Github dependencies
 
-The [installs_nonstandard.R](https://github.com/andrei-stoica26/CSOAResults/blob/main/installs_nonstandard.R) file contains the code used to install packages that are currently not available on CRAN or Bioconductor.
+The [installs_nonstandard.R](https://github.com/andrei-stoica26/CSOAResults/blob/main/installs_nonstandard.R) 
+file contains the code used to install packages that are currently not 
+available on CRAN or Bioconductor.
 
 ### 1.3 Loading packages and source files
 
@@ -54,4 +56,3 @@ The [figures.R](https://github.com/andrei-stoica26/CSOAResults/blob/main/figures
 file contains the code used to generate the figures from the CSOA paper. It
 source the [visualization.R](https://github.com/andrei-stoica26/CSOAResults/blob/main/visualization.R)
 file, which provides plotting functions.
-
