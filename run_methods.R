@@ -26,23 +26,5 @@ seuratBlood <- timeFun(runGSAMethods, seuratBlood, 'funct', geneSetsBlood,
                        gsaMethods)
 qsave(seuratBlood, 'seuratBloodGSA.qs')
 
-seuratPanc <- qread('seuratPancGSA.qs')
-seuratLung <- qread('seuratLungGSA.qs')
-seuratBreast <- qread('seuratBreastGSA.qs')
-seuratBlood <- qread('seuratBloodGSA.qs')
 
-smrPanc <- timeFun(runBenchmark, seuratPanc, 'label', geneSetsPanc,
-                   gsaMethods)
-qsave(smrPanc, 'smrPanc.qs')
 
-smrLung <- timeFun(runBenchmark, seuratLung, 'celltype', geneSetsLung,
-                   gsaMethods)
-qsave(smrLung, 'smrLung.qs')
-
-smrBreast <- timeFun(runBenchmark, seuratBreast, 'funct', geneSetsBreast,
-                     gsaMethods)
-qsave(smrBreast, 'smrBreast.qs')
-
-smrBlood <- timeFun(runBenchmark,seuratBlood1, 'funct', geneSetsBlood,
-                    gsaMethods)
-qsave(smrBlood, 'smrBlood.qs')

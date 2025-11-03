@@ -1,4 +1,5 @@
 library(CSOA)
+library(dplyr)
 library(GSABenchmark)
 library(hammers)
 library(qs)
