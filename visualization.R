@@ -1,5 +1,4 @@
-TEXT_SIZE <- 5
-
+TEXT_SIZE <- 4
 
 editSubplot <- function(p, legendPos='right', legendTitle=NULL)
     return(p + labs(x=NULL, y=NULL, title=legendTitle) +
