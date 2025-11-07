@@ -34,5 +34,3 @@ octoPlot <- function(plots1, plots2, plots3, plots4, i, j,
                         theme=theme(plot.title=element_text(size=TEXT_SIZE - 1)))
     return(p)
 }
-
-
