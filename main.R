@@ -11,4 +11,10 @@ library(ggplot2)
 library(patchwork)
 
 source('tools.R')
+source('run_methods.R')
+source('run_benchmark.R')
+source('run_shuffle.R')
 
+runMethods()
+runBenchmark()
+runShuffle()
