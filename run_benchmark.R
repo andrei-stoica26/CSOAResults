@@ -1,4 +1,4 @@
-runBenchmark <- function(){
+benchmark <- function(){
     seuratPanc <- qread('seuratPancGSA.qs')
     seuratLung <- qread('seuratLungGSA.qs')
     seuratBreast <- qread('seuratBreastGSA.qs')
