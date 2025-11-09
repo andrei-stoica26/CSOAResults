@@ -1,4 +1,4 @@
-source('main.R')
+source('load_all.R')
 source('visualization.R')
 
 seuratPanc <- qread('seuratPancGSA.qs')
@@ -16,7 +16,7 @@ plotsLung <- allBenchmarkPlots(smrLung, pointSize=0.5)
 plotsBreast <- allBenchmarkPlots(smrBreast, pointSize=0.5)
 plotsBlood <- allBenchmarkPlots(smrBlood, pointSize=0.5)
 
-for (pair in list(c(8, 6), c(9, 10), c(17, 15), c(18, 19)))
+for (pair in list(c(8, 6), c(9, 10), c(19, 15), c(20, 21)))
     devPlot(octoPlot, plotsPanc, plotsLung, plotsBreast, plotsBlood,
             pair[1], pair[2])
 

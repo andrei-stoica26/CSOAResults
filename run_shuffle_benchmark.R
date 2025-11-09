@@ -21,7 +21,7 @@ shuffleBenchmark <- function(){
                             'CSOA')
     qsave(smrBreastShuffle, 'smrBreastShuffle.qs')
 
-    smrBloodShuffle <- timeFun(runBenchmarkShuffle, smrBloodShuffle , 'funct', geneSetsBlood,
+    smrBloodShuffle <- timeFun(runBenchmarkShuffle, seuratBlood, 'funct', geneSetsBlood,
                            'CSOA')
-    qsave(smrBloodShuffle , 'smrBloodShuffle ')
+    qsave(smrBloodShuffle, 'smrBloodShuffle.qs')
 }
