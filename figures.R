@@ -57,6 +57,19 @@ devPlot(octoPlot,
         list(mdsBlood, jacBlood),
         1, 2)
 
+labelSize <- 1.5
+pointSize <- 0.5
+
+umapPanc <- umapPlots2(seuratPanc, smrPanc, 'label', 'acinar', labelSize)
+umapLung <- umapPlots2(seuratLung, smrLung, 'celltype', 'EpendymalCells',
+                       labelSize, pointSize)
+umapBreast <- umapPlots2(seuratBreast, smrBreast, 'funct', 'Chromosome.segregation',
+                        labelSize)
+umapBlood <- umapPlots2(seuratBlood, smrBlood, 'funct', 'cell.killing',
+                       labelSize)
+devPlot(octoPlot2, umapPanc, umapLung, umapBreast, umapBlood, 1, 2)
+
+
 smrPancShuffle <- qread('smrPancShuffle.qs')
 smrLungShuffle <- qread('smrLungShuffle.qs')
 smrBreastShuffle <- qread('smrBreastShuffle.qs')
@@ -71,3 +84,5 @@ for (pair in list(c(8, 6), c(9, 10), c(19, 15), c(20, 21)))
     devPlot(octoPlot, plotsPancShuffle, plotsLungShuffle,
             plotsBreastShuffle, plotsBloodShuffle,
             pair[1], pair[2])
+
+

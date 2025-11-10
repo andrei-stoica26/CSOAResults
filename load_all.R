@@ -9,6 +9,7 @@ library(Seurat)
 library(LISTO)
 library(ggplot2)
 library(patchwork)
+library(ggeasy)
 
 source('tools.R')
 source('run_methods.R')
