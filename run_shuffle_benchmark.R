@@ -9,19 +9,19 @@ shuffleBenchmark <- function(){
     geneSetsBreast <- qread('geneSetsBreast.qs')
     geneSetsBlood <- qread('geneSetsBlood.qs')
 
-    smrPancShuffle <- timeFun(runBenchmarkShuffle, seuratPanc, 'label', geneSetsPanc,
-                          'CSOA')
+    smrPancShuffle <- runBenchmarkShuffle(seuratPanc, 'label',
+                                          geneSetsPanc, 'CSOA')
     qsave(smrPancShuffle, 'smrPancShuffle.qs')
 
-    smrLungShuffle <- timeFun(runBenchmarkShuffle, seuratLung, 'celltype', geneSetsLung,
-                          'CSOA')
+    smrLungShuffle <- runBenchmarkShuffle(seuratLung, 'celltype',
+                                          geneSetsLung, 'CSOA')
     qsave(smrLungShuffle, 'smrLungShuffle.qs')
 
-    smrBreastShuffle <- timeFun(runBenchmarkShuffle, seuratBreast, 'funct', geneSetsBreast,
-                            'CSOA')
+    smrBreastShuffle <- runBenchmarkShuffle(seuratBreast, 'funct',
+                                            geneSetsBreast, 'CSOA')
     qsave(smrBreastShuffle, 'smrBreastShuffle.qs')
 
-    smrBloodShuffle <- timeFun(runBenchmarkShuffle, seuratBlood, 'funct', geneSetsBlood,
-                           'CSOA')
+    smrBloodShuffle <- runBenchmarkShuffle(seuratBlood, 'funct',
+                                           geneSetsBlood, 'CSOA')
     qsave(smrBloodShuffle, 'smrBloodShuffle.qs')
 }

@@ -11,20 +11,15 @@ benchmark <- function(){
 
     gsaMethods <- supportedMethods()
 
-    smrPanc <- timeFun(runBenchmark, seuratPanc, 'label', geneSetsPanc,
-                       gsaMethods)
+    smrPanc <- runBenchmark(seuratPanc, 'label', geneSetsPanc, gsaMethods)
     qsave(smrPanc, 'smrPanc.qs')
 
-    smrLung <- timeFun(runBenchmark, seuratLung, 'celltype', geneSetsLung,
-                       gsaMethods)
+    smrLung <- runBenchmark(seuratLung, 'celltype', geneSetsLung, gsaMethods)
     qsave(smrLung, 'smrLung.qs')
 
-    smrBreast <- timeFun(runBenchmark, seuratBreast, 'funct', geneSetsBreast,
-                         gsaMethods)
+    smrBreast <- runBenchmark(seuratBreast, 'funct', geneSetsBreast, gsaMethods)
     qsave(smrBreast, 'smrBreast.qs')
 
-    smrBlood <- timeFun(runBenchmark,seuratBlood, 'funct', geneSetsBlood,
-                        gsaMethods)
+    smrBlood <- runBenchmark(seuratBlood, 'funct', geneSetsBlood, gsaMethods)
     qsave(smrBlood, 'smrBlood.qs')
 }
-
