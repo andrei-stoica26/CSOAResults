@@ -9,6 +9,8 @@ runMethods <- function(){
     geneSetsBreast <- qread('geneSetsBreast.qs')
     geneSetsBlood <- qread('geneSetsBlood.qs')
 
+    timeFun(runssGSEA, 'time', FALSE, seuratPanc, geneSetsPanc[1])
+
     gsaMethods <- supportedMethods()
 
     seuratPanc <- timeFun(runGSAMethods, seuratPanc, 'label', geneSetsPanc,
@@ -27,8 +29,3 @@ runMethods <- function(){
                            gsaMethods)
     qsave(seuratBlood, 'seuratBloodGSA.qs')
 }
-
-
-
-
-

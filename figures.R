@@ -24,18 +24,35 @@ segWidth <- 0.1
 labelSize <- 1
 pointSize <- 0.05
 labelSegWidth <- 0.1
-mdsPanc <- mdsPlots(seuratPanc, smrPanc, pointSize=pointSize,
-                         labelSize=labelSize, segWidth=segWidth,
-                         labelSegWidth=labelSegWidth)$aggregate
-mdsLung <- mdsPlots(seuratLung, smrLung, pointSize=pointSize,
-                         labelSize=labelSize, segWidth=segWidth,
-                         labelSegWidth=labelSegWidth)$aggregate
-mdsBreast <- mdsPlots(seuratBreast, smrBreast, pointSize=pointSize,
-                           labelSize=labelSize, segWidth=segWidth,
-                           labelSegWidth=labelSegWidth)$aggregate
-mdsBlood <- mdsPlots(seuratBlood, smrBlood, pointSize=pointSize,
-                          labelSize=labelSize, segWidth=segWidth,
-                          labelSegWidth=labelSegWidth)$aggregate
+maxOverlaps=Inf
+mdsPanc <- mdsPlots(seuratPanc,
+                    smrPanc,
+                    pointSize=pointSize,
+                    labelSize=labelSize,
+                    segWidth=segWidth,
+                    labelSegWidth=labelSegWidth,
+                    maxOverlaps=maxOverlaps)$aggregate
+mdsLung <- mdsPlots(seuratLung,
+                    smrLung,
+                    pointSize=pointSize,
+                    labelSize=labelSize,
+                    segWidth=segWidth,
+                    labelSegWidth=labelSegWidth,
+                    maxOverlaps=maxOverlaps)$aggregate
+mdsBreast <- mdsPlots(seuratBreast,
+                      smrBreast,
+                      pointSize=pointSize,
+                      labelSize=labelSize,
+                      segWidth=segWidth,
+                      labelSegWidth=labelSegWidth,
+                      maxOverlaps=maxOverlaps)$aggregate
+mdsBlood <- mdsPlots(seuratBlood,
+                     smrBlood,
+                     pointSize=pointSize,
+                     labelSize=labelSize,
+                     segWidth=segWidth,
+                     labelSegWidth=labelSegWidth,
+                     maxOverlaps=maxOverlaps)$aggregate
 
 jacPanc <- predJaccardPlots(smrPanc$predictions,
                             labelSize=labelSize,

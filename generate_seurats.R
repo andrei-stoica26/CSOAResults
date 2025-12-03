@@ -11,8 +11,6 @@ clusterInfo <- read.table('SRA640325_SRS2769051.clusters.txt')
 sm <- sm[, clusterInfo$V1]
 seuratLung <- CreateSeuratObject(sm,
                                  project='lungProximalAirwayStromal')
-seuratLung <- removeRareGenes(seuratLung, 10)
-seuratLung <- NormalizeData(seuratLung)
 seuratLung <- processSeurat(seuratLung)
 
 seuratLung$cluster <- clusterInfo$V2
