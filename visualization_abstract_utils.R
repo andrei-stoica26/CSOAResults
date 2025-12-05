@@ -11,10 +11,10 @@ geneCellCountDF <- function(seed = 1,
 }
 
 cellSetList <- function(seed = 1,
-                        nCellSets = 7,
-                        nCells = 12000,
-                        minSetSize = 1000,
-                        maxSetSize = 4000){
+                        nCellSets = 8,
+                        nCells = 10000,
+                        minSetSize = 800,
+                        maxSetSize = 3000){
     setCounts <- with_seed(seed, sample(minSetSize:maxSetSize, nCellSets))
     geneSets <- lapply(seq(setCounts),
                        function(i) with_seed(seed + i,
@@ -54,6 +54,15 @@ networkDF <- function(nOverlaps = 30, nOverlapGenes = 20){
     }
     )
     df$rank <- seq_len(nOverlaps)
+    return(df)
+}
+
+overlapDF <- function(seed = 1, nOverlaps = 100){
+    df <- data.frame(gene1=seq(nOverlaps),
+                     gene2=seq(nOverlaps),
+                     rank=with_seed(seed,
+                                    sort(ceiling(rnorm(nOverlaps,
+                                                       mean=12, sd=4)))))
     return(df)
 }
 

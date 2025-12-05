@@ -9,6 +9,7 @@ dfBar <- geneCellCountDF()
 geneSets <- cellSetList()
 dfRank <- rankDF()
 dfNetwork <- networkDF()
+dfOverlap <- overlapDF()
 dfScore <- scoreDF()
 dfExp <- geneExpDF()
 
@@ -25,18 +26,16 @@ p3 <- prerankPlot(dfRank,
                       paste0('3. Rank the overlaps based on adjusted p-value',
                       ' and observed-over-expected size ratio'))
 
-p4 <- networkPlot(dfNetwork,
-                  paste0('4. Adjust the two ranks based on connectivity and',
-                         ' average the adjusted ranks to obtain the final rank'),
-                  nodeColor='orange',
-                  edgeColor='green4')
+p4 <- overlapNetworkPlot(dfNetwork,
+                         paste0('4. Adjust the two ranks based on connectivity and',
+                                ' average the\nadjusted ranks to obtain the final rank'))
 
 p5 <- overlapCutoffPlot(dfOverlap,
                         paste0('5. Set the cutoff for selecting top overlaps',
                                ' based on rank frequencies'))
 
 p6 <- rankScorePlot(dfScore,
-                    paste0('4. Score the overlaps by mapping distinct overlap
+                    paste0('6. Score the overlaps by mapping distinct overlap
                            ranks to values decreasing logaritmically from 1 towards 0'))
 
 p7 <- geneExpPlot(dfExp,
@@ -51,5 +50,6 @@ p8 <- scoreFeaturePlot(zebSeurat,
                        ' minmax-normalize the results\nto',
                        ' obtain the CSOA score'))
 
-p <- (p1 | p2 ) / (p3 | p4) / (p5 | p6) / (p7 | p8)
+p <- (p1 | p2 ) / (p3 | p4) / (p1 | p2) / (p3 | p4)
+devPlot(p)
 
