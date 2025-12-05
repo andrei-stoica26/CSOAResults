@@ -9,26 +9,29 @@ geneCellCountPlot <- function(df, yCol, fillColor, title){
     return(p)
 }
 
-eulerPlot <- function(geneSets, title){
-    eulerPalette <- c('lavender', 'red','mediumorchid', 'green', 'orange', 'maroon1', 'yellow', 'deepskyblue',
-                      'lightblue1')
+eulerPlot <- function(geneSets,
+                      title,
+                      fills = c('blue', 'yellow', 'red', 'purple', 'green',
+                                'orange', 'lavender')){
     eulerObj <- euler(geneSets)
-    p <- as.ggplot(plot(eulerObj, edges = T, fills = rev(eulerPalette[1:length(geneSets)]),
-                        labels = list(
-                            font = rep(1, length(geneSets)),
-                            cex = rep(0.4, length(geneSets))
-                        )
+    p <- as.ggplot(plot(eulerObj, fills=fills,
+                   labels=list(
+                       font=rep(1, length(geneSets)),
+                       cex=rep(0.4, length(geneSets)))
     ))
     p <- centerTitle(p, title)
     return(p)
 }
 
-rankScorePlot <- function(df, title = NULL){
-    p <- ggplot(df, aes(x, y)) + geom_line(color = 'mediumpurple4') +
-        geom_point(color = 'red', size=1) +
-        labs(x='Overlap rank', y='Overlap score')
+prerankPlot <- function(df, title=NULL){
+    p <- ggplot(df, aes(x = overlap, y = rank, fill = rankType)) +
+        geom_col(position = "dodge") +
+        labs(x = "Overlap", y = "Rank", fill = "Rank type") +
+        scale_fill_manual(values = wes_palette('Darjeeling1')[c(2, 1)],
+                          labels = c('p-value rank', 'Ratio rank'))
     p <- editAxes(p)
     p <- centerTitle(p, title)
+    p <- editLegend(p)
     return(p)
 }
 

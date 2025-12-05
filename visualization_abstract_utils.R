@@ -1,20 +1,39 @@
-geneCellCountDF <- function(nGenes = 20, minCells = 1000, maxCells = 35000){
+geneCellCountDF <- function(seed = 1,
+                            nGenes = 30,
+                            minCells = 1000,
+                            maxCells = 35000){
     df <- data.frame(
         Gene = paste0("gene", 1:nGenes),
-        nCells = sample(minCells:maxCells, nGenes)
+        nCells = with_seed(seed, sample(minCells:maxCells, nGenes))
     )
     df$nTopCells <- round(df$nCells / 10)
     return(df)
 }
 
-cellSetList <- function(nCellSets = 7, setCellsLimit = 12000, minSetSize = 1000,
-                        maxSetSize = 4000, nCells = 40000){
-    setCounts <- sample(minSetSize:maxSetSize, nCellSets)
-    geneSets <- lapply(setCounts, function(x) sample(setCellsLimit, x))
-    geneSets[[length(geneSets) + 1]] <- 1:nCells
-    names(geneSets) <- c(paste0('CS', 1:nCellSets ), 'Cells')
+cellSetList <- function(seed = 1,
+                        nCellSets = 7,
+                        nCells = 12000,
+                        minSetSize = 1000,
+                        maxSetSize = 4000){
+    setCounts <- with_seed(seed, sample(minSetSize:maxSetSize, nCellSets))
+    geneSets <- lapply(seq(setCounts),
+                       function(i) with_seed(seed + i,
+                                             sample(nCells, setCounts[i])))
+    names(geneSets) <- paste0('Set', seq(nCellSets))
     return(geneSets)
 }
+
+rankDF <- function(seed = 1, nOverlaps = 30){
+    df <- data.frame(overlap = factor(seq_len(nOverlaps)),
+                     pvalRank = with_seed(seed, sample(nOverlaps)),
+                     ratioRank = with_seed(seed + 1, sample(nOverlaps)))
+    df <- melt(df,
+               id.vars = c('overlap'),
+               variable.name=('rankType'),
+               value.name='rank')
+    return(df)
+}
+
 networkDF <- function(nOverlaps = 30, nOverlapGenes = 20){
     df <- data.frame(gene1 = paste0('gene', sample(nOverlapGenes - 1,
                                                    nOverlaps, replace = TRUE)))

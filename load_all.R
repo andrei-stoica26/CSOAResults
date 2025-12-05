@@ -17,6 +17,8 @@ library(eulerr)
 library(ggplotify)
 library(wesanderson)
 library(Seurat)
+library(withr)
+library(reshape2)
 
 source('tools.R')
 source('run_methods.R')

@@ -7,27 +7,27 @@ zebSeurat <- qread('../MGC/zebSeuratCSOA.qs')
 
 dfBar <- geneCellCountDF()
 geneSets <- cellSetList()
+dfRank <- rankDF()
 dfNetwork <- networkDF()
 dfScore <- scoreDF()
 dfExp <- geneExpDF()
 
 p1 <- geneCellCountPlot(dfBar,
                         nCells,
-                        'navy',
+                        'deepskyblue',
                         paste0('1. For each signature gene, extract the set',
                                ' of cells\nthat highly express the gene'))
 p2 <- eulerPlot(geneSets,
                 paste0('2. Assess cell set pairwise overlaps',
                 ' using hypergeometric tests'))
 
-p3 <- overlapRankPlot(rankDF,
+p3 <- prerankPlot(dfRank,
                       paste0('3. Rank the overlaps based on adjusted p-value',
                       ' and observed-over-expected size ratio'))
 
 p4 <- networkPlot(dfNetwork,
                   paste0('4. Adjust the two ranks based on connectivity and',
-                         ' create the final rank as the average of',
-                         'the adjusted ranks'),
+                         ' average the adjusted ranks to obtain the final rank'),
                   nodeColor='orange',
                   edgeColor='green4')
 
