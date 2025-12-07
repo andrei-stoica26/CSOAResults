@@ -13,8 +13,8 @@ geneCellCountDF <- function(seed = 1,
 cellSetList <- function(seed = 1,
                         nCellSets = 8,
                         nCells = 10000,
-                        minSetSize = 1000,
-                        maxSetSize = 3000){
+                        minSetSize = 3000,
+                        maxSetSize = 10000){
     setCounts <- with_seed(seed, sample(minSetSize:maxSetSize, nCellSets))
     geneSets <- lapply(seq(setCounts),
                        function(i) with_seed(seed + i,
@@ -34,26 +34,13 @@ rankDF <- function(seed = 1, nOverlaps = 30){
     return(df)
 }
 
-networkDF <- function(nOverlaps = 30, nOverlapGenes = 20){
-    df <- data.frame(gene1 = paste0('gene', sample(nOverlapGenes - 1,
-                                                   nOverlaps, replace = TRUE)))
-    seen <- c()
-    df$gene2 <- sapply(df$gene1, function(firstGene){
-        start <- as.integer(str_replace(firstGene, 'gene', '')) + 1
-        isUnique = FALSE
-        while (!isUnique){
-            secondGene <- paste0('gene', sample(start:nOverlapGenes, 1))
-            pair <- paste0(firstGene, ' ', secondGene)
-            if (!pair %in% seen){
-                seen <<- c(seen, pair)
-                isUnique = TRUE
-            }
-
-        }
-        return(secondGene)
-    }
-    )
-    df$rank <- seq_len(nOverlaps)
+networkDF <- function(seed = 1){
+    gene1 <- c(1, 2, 3, 1, 5, 5, 8, 6)
+    gene2 <- c(4, 3, 4, 2, 6, 7, 9, 10)
+    df <- data.frame(gene1 = paste0('g', gene1),
+                     gene2 = paste0('g', gene2))
+    df$rank <- rank(with_seed(seed, sample(7, length(gene1), replace=TRUE)),
+                    ties.method='min')
     return(df)
 }
 

@@ -14,6 +14,7 @@ dfOverlap <- overlapDF()
 dfScore <- scoreDF()
 dfExp <- geneExpDF()
 
+
 ABS_TEXT_SIZE <- 7
 
 p1 <- geneCellCountPlot(dfBar,
@@ -30,11 +31,11 @@ p3 <- prerankPlot(dfRank,
                       'and observed-over-expected size ratio'))
 
 p4 <- overlapNetworkPlot(dfNetwork,
-                         paste0('4. Adjust the two ranks based on connectivity and',
-                                '\naverage the new ranks to obtain the final rank'),
-                         nodeSize=4,
-                         nodeTextSize=0.2,
-                         edgeWidth=0.1) +
+                         paste0('4. Adjust the ranks based on connectivity and',
+                                ' average\nthe new ranks to obtain the final rank'),
+                         nodeSize=2.5,
+                         nodeTextSize=1.8,
+                         edgeScales=c(0.1, 0.3)) +
     theme(axis.ticks=element_blank(),
           axis.text=element_blank(),
           plot.title=element_text(size=ABS_TEXT_SIZE,
