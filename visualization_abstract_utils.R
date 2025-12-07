@@ -61,8 +61,9 @@ overlapDF <- function(seed = 1, nOverlaps = 100){
     df <- data.frame(gene1=seq(nOverlaps),
                      gene2=seq(nOverlaps),
                      rank=with_seed(seed,
-                                    sort(ceiling(rnorm(nOverlaps,
-                                                       mean=12, sd=4)))))
+                                    rank(sort(ceiling(rnorm(nOverlaps,
+                                                       mean=12, sd=4))),
+                                         ties.method='min')))
     return(df)
 }
 
@@ -81,11 +82,15 @@ geneExpDF <- function(nGenes = 20,
     return(df)
 }
 
-scoreDF <- function(nOverlaps = 20){
-    overlapRange <- seq_len(nOverlaps)
-    df <- data.frame(x = overlapRange,
-                     y = log(seq(exp(1), 1,
-                                 length.out = nOverlaps + 1)[overlapRange]))
+scoreDF <- function(maxRank = 30, nOverlaps = 100){
+    ranks <- sort(rank(with_seed(1, sample(maxRank, nOverlaps, replace=TRUE)),
+                       ties.method='min'))
+    rankVals <- unique(ranks)
+    logVals <- log(seq(exp(1), 1, length.out =
+                           length(rankVals) + 1))[seq_along(rankVals)]
+    names(logVals) <- rankVals
+    df <- data.frame(x = ranks,
+                     y = logVals[as.character(ranks)])
     return(df)
 }
 
@@ -101,5 +106,14 @@ editLegend <- function(p){
                    legend.position = 'bottom',
                    legend.key.size = unit(0.2, 'cm'),
                    legend.box.spacing = unit(0, 'cm'))
+    return(p)
+}
+
+editAxes2 <- function (p, axisTitleSize = 6){
+    p <- p + theme_classic() + theme(axis.ticks.x = element_blank(),
+                                     axis.text.x = element_blank(),
+                                     axis.text.y = element_text(size = axisTitleSize - 1),
+                                     axis.title = element_text(size = axisTitleSize))
+
     return(p)
 }

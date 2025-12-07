@@ -39,14 +39,14 @@ p6 <- rankScorePlot(dfScore,
                            ranks to values decreasing logaritmically from 1 towards 0'))
 
 p7 <- geneExpPlot(dfExp,
-                  paste0('5. Compute per-cell pair scores by multiplying',
+                  paste0('7. Compute per-cell pair scores by multiplying',
                   ' overlap scores with the\nminmax-normalized expression of',
-                  'the two involved genes'),
+                  ' the two involved genes'),
                   'Gene pair score', 2)
 
 p8 <- scoreFeaturePlot(zebSeurat,
                        'neuro',
-                       paste0('6. Sum all gene pair scores in each cell and ',
+                       paste0('8. Sum all gene pair scores in each cell and ',
                        ' minmax-normalize the results\nto',
                        ' obtain the CSOA score'))
 

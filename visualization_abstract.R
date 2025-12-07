@@ -35,6 +35,15 @@ prerankPlot <- function(df, title=NULL){
     return(p)
 }
 
+rankScorePlot <- function(df, title=NULL){
+    p <- ggplot(df, aes(x, y)) + geom_line(color = 'mediumpurple4') +
+        geom_point(color = 'red', size = 1) +
+        labs(x = 'Overlap rank', y = 'Overlap score')
+    p <- editAxes2(p)
+    p <- centerTitle(p, title)
+    return(p)
+}
+
 geneExpPlot <- function(df, title, ylab = 'Gene', colorIndex = 1){
     colorSchemes <- list(wes_palette('IsleofDogs1')[c(5, 1)],
                          wes_palette('Royal1')[c(3, 2)],
