@@ -13,7 +13,7 @@ geneCellCountDF <- function(seed = 1,
 cellSetList <- function(seed = 1,
                         nCellSets = 8,
                         nCells = 10000,
-                        minSetSize = 800,
+                        minSetSize = 1000,
                         maxSetSize = 3000){
     setCounts <- with_seed(seed, sample(minSetSize:maxSetSize, nCellSets))
     geneSets <- lapply(seq(setCounts),
@@ -95,8 +95,12 @@ scoreDF <- function(maxRank = 30, nOverlaps = 100){
 }
 
 editAxes <- function (p){
-    p <- p + theme_classic() + theme(axis.ticks = element_blank(),
-                                     axis.text = element_blank())
+    p <- p + theme_classic() + theme(axis.ticks=element_blank(),
+                                     axis.text=element_blank(),
+                                     axis.title=element_text(size=ABS_TEXT_SIZE,
+                                                             color='black'),
+                                     plot.title=element_text(size=ABS_TEXT_SIZE,
+                                                             color='black'))
     return(p)
 }
 
@@ -109,11 +113,15 @@ editLegend <- function(p){
     return(p)
 }
 
-editAxes2 <- function (p, axisTitleSize = 6){
-    p <- p + theme_classic() + theme(axis.ticks.x = element_blank(),
-                                     axis.text.x = element_blank(),
-                                     axis.text.y = element_text(size = axisTitleSize - 1),
-                                     axis.title = element_text(size = axisTitleSize))
+editAxes2 <- function (p){
+    p <- p + theme_classic() + theme(axis.ticks.x=element_blank(),
+                                     axis.text.x=element_blank(),
+                                     axis.text.y=element_text(size=ABS_TEXT_SIZE,
+                                                             color='black'),
+                                     axis.title=element_text(size=ABS_TEXT_SIZE,
+                                                             color='black'),
+                                     plot.title=element_text(size=ABS_TEXT_SIZE,
+                                                             color='black'))
 
     return(p)
 }

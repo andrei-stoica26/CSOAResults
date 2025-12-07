@@ -20,6 +20,8 @@ eulerPlot <- function(geneSets,
                        cex=rep(0.4, length(geneSets)))
     ))
     p <- centerTitle(p, title)
+    p <- p + theme(plot.title=element_text(size=ABS_TEXT_SIZE,
+                                           color='black'))
     return(p)
 }
 
