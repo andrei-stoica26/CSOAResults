@@ -13,19 +13,18 @@ runMethods <- function(){
 
     gsaMethods <- supportedMethods()
 
-    seuratPanc <- timeFun(runGSAMethods, seuratPanc, 'label', geneSetsPanc,
-                          gsaMethods)
+    seuratPanc <- runGSAMethods(seuratPanc, 'label', geneSetsPanc, gsaMethods)
     qsave(seuratPanc, 'seuratPancGSA.qs')
 
-    seuratLung <- timeFun(runGSAMethods, seuratLung, 'celltype', geneSetsLung,
-                          gsaMethods)
+    seuratLung <- runGSAMethods(seuratLung, 'celltype', geneSetsLung,
+                                gsaMethods)
     qsave(seuratLung, 'seuratLungGSA.qs')
 
-    seuratBreast <- timeFun(runGSAMethods, seuratBreast, 'funct', geneSetsBreast,
-                            gsaMethods)
+    seuratBreast <- runGSAMethods(seuratBreast, 'funct', geneSetsBreast,
+                                  gsaMethods)
     qsave(seuratBreast, 'seuratBreastGSA.qs')
 
-    seuratBlood <- timeFun(runGSAMethods, seuratBlood, 'funct', geneSetsBlood,
-                           gsaMethods)
+    seuratBlood <- runGSAMethods(seuratBlood, 'funct', geneSetsBlood,
+                                 gsaMethods)
     qsave(seuratBlood, 'seuratBloodGSA.qs')
 }

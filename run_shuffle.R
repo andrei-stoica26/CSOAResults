@@ -12,21 +12,19 @@ runShuffle <- function(){
     loss <- c(0.2, 0.5, 0.8)
     noise <- c(0.2, 0.5, 0.8)
 
-    seuratPanc <- timeFun(runMethodShuffle, seuratPanc, 'label', geneSetsPanc,
-                          'CSOA', loss, noise)
+    seuratPanc <- runMethodShuffle(seuratPanc, 'label', geneSetsPanc, 'CSOA',
+                                   loss, noise)
     qsave(seuratPanc, 'seuratPancShuffle.qs')
 
-    seuratLung <- timeFun(runMethodShuffle, seuratLung, 'celltype', geneSetsLung,
-                          'CSOA', loss, noise)
+    seuratLung <- runMethodShuffle(seuratLung, 'celltype', geneSetsLung,
+                                   'CSOA', loss, noise)
     qsave(seuratLung, 'seuratLungShuffle.qs')
 
-    seuratBreast <- timeFun(runMethodShuffle, seuratBreast, 'funct', geneSetsBreast,
-                            'CSOA', loss, noise)
+    seuratBreast <- runMethodShuffle(seuratBreast, 'funct', geneSetsBreast,
+                                     'CSOA', loss, noise)
     qsave(seuratBreast, 'seuratBreastShuffle.qs')
 
-    seuratBlood <- timeFun(runMethodShuffle, seuratBlood, 'funct', geneSetsBlood,
+    seuratBlood <- runMethodShuffle(seuratBlood, 'funct', geneSetsBlood,
                            'CSOA', loss, noise)
     qsave(seuratBlood, 'seuratBloodShuffle.qs')
 }
-
-
