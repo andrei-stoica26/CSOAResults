@@ -11,20 +11,21 @@ runShuffle <- function(){
 
     loss <- c(0.2, 0.5, 0.8)
     noise <- c(0.2, 0.5, 0.8)
+    seeds <- seq(10)
 
     seuratPanc <- runMethodShuffle(seuratPanc, 'label', geneSetsPanc, 'CSOA',
-                                   loss, noise)
+                                   loss, noise, seeds = seeds)
     qsave(seuratPanc, 'seuratPancShuffle.qs')
 
     seuratLung <- runMethodShuffle(seuratLung, 'celltype', geneSetsLung,
-                                   'CSOA', loss, noise)
+                                   'CSOA', loss, noise, seeds = seeds)
     qsave(seuratLung, 'seuratLungShuffle.qs')
 
     seuratBreast <- runMethodShuffle(seuratBreast, 'funct', geneSetsBreast,
-                                     'CSOA', loss, noise)
+                                     'CSOA', loss, noise, seeds = seeds)
     qsave(seuratBreast, 'seuratBreastShuffle.qs')
 
     seuratBlood <- runMethodShuffle(seuratBlood, 'funct', geneSetsBlood,
-                           'CSOA', loss, noise)
+                           'CSOA', loss, noise, seeds = seeds)
     qsave(seuratBlood, 'seuratBloodShuffle.qs')
 }
