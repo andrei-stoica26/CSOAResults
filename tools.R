@@ -20,6 +20,6 @@ processSeurat <- function(seuratObj,
     message(nUMAPDims, ' PCA dimensions will be used for UMAP.')
     seuratObj <- RunUMAP(seuratObj, dims=seq(nUMAPDims))
     if(!is.null(fileName))
-        qsave(seuratObj, paste0(fileName, '.qs'))
+        qs_save(seuratObj, paste0(fileName, '.qs2'))
     return(seuratObj)
 }
