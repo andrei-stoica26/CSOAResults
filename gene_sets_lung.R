@@ -93,4 +93,4 @@ names(geneSetsLung) <- c('PulmonaryAlveolarIICells',
                          'Fibroblasts',
                          'LuminalEpithelialCells',
                          'SmoothMuscleCells')
-qsave(geneSetsLung, 'geneSetsLung.qs')
+qs_save(geneSetsLung, 'geneSetsLung.qs2')

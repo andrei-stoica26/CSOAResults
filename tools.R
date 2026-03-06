@@ -9,8 +9,7 @@ chooseUMAPDims <- function(seuratObj, reduction='pca'){
 
 processSeurat <- function(seuratObj,
                           minFeatCells = 10,
-                          varsToRegress = NULL,
-                          fileName = NULL){
+                          varsToRegress = NULL){
     seuratObj <- removeRareGenes(seuratObj, minFeatCells)
     seuratObj <- NormalizeData(seuratObj)
     seuratObj <- FindVariableFeatures(seuratObj)
@@ -19,7 +18,5 @@ processSeurat <- function(seuratObj,
     nUMAPDims <- chooseUMAPDims(seuratObj)
     message(nUMAPDims, ' PCA dimensions will be used for UMAP.')
     seuratObj <- RunUMAP(seuratObj, dims=seq(nUMAPDims))
-    if(!is.null(fileName))
-        qs_save(seuratObj, paste0(fileName, '.qs2'))
     return(seuratObj)
 }

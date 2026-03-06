@@ -1,8 +1,8 @@
 ################################Baron pancreas human############################
 seuratPanc <- BaronPancreasData('human')
-seuratPanc <- logNormCounts(seuratPanc)
-seuratPanc <- as.Seurat(seuratPanc)
-seuratPanc <- processSeurat(seuratPanc, 'seuratPanc')
+seuratPanc <- Seurat::as.Seurat(seuratPanc, data=NULL)
+seuratPanc <- processSeurat(seuratPanc)
+qs_save(seuratPanc, 'seuratPanc.qs2')
 
 #############################Lung proximal airway stromal#######################
 load('SRA640325_SRS2769051.sparse.RData')
@@ -43,7 +43,7 @@ seuratLung <- addMetadataCategory(seuratLung,
                                     'TCells',
                                     'BCells',
                                     'HepaticStellateCells'))
-qsave(seuratLung, 'seuratLung.qs')
+qs_save(seuratLung, 'seuratLung.qs2')
 
 #############################Breast cancer cell line############################
 load('SRA704181_SRS3305832.sparse.RData')
@@ -68,12 +68,12 @@ seuratBreast <- addMetadataCategory(seuratBreast,
                                     'seurat_clusters',
                                     'funct',
                                     list(c(0, 4), 1, 2, 3, 5),
-                                    c('Bulk cells',
+                                    c('Bulk.cells',
                                       'DNA.replication',
                                       'TGF.beta.response',
                                       'Chromosome.segregation',
                                       'ncRNA.processing'))
-qsave(seuratBreast, 'seuratBreast.qs')
+qs_save(seuratBreast, 'seuratBreast.qs2')
 
 ########################Peripheral blood mononuclear cells######################
 load('SRA550660_SRS2089639.sparse.RData')
@@ -94,7 +94,7 @@ seuratBlood  <- PercentageFeatureSet(seuratBlood,
                                      col.name="percent.ribo")
 
 seuratBlood <- subset(seuratBlood, subset = percent.mt < 5)
-seuratBlood <- processSeurat(seuratBlood,  varsToRegress = 'percent.ribo')
+seuratBlood <- processSeurat(seuratBlood, varsToRegress = 'percent.ribo')
 seuratBlood <- FindNeighbors(seuratBlood, reduction='umap', dims=1:2)
 seuratBlood <- FindClusters(seuratBlood, resolution=0.1)
 seuratBlood <- addMetadataCategory(seuratBlood,
@@ -107,4 +107,22 @@ seuratBlood <- addMetadataCategory(seuratBlood,
                                      'cell.killing',
                                      'positive.regulation.of.leukocyte.activation'))
 
-qsave(seuratBlood,'seuratBlood.qs')
+seuratBlood <- addMetadataCategory(seuratBlood,
+                                   'seurat_clusters',
+                                   'funct',
+                                   list(0,
+                                       c(1, 2, 5, 7),
+                                       c(3, 10),
+                                       4,
+                                       6,
+                                       8,
+                                       9),
+                                   c('Chemotaxis',
+                                     'Bulk.cells',
+                                     'Lymphocyte.differentiation',
+                                     'Cell.killing',
+                                     'Regulation.of.lymphocyte.proliferation',
+                                     'Response.to.type.II.interferon',
+                                     'Antigen.processing'))
+
+qs_save(seuratBlood,'seuratBlood.qs2')

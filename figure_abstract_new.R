@@ -36,3 +36,8 @@ eulerPlot(eulerInput, '2. Assess cell set pairwise overlaps',
           ' using hypergeometric tests')
 
 #4: Replace network plot with a vertical bar plot ranking the overlaps
+
+install.packages('SeuratObject')
+
+BiocManager::install('scRNAseq')
+
