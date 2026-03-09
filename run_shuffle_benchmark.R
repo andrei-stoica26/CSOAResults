@@ -1,27 +1,27 @@
 shuffleBenchmark <- function(){
-    seuratPanc <- qread('seuratPancShuffle.qs')
-    seuratLung <- qread('seuratLungShuffle.qs')
-    seuratBreast <- qread('seuratBreastShuffle.qs')
-    seuratBlood <- qread('seuratBloodShuffle.qs')
+    seuratPanc <- qs_read('seuratPancShuffle.qs2')
+    seuratLung <- qs_read('seuratLungShuffle.qs2')
+    seuratBreast <- qs_read('seuratBreastShuffle.qs2')
+    seuratBlood <- qs_read('seuratBloodShuffle.qs2')
 
-    geneSetsPanc <- qread('geneSetsPanc.qs')
-    geneSetsLung <- qread('geneSetsLung.qs')
-    geneSetsBreast <- qread('geneSetsBreast.qs')
-    geneSetsBlood <- qread('geneSetsBlood.qs')
+    geneSetsPanc <- qs_read('geneSetsPanc.qs2')
+    geneSetsLung <- qs_read('geneSetsLung.qs2')
+    geneSetsBreast <- qs_read('geneSetsBreast.qs2')
+    geneSetsBlood <- qs_read('geneSetsBlood.qs2')
 
     smrPancShuffle <- runBenchmarkShuffle(seuratPanc, 'label',
                                           geneSetsPanc, 'CSOA')
-    qsave(smrPancShuffle, 'smrPancShuffle.qs')
+    qs_save(smrPancShuffle, 'smrPancShuffle.qs2')
 
     smrLungShuffle <- runBenchmarkShuffle(seuratLung, 'celltype',
                                           geneSetsLung, 'CSOA')
-    qsave(smrLungShuffle, 'smrLungShuffle.qs')
+    qs_save(smrLungShuffle, 'smrLungShuffle.qs2')
 
     smrBreastShuffle <- runBenchmarkShuffle(seuratBreast, 'funct',
                                             geneSetsBreast, 'CSOA')
-    qsave(smrBreastShuffle, 'smrBreastShuffle.qs')
+    qs_save(smrBreastShuffle, 'smrBreastShuffle.qs2')
 
     smrBloodShuffle <- runBenchmarkShuffle(seuratBlood, 'funct',
                                            geneSetsBlood, 'CSOA')
-    qsave(smrBloodShuffle, 'smrBloodShuffle.qs')
+    qs_save(smrBloodShuffle, 'smrBloodShuffle.qs2')
 }
