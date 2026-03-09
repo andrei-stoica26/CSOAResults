@@ -1,30 +1,28 @@
 runMethods <- function(){
-    seuratPanc <- qread('seuratPanc.qs')
-    seuratLung <- qread('seuratLung.qs')
-    seuratBreast <- qread('seuratBreast.qs')
-    seuratBlood <- qread('seuratBlood.qs')
+    seuratPanc <- qs_read('seuratPanc.qs2')
+    seuratLung <- qs_read('seuratLung.qs2')
+    seuratBreast <- qs_read('seuratBreast.qs2')
+    seuratBlood <- qs_read('seuratBlood.qs2')
 
-    geneSetsPanc <- qread('geneSetsPanc.qs')
-    geneSetsLung <- qread('geneSetsLung.qs')
-    geneSetsBreast <- qread('geneSetsBreast.qs')
-    geneSetsBlood <- qread('geneSetsBlood.qs')
-
-    timeFun(runssGSEA, 'time', FALSE, seuratPanc, geneSetsPanc[1])
+    geneSetsPanc <- qs_read('geneSetsPanc.qs2')
+    geneSetsLung <- qs_read('geneSetsLung.qs2')
+    geneSetsBreast <- qs_read('geneSetsBreast.qs2')
+    geneSetsBlood <- qs_read('geneSetsBlood.qs2')
 
     gsaMethods <- supportedMethods()
 
     seuratPanc <- runGSAMethods(seuratPanc, 'label', geneSetsPanc, gsaMethods)
-    qsave(seuratPanc, 'seuratPancGSA.qs')
+    qs_save(seuratPanc, 'seuratPancGSA.qs2')
 
     seuratLung <- runGSAMethods(seuratLung, 'celltype', geneSetsLung,
                                 gsaMethods)
-    qsave(seuratLung, 'seuratLungGSA.qs')
+    qs_save(seuratLung, 'seuratLungGSA.qs2')
 
     seuratBreast <- runGSAMethods(seuratBreast, 'funct', geneSetsBreast,
                                   gsaMethods)
-    qsave(seuratBreast, 'seuratBreastGSA.qs')
+    qs_save(seuratBreast, 'seuratBreastGSA.qs2')
 
     seuratBlood <- runGSAMethods(seuratBlood, 'funct', geneSetsBlood,
                                  gsaMethods)
-    qsave(seuratBlood, 'seuratBloodGSA.qs')
+    qs_save(seuratBlood, 'seuratBloodGSA.qs2')
 }

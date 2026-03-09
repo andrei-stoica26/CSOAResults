@@ -1,3 +1,5 @@
+seuratPanc <- qs_read('seuratPanc.qs2')
+
 acinarMarkers <- c('PRSS1', 'KLK1', 'CTRC', 'PNLIP', 'AKR1C3', 'CTRB1',
                    'DUOXA2', 'ALDOB', 'REG3A', 'SERPINA3', 'PRSS3', 'REG1B',
                    'CFB',	'GDF15', 'MUC1','ANPEP', 'ANGPTL4', 'OLFM4',
@@ -48,6 +50,10 @@ gammaMarkers <- c('PPY', 'ABCC9', 'FGB', 'ZNF503', 'MEIS1', 'LMO3', 'EGR3',
 
 geneSetsPanc <- list(acinarMarkers, alphaMarkers, betaMarkers, deltaMarkers,
                  ductalMarkers, gammaMarkers)
+
+geneSetsPanc <- lapply(geneSetsPanc, function(x)
+    intersect(x, rownames(seuratPanc)))
+
 names(geneSetsPanc) <- c('acinar', 'alpha', 'beta', 'delta', 'ductal', 'gamma')
 qs_save(geneSetsPanc, 'geneSetsPanc.qs2')
 
