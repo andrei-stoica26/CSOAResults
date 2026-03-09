@@ -67,12 +67,11 @@ seuratBreast <- FindClusters(seuratBreast, resolution=0.13)
 seuratBreast <- addMetadataCategory(seuratBreast,
                                     'seurat_clusters',
                                     'funct',
-                                    list(c(0, 4), 1, 2, 3, 5),
-                                    c('Bulk.cells',
+                                    list(c(0, 4, 5), 1, 2, 3),
+                                    c('Other.cells',
                                       'DNA.replication',
                                       'TGF.beta.response',
-                                      'Chromosome.segregation',
-                                      'ncRNA.processing'))
+                                      'Chromosome.segregation'))
 qs_save(seuratBreast, 'seuratBreast.qs2')
 
 ########################Peripheral blood mononuclear cells######################

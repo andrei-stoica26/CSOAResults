@@ -19,7 +19,6 @@ library(Seurat)
 library(withr)
 library(reshape2)
 library(enResUtils)
-library(markerWiz)
 
 source('tools.R')
 source('run_methods.R')

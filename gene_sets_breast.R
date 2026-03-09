@@ -1,12 +1,21 @@
-markerList <- buildMarkerList(seuratBreast, 'funct')
-erList <- lapply(markerList, function(x) genesER(rownames(x), 'human'))
+seuratBreast <- qs_read('seuratBreast.qs2')
 
-geneSetsBreast <- list(termGenes(erList[[2]], 'chromosome segregation'),
-                       termGenes(erList[[3]], 'DNA replication'),
-                       termGenes(erList[[4]], 'ncRNA processing'),
-                       termGenes(erList[[5]], 'cellular response to transforming growth factor beta stimulus'))
+a <- findMarkers(seuratBreast, id1='Chromosome.segregation', minRatio=4)
+m <- genesER(rownames(a), 'human', returnDF=TRUE)
+genes1 <- termGenes(m, 'chromosome segregation')
 
-names(geneSetsBreast) <- c('Chromosome.segregation', 'DNA.replication',
-                           'ncRNA.processing', 'TGF.beta.response')
-qsave(geneSetsBreast, 'geneSetsBreast.qs')
+a <- findMarkers(seuratBreast, id1='DNA.replication', minRatio=2)
+m <- genesER(rownames(a), 'human', returnDF=TRUE)
+genes2 <- termGenes(m, 'DNA replication')
+
+a <- findMarkers(seuratBreast, id1='TGF.beta.response', minRatio=2)
+m <- genesER(rownames(a), 'human', returnDF=TRUE)
+genes3 <- termGenes(m, 'cellular response to transforming growth factor beta stimulus')
+
+geneSetsBreast <- setNames(list(genes1, genes2, genes3),
+                           c('Chromosome.segregation',
+                             'DNA replication',
+                             'cellular response to transforming growth factor beta stimulus'))
+
+qs_save(geneSetsBreast, 'geneSetsBreast.qs2')
 
