@@ -14,8 +14,8 @@ genes3 <- termGenes(m, 'cellular response to transforming growth factor beta sti
 
 geneSetsBreast <- setNames(list(genes1, genes2, genes3),
                            c('Chromosome.segregation',
-                             'DNA replication',
-                             'cellular response to transforming growth factor beta stimulus'))
+                             'DNA.replication',
+                             'TGF.beta.response'))
 
 qs_save(geneSetsBreast, 'geneSetsBreast.qs2')
 
