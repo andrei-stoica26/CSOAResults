@@ -111,18 +111,12 @@ seuratBlood <- addMetadataCategory(seuratBlood,
                                    'seurat_clusters',
                                    'funct',
                                    list(0,
-                                       c(1, 2, 5, 7),
-                                       c(3, 10),
-                                       4,
-                                       6,
-                                       8,
-                                       9),
+                                       c(1, 2, 3, 5, 7, 8, 9),
+                                       c(4, 10),
+                                       6),
                                    c('Chemotaxis',
-                                     'Bulk.cells',
-                                     'Lymphocyte.differentiation',
+                                     'Other.cells',
                                      'Cell.killing',
-                                     'Regulation.of.lymphocyte.proliferation',
-                                     'Response.to.type.II.interferon',
-                                     'Antigen.processing'))
+                                     'Positive.regulation.of.cell.activation'))
 
 qs_save(seuratBlood,'seuratBlood.qs2')

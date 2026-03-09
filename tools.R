@@ -20,3 +20,17 @@ processSeurat <- function(seuratObj,
     seuratObj <- RunUMAP(seuratObj, dims=seq(nUMAPDims))
     return(seuratObj)
 }
+
+findMarkers <- function(seuratObj, id1, groupBy='funct',
+                        minPct=0.2, logFCThr=1, minRatio=5){
+    res <- FindMarkers(seuratObj,
+                       group.by=groupBy,
+                       ident.1=id1,
+                       only.pos=TRUE,
+                       min.pct=minPct,
+                       logfc.threshold=logFCThr)
+    res$pct.ratio <- res$pct.1 / res$pct.2
+    res <- subset(res, pct.ratio >= minRatio)
+    res <- res[order(res$pct.ratio, decreasing=TRUE), ]
+    return(res)
+}

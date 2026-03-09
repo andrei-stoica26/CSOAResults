@@ -1,32 +1,21 @@
 seuratBlood <- qs_read('seuratBlood.qs2')
 
-markerList <- buildMarkerList(seuratBlood, logFCThr = 0.1, minPct = 0.1) %>%
-    lapply(function(marker_df) {
-        filter(marker_df, pct.2 < 0.2& avg_log2FC > 0.2)
-    })
+a <- findMarkers(seuratBlood, id1='Chemotaxis')
+m <- genesER(rownames(a), 'human', returnDF=TRUE)
+genes1 <- termGenes(m, 'chemotaxis')
 
-erList <- lapply(markerList, function(marker_df) {
-    marker_genes <- rownames(marker_df)
-    genesER(marker_genes, species = 'human')
-})
+a <- findMarkers(seuratBlood,id1='Cell.killing')
+m <- genesER(rownames(a), 'human', returnDF=TRUE)
+genes2 <- termGenes(m, 'cell killing')
 
-unique(unlist(lapply(df[df$Description %in% terms, ]$geneID,
-                     function(x) str_split(x, "/")[[1]])))
+a <- findMarkers(seuratBlood, id1='Positive.regulation.of.cell.activation',
+                 minRatio=2)
+m <- genesER(rownames(a), 'human', returnDF=TRUE)
+genes3 <- termGenes(m, 'positive regulation of cell activation')
 
-geneSetsBlood <- list(termGenes(erList[["0"]],
-                                'immune response-regulating signaling pathway'),
-                      termGenes(erList[["3"]],
-                                'B cell receptor signaling pathway'),
-                      termGenes(erList[["4"]],
-                                'cell killing'),
-                      termGenes(erList[["8"]],
-                                'positive regulation of leukocyte activation')
-)
-
-names(geneSetsBlood) <- c('immune.response.regulating.signaling.pathway',
-                          'B.cell.receptor.signaling.pathway',
-                          'cell.killing',
-                          'positive.regulation.of.leukocyte.activation'
-)
+geneSetsBlood <- setNames(list(genes1, genes2, genes3),
+                          c('Chemotaxis',
+                            'Cell.killing',
+                            'Positive.regulation.of.cell.activation'))
 
 qs_save(geneSetsBlood, 'geneSetsBlood.qs2')
