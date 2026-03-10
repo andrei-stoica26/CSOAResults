@@ -71,7 +71,7 @@ seuratMerkel <- addMetadataCategory(seuratMerkel,
                                     c('Chromosome.segregation',
                                       'Other.cells',
                                       'Antigen.processing',
-                                      'Wound.healing'))
+                                      'ECM.organization'))
 qs_save(seuratMerkel, 'seuratMerkel.qs2')
 
 ########################Peripheral blood mononuclear cells######################
