@@ -1,6 +1,5 @@
 source('load_all.R')
 source('visualization_results.R')
-source('correct_shuffle_benchmark.R')
 
 seuratPancShuffle <- qs_read('seuratPancShuffle.qs2')
 seuratLungShuffle <- qs_read('seuratLungShuffle.qs2')
@@ -11,11 +10,6 @@ smrPancShuffle <- qs_read('smrPancShuffle.qs2')
 smrLungShuffle <- qs_read('smrLungShuffle.qs2')
 smrMerkelShuffle <- qs_read('smrMerkelShuffle.qs2')
 smrBloodShuffle <- qs_read('smrBloodShuffle.qs2')
-
-smrPancShuffle <- correctSummary(smrPancShuffle, newRows)
-smrLungShuffle <- correctSummary(smrLungShuffle, newRows)
-smrMerkelShuffle <- correctSummary(smrMerkelShuffle, newRows)
-smrBloodShuffle <- correctSummary(smrBloodShuffle, newRows)
 
 plotsPancShuffle <- allBenchmarkPlots(smrPancShuffle, pointSize=0.5)
 plotsLungShuffle <- allBenchmarkPlots(smrLungShuffle, pointSize=0.5)
