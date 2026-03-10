@@ -45,33 +45,34 @@ seuratLung <- addMetadataCategory(seuratLung,
                                     'HepaticStellateCells'))
 qs_save(seuratLung, 'seuratLung.qs2')
 
-#############################Breast cancer cell line############################
-load('SRA704181_SRS3305832.sparse.RData')
+###############################Merkel cell carcinoma############################
+load('SRA749327_SRS3693909.sparse.RData')
 rownames(sm) <- make.unique(gsub('_.*', '', rownames(sm)))
-seuratBreast <- CreateSeuratObject(sm, project='breastCancer')
+seuratMerkel <- CreateSeuratObject(sm, project='merkel')
 
-seuratBreast  <- PercentageFeatureSet(seuratBreast,
+seuratMerkel  <- PercentageFeatureSet(seuratMerkel,
                                       pattern = "^MT-",
                                       col.name = "percent.mt")
-seuratBreast  <- PercentageFeatureSet(seuratBreast,
-                                      pattern="^RP[SL][[:digit:]]|^RPLP[[:digit:]]|^RPSA",
-                                      col.name="percent.ribo")
+seuratMerkel <- PercentageFeatureSet(seuratMerkel,
+                                     pattern="^RP[SL][[:digit:]]|^RPLP[[:digit:]]|^RPSA",
+                                     col.name="percent.ribo")
 
-seuratBreast <- subset(seuratBreast, percent.mt < 10)
-seuratBreast <- processSeurat(seuratBreast, varsToRegress=c('nCount_RNA',
-                                                            'percent.mt'))
-seuratBreast <- FindNeighbors(seuratBreast, reduction='umap', dims=1:2)
-seuratBreast <- FindClusters(seuratBreast, resolution=0.1)
-
-seuratBreast <- addMetadataCategory(seuratBreast,
+seuratMerkel <- subset(seuratMerkel, percent.mt < 10)
+seuratMerkel <- processSeurat(seuratMerkel)
+seuratMerkel <- FindNeighbors(seuratMerkel, reduction='umap', dims=1:2)
+seuratMerkel <- FindClusters(seuratMerkel, resolution=0.4)
+seuratMerkel <- addMetadataCategory(seuratMerkel,
                                     'seurat_clusters',
                                     'funct',
-                                    list(c(0, 4, 5), 1, 2, 3),
-                                    c('Other.cells',
-                                      'DNA.replication',
-                                      'TGF.beta.response',
-                                      'Chromosome.segregation'))
-qs_save(seuratBreast, 'seuratBreast.qs2')
+                                    list(c(0, 2, 14, 8, 5),
+                                         c(4, 12, 10, 13, 1, 3, 6, 7, 9, 11),
+                                         c(15, 16),
+                                         17),
+                                    c('Chromosome.segregation',
+                                      'Other.cells',
+                                      'Antigen.processing',
+                                      'Wound.healing'))
+qs_save(seuratMerkel, 'seuratMerkel.qs2')
 
 ########################Peripheral blood mononuclear cells######################
 load('SRA550660_SRS2089639.sparse.RData')
@@ -118,31 +119,3 @@ seuratBlood <- addMetadataCategory(seuratBlood,
                                      'Positive.regulation.of.cell.activation'))
 
 qs_save(seuratBlood,'seuratBlood.qs2')
-
-###############################Merkel cell carcinoma############################
-load('SRA749327_SRS3693909.sparse.RData')
-rownames(sm) <- make.unique(gsub('_.*', '', rownames(sm)))
-seuratMerkel <- CreateSeuratObject(sm, project='merkel')
-
-seuratMerkel  <- PercentageFeatureSet(seuratMerkel,
-                                    pattern = "^MT-",
-                                    col.name = "percent.mt")
-seuratMerkel <- PercentageFeatureSet(seuratMerkel,
-                                   pattern="^RP[SL][[:digit:]]|^RPLP[[:digit:]]|^RPSA",
-                                   col.name="percent.ribo")
-
-seuratMerkel <- subset(seuratMerkel, percent.mt < 10)
-seuratMerkel <- processSeurat(seuratMerkel)
-seuratMerkel <- FindNeighbors(seuratMerkel, reduction='umap', dims=1:2)
-seuratMerkel <- FindClusters(seuratMerkel, resolution=0.4)
-seuratMerkel <- addMetadataCategory(seuratMerkel,
-                                   'seurat_clusters',
-                                   'funct',
-                                   list(0,
-                                        c(1, 2, 3, 5, 7, 8, 9),
-                                        c(4, 10),
-                                        6),
-                                   c('Chemotaxis',
-                                     'Other.cells',
-                                     'Cell.killing',
-                                     'Positive.regulation.of.cell.activation'))
