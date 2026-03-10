@@ -84,13 +84,20 @@ p4 <- prerankPlot2(prerankDF,
 
 #5
 overlapDF$rank <- rank(overlapDF$rawAggRank, ties.method='min')
-overlapCutoffPlot(overlapDF, paste0('5. Set the cutoff for selecting top\n',
-                                    'overlaps based on rank frequencies'))
+p5 <- overlapCutoffPlot(overlapDF, paste0(
+    '5. Set the cutoff for selecting top\n',
+    'overlaps based on rank frequencies'))
 
 #6
 firstOutRawRank <- CSOA:::prepareFiltering(overlapDF)
 overlapDF <- CSOA:::filterOverlaps(overlapDF, firstOutRawRank)
 overlapDF <- CSOA:::scoreOverlaps(overlapDF, 'log')
 df <- overlapDF[, c('rank', 'score')]
-rankScorePlot(df, paste0('6. Map distinct overlap ranks to',
+p6 <- rankScorePlot(df, paste0('6. Map distinct overlap ranks to',
                          ' scores decreasing\nlogaritmically from 1 towards 0'))
+
+#7
+normExp <- kerntools::minmax(mat[acinarMarkers, ], rows=TRUE)
+pairScores <- CSOA:::computePCPairScores(overlapDF, normExp)
+p7 <- basicHeatmap(as.matrix(pairScores))
+p7 + theme(axis.text.y = element_blank())

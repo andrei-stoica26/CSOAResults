@@ -56,3 +56,5 @@ rankScorePlot <- function(df, title=NULL){
     p <- centerTitle(p, title)
     return(p)
 }
+
+
