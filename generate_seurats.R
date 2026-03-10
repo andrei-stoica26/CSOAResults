@@ -59,11 +59,10 @@ seuratBreast  <- PercentageFeatureSet(seuratBreast,
 
 seuratBreast <- subset(seuratBreast, percent.mt < 10)
 seuratBreast <- processSeurat(seuratBreast, varsToRegress=c('nCount_RNA',
-                                                            'percent.mt',
-                                                            'percent.ribo'))
-
+                                                            'percent.mt'))
 seuratBreast <- FindNeighbors(seuratBreast, reduction='umap', dims=1:2)
-seuratBreast <- FindClusters(seuratBreast, resolution=0.13)
+seuratBreast <- FindClusters(seuratBreast, resolution=0.1)
+
 seuratBreast <- addMetadataCategory(seuratBreast,
                                     'seurat_clusters',
                                     'funct',
@@ -119,3 +118,31 @@ seuratBlood <- addMetadataCategory(seuratBlood,
                                      'Positive.regulation.of.cell.activation'))
 
 qs_save(seuratBlood,'seuratBlood.qs2')
+
+###############################Merkel cell carcinoma############################
+load('SRA749327_SRS3693909.sparse.RData')
+rownames(sm) <- make.unique(gsub('_.*', '', rownames(sm)))
+seuratMerkel <- CreateSeuratObject(sm, project='merkel')
+
+seuratMerkel  <- PercentageFeatureSet(seuratMerkel,
+                                    pattern = "^MT-",
+                                    col.name = "percent.mt")
+seuratMerkel <- PercentageFeatureSet(seuratMerkel,
+                                   pattern="^RP[SL][[:digit:]]|^RPLP[[:digit:]]|^RPSA",
+                                   col.name="percent.ribo")
+
+seuratMerkel <- subset(seuratMerkel, percent.mt < 10)
+seuratMerkel <- processSeurat(seuratMerkel)
+seuratMerkel <- FindNeighbors(seuratMerkel, reduction='umap', dims=1:2)
+seuratMerkel <- FindClusters(seuratMerkel, resolution=0.4)
+seuratMerkel <- addMetadataCategory(seuratMerkel,
+                                   'seurat_clusters',
+                                   'funct',
+                                   list(0,
+                                        c(1, 2, 3, 5, 7, 8, 9),
+                                        c(4, 10),
+                                        6),
+                                   c('Chemotaxis',
+                                     'Other.cells',
+                                     'Cell.killing',
+                                     'Positive.regulation.of.cell.activation'))

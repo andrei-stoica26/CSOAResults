@@ -22,15 +22,39 @@ processSeurat <- function(seuratObj,
 }
 
 findMarkers <- function(seuratObj, id1, groupBy='funct',
-                        minPct=0.2, logFCThr=1, minRatio=5){
+                        minPct=0.2, logFCThr=1, minRatio=5, ...){
     res <- FindMarkers(seuratObj,
                        group.by=groupBy,
                        ident.1=id1,
                        only.pos=TRUE,
                        min.pct=minPct,
-                       logfc.threshold=logFCThr)
+                       logfc.threshold=logFCThr,
+                       ...)
     res$pct.ratio <- res$pct.1 / res$pct.2
     res <- subset(res, pct.ratio >= minRatio)
     res <- res[order(res$pct.ratio, decreasing=TRUE), ]
     return(res)
+}
+
+clusterMean <- function(seuratObj, genes, clusters, doNormalize = T){
+    message('Filtering expression matrix...')
+    expression <- as.matrix(LayerData(seuratObj, layer='data')[genes, ])
+    df <- data.table::transpose(data.frame(lapply(clusters, function(x){
+        message('Assesing mean expression of selected genes in cluster ', x, '...')
+        clusterExp <- expression[, which(seuratObj$seurat_clusters == x), drop = F]
+        return(rowMeans(clusterExp))
+    })))
+
+    if(doNormalize){
+        colList <- as.list(df)
+        maxima <- apply(df, 2, max)
+        df <- data.frame(mapply(function(x, y) x / y, colList, maxima))
+        colnames(df) <- genes
+    }
+    rownames(df) <- clusters
+
+    df$Mean <- rowMeans(df)
+    df <- df[order(df$Mean, decreasing = T), ]
+    df <- round(df, 2)
+    return(df)
 }
