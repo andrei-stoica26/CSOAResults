@@ -21,3 +21,29 @@ eulerPlot <- function(geneSets,
                                            color='black'))
     return(p)
 }
+
+prerankPlot <- function(df, title=NULL){
+    p <- ggplot(df, aes(x = overlap, y = rank, fill = rankType)) +
+        geom_col(position = "dodge") +
+        labs(x = "Overlap", y = "Rank", fill = "Rank type") +
+        scale_fill_manual(values = wes_palette('Darjeeling1')[c(2, 1)],
+                          labels = c('p-value rank', 'Ratio rank'))
+    p <- editAxes(p)
+    p <- centerTitle(p, title)
+    p <- editLegend(p)
+    return(p)
+}
+
+prerankPlot2 <- function(df, title=NULL){
+    p <- ggplot(df, aes(x = overlap, y = rank, fill = rankType)) +
+        geom_col(position = "dodge") +
+        labs(x = "Overlap", y = "Rank", fill = "Rank type") +
+        scale_fill_manual(values = wes_palette('Darjeeling1')[c(2, 1, 3)],
+                          labels = c('p-value rank', 'Ratio rank',
+                                     'Aggregate rank'))
+    p <- editAxes(p)
+    p <- centerTitle(p, title)
+    p <- editLegend(p)
+    return(p)
+}
+
