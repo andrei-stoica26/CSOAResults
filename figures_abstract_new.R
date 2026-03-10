@@ -13,7 +13,7 @@ source('visualization_abstract_new.R')
 
 ABS_TEXT_SIZE <- 10
 
-seuratObj <- qs_read('seuratPancGSA.qs2')
+seuratObj <- qs_read('seuratPanc.qs2')
 acinarMarkers <- c('KLK1', 'CTRC', 'PNLIP',
                    'CELA3A','SPINK1',
                    'CELA2A', 'CPB1',
@@ -99,5 +99,14 @@ p6 <- rankScorePlot(df, paste0('6. Map distinct overlap ranks to',
 #7
 normExp <- kerntools::minmax(mat[acinarMarkers, ], rows=TRUE)
 pairScores <- CSOA:::computePCPairScores(overlapDF, normExp)
-p7 <- basicHeatmap(as.matrix(pairScores))
-p7 + theme(axis.text.y = element_blank())
+p7 <- basicHeatmap(as.matrix(pairScores), title = paste0(
+    '7. Compute per-cell gene pair scores by multiplying',
+    ' overlap scores with\nthe min-max-normalized expression of',
+    ' the two genes'))
+p7 <- p7 + theme(axis.text.y = element_blank(),
+                 axis.title = element_text(size=8)) +
+    labs(x = 'Cell', y = 'Gene pair score')
+
+#8
+seuratPanc <- runCSOA(seuratPanc, list(acinar=acinarMarkers))
+p8 <- featureWes(seuratPanc, 'CSOA_acinar', 'CSOA')
