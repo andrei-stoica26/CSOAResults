@@ -2,29 +2,29 @@ source('load_all.R')
 source('visualization_results.R')
 source('correct_shuffle_benchmark.R')
 
-seuratPancShuffle <- qread('seuratPancShuffle.qs')
-seuratLungShuffle <- qread('seuratLungShuffle.qs')
-seuratBreastShuffle <- qread('seuratBreastShuffle.qs')
-seuratBloodShuffle <- qread('seuratBloodShuffle.qs')
+seuratPancShuffle <- qs_read('seuratPancShuffle.qs2')
+seuratLungShuffle <- qs_read('seuratLungShuffle.qs2')
+seuratMerkelShuffle <- qs_read('seuratMerkelShuffle.qs2')
+seuratBloodShuffle <- qs_read('seuratBloodShuffle.qs2')
 
-smrPancShuffle <- qread('smrPancShuffle.qs')
-smrLungShuffle <- qread('smrLungShuffle.qs')
-smrBreastShuffle <- qread('smrBreastShuffle.qs')
-smrBloodShuffle <- qread('smrBloodShuffle.qs')
+smrPancShuffle <- qs_read('smrPancShuffle.qs2')
+smrLungShuffle <- qs_read('smrLungShuffle.qs2')
+smrMerkelShuffle <- qs_read('smrMerkelShuffle.qs2')
+smrBloodShuffle <- qs_read('smrBloodShuffle.qs2')
 
 smrPancShuffle <- correctSummary(smrPancShuffle, newRows)
 smrLungShuffle <- correctSummary(smrLungShuffle, newRows)
-smrBreastShuffle <- correctSummary(smrBreastShuffle, newRows)
+smrMerkelShuffle <- correctSummary(smrMerkelShuffle, newRows)
 smrBloodShuffle <- correctSummary(smrBloodShuffle, newRows)
 
 plotsPancShuffle <- allBenchmarkPlots(smrPancShuffle, pointSize=0.5)
 plotsLungShuffle <- allBenchmarkPlots(smrLungShuffle, pointSize=0.5)
-plotsBreastShuffle <- allBenchmarkPlots(smrBreastShuffle, pointSize=0.5)
+plotsMerkelShuffle <- allBenchmarkPlots(smrMerkelShuffle, pointSize=0.5)
 plotsBloodShuffle <- allBenchmarkPlots(smrBloodShuffle, pointSize=0.5)
 
 for (pair in list(c(8, 6), c(9, 10), c(19, 15), c(20, 21)))
     devPlot(octoPlot, plotsPancShuffle, plotsLungShuffle,
-            plotsBreastShuffle, plotsBloodShuffle,
+            plotsMerkelShuffle, plotsBloodShuffle,
             pair[1], pair[2])
 
 segWidth <- 0.1
@@ -38,7 +38,7 @@ mdsPancShuffle <- mdsPlots(seuratPancShuffle, smrPancShuffle, pointSize=pointSiz
 mdsLungShuffle <- mdsPlots(seuratLungShuffle, smrLungShuffle, pointSize=pointSize,
                            labelSize=labelSize, segWidth=segWidth,
                            labelSegWidth=labelSegWidth, maxOverlaps=maxOverlaps)$aggregate
-mdsBreastShuffle <- mdsPlots(seuratBreastShuffle, smrBreastShuffle, pointSize=pointSize,
+mdsMerkelShuffle <- mdsPlots(seuratMerkelShuffle, smrMerkelShuffle, pointSize=pointSize,
                              labelSize=labelSize, segWidth=segWidth,
                              labelSegWidth=labelSegWidth, maxOverlaps=maxOverlaps)$aggregate
 mdsBloodShuffle <- mdsPlots(seuratBloodShuffle, smrBloodShuffle, pointSize=pointSize,
@@ -51,7 +51,7 @@ jacPancShuffle <- predJaccardPlots(smrPancShuffle$predictions,
 jacLungShuffle <- predJaccardPlots(smrLungShuffle$predictions,
                                    labelSize=labelSize,
                                    legendTitle='Jaccard')$aggregate
-jacBreastShuffle <- predJaccardPlots(smrBreastShuffle$predictions,
+jacMerkelShuffle <- predJaccardPlots(smrMerkelShuffle$predictions,
                                      labelSize=labelSize,
                                      legendTitle='Jaccard')$aggregate
 jacBloodShuffle <- predJaccardPlots(smrBloodShuffle$predictions,
@@ -61,6 +61,6 @@ jacBloodShuffle <- predJaccardPlots(smrBloodShuffle$predictions,
 devPlot(octoPlot,
         list(mdsPancShuffle, jacPancShuffle),
         list(mdsLungShuffle, jacLungShuffle),
-        list(mdsBreastShuffle, jacBreastShuffle),
+        list(mdsMerkelShuffle, jacMerkelShuffle),
         list(mdsBloodShuffle, jacBloodShuffle),
         1, 2)
