@@ -14,13 +14,13 @@ source('visualization_abstract.R')
 
 ABS_TEXT_SIZE <- 7
 
-seuratObj <- qs_read('seuratPanc.qs2')
+seuratPanc <- qs_read('seuratPanc.qs2')
 acinarMarkers <- c('KLK1', 'CTRC', 'PNLIP',
                    'CELA3A','SPINK1',
                    'CELA2A', 'CPB1',
                    'PNLIPRP1', 'CPA2','CPA1', 'CELA3B',
                    'PLA2G1B', 'CLPS', 'SYCN')
-mat <- scExpMat(seuratObj, genes=acinarMarkers)
+mat <- scExpMat(seuratPanc, genes=acinarMarkers)
 
 
 #1
@@ -124,7 +124,7 @@ p7 <- p7 + theme(axis.text.y=element_blank(),
     labs(x = 'Cell', y = 'Gene pair score')
 
 #8
-seuratPanc <- runCSOA(seuratPanc, list(acinar=acinarMarkers))
+seuratPanc <- runCSOA(seuratPanc, list(CSOA_acinar=acinarMarkers))
 p8 <- featurePlot(seuratPanc, 'CSOA_acinar', paste0('8. Sum all gene pair scores in each cell and ',
                   ' min-max-normalize\nthe results to',
                   ' obtain the CSOA score')) +
@@ -140,5 +140,5 @@ plots <- list(p1, p2, p3, p4, p5, p6, p7, p8)
 p <- (plots[[1]] | plots[[2]] ) / (plots[[3]] | plots[[4]]) /
     (plots[[5]] | plots[[6]]) / (plots[[7]] | plots[[8]]) +
     plot_annotation(tag_levels='A',
-                    theme=theme(plot.title=element_text(size=TEXT_SIZE - 1, hjust=-0.5, vjust=-0.5)))
+                    theme=theme(plot.title=element_text(size=ABS_TEXT_SIZE - 1, hjust=-0.5, vjust=-0.5)))
 devPlot(p)
