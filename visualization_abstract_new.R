@@ -10,8 +10,7 @@ geneCellCountPlot <- function(df, fillColor, title){
 
 eulerPlot <- function(geneSets,
                       title,
-                      fills = c('white','blue',  'red', 'purple', 'green',
-                                'orange', 'lavender', 'plum')){
+                      fills = c('red','yellow')){
     eulerObj <- euler(geneSets)
     p <- as.ggplot(plot(eulerObj, fills=fills,
                         labels=NULL

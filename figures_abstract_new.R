@@ -6,12 +6,13 @@ library(ggplot2)
 library(henna)
 library(eulerr)
 library(ggplotify)
+library(patchwork)
 
 source('tools.R')
 source('visualization_abstract_utils.R')
 source('visualization_abstract_new.R')
 
-ABS_TEXT_SIZE <- 10
+ABS_TEXT_SIZE <- 7
 
 seuratObj <- qs_read('seuratPanc.qs2')
 acinarMarkers <- c('KLK1', 'CTRC', 'PNLIP',
@@ -32,7 +33,7 @@ p1 <- geneCellCountPlot(df, 'deepskyblue',
                                ' of cells\nthat highly express the gene'))
 
 #2
-eulerInput <- c(list(Cells = colnames(seuratObj)), cellSets[1:2])
+eulerInput <- cellSets[1:2]
 p2 <- eulerPlot(eulerInput, paste0('2. Assess cell set pairwise overlaps',
                                    ' using hypergeometric tests'))
 
@@ -86,7 +87,18 @@ p4 <- prerankPlot2(prerankDF,
 overlapDF$rank <- rank(overlapDF$rawAggRank, ties.method='min')
 p5 <- overlapCutoffPlot(overlapDF, paste0(
     '5. Set the cutoff for selecting top\n',
-    'overlaps based on rank frequencies'))
+    'overlaps based on rank frequencies'),
+    hullWidth=0.2,
+    pointSize=0.5) +
+    theme(axis.ticks=element_blank(),
+          axis.text=element_blank(),
+          axis.title=element_text(size=ABS_TEXT_SIZE,
+                                  color='black'),
+          plot.title=element_text(size=ABS_TEXT_SIZE,
+                                  color='black'),
+          legend.text=element_text(size=ABS_TEXT_SIZE - 1,
+                                   color='black'),
+          legend.key.size=unit(0.2, 'cm'))
 
 #6
 firstOutRawRank <- CSOA:::prepareFiltering(overlapDF)
@@ -100,13 +112,33 @@ p6 <- rankScorePlot(df, paste0('6. Map distinct overlap ranks to',
 normExp <- kerntools::minmax(mat[acinarMarkers, ], rows=TRUE)
 pairScores <- CSOA:::computePCPairScores(overlapDF, normExp)
 p7 <- basicHeatmap(as.matrix(pairScores), title = paste0(
-    '7. Compute per-cell gene pair scores by multiplying',
-    ' overlap scores with\nthe min-max-normalized expression of',
-    ' the two genes'))
-p7 <- p7 + theme(axis.text.y = element_blank(),
-                 axis.title = element_text(size=8)) +
+    '7. Compute per-cell gene pair scores by multiplying\n',
+    ' overlap scores with the min-max-normalized\n',
+    ' expression of the two genes'))
+p7 <- p7 + theme(axis.text.y=element_blank(),
+                 axis.title=element_text(size=ABS_TEXT_SIZE),
+                 plot.title=element_text(size=ABS_TEXT_SIZE),
+                 legend.title=element_blank(),
+                 legend.text=element_text(size=ABS_TEXT_SIZE - 1),
+                 legend.key.size=unit(0.2, 'cm'))+
     labs(x = 'Cell', y = 'Gene pair score')
 
 #8
 seuratPanc <- runCSOA(seuratPanc, list(acinar=acinarMarkers))
-p8 <- featureWes(seuratPanc, 'CSOA_acinar', 'CSOA')
+p8 <- featurePlot(seuratPanc, 'CSOA_acinar', paste0('8. Sum all gene pair scores in each cell and ',
+                  ' min-max-normalize\nthe results to',
+                  ' obtain the CSOA score')) +
+    theme(axis.title=element_text(size=ABS_TEXT_SIZE),
+          axis.text=element_text(size=ABS_TEXT_SIZE),
+          plot.title=element_text(size=ABS_TEXT_SIZE),
+          legend.title=element_text(size=ABS_TEXT_SIZE - 1),
+          legend.text=element_text(size=ABS_TEXT_SIZE - 1),
+          legend.key.size=unit(0.2, 'cm'))
+
+plots <- list(p1, p2, p3, p4, p5, p6, p7, p8)
+
+p <- (plots[[1]] | plots[[2]] ) / (plots[[3]] | plots[[4]]) /
+    (plots[[5]] | plots[[6]]) / (plots[[7]] | plots[[8]]) +
+    plot_annotation(tag_levels='A',
+                    theme=theme(plot.title=element_text(size=TEXT_SIZE - 1, hjust=-0.5, vjust=-0.5)))
+devPlot(p)
