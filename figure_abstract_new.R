@@ -9,9 +9,11 @@ library(ggplotify)
 
 source('tools.R')
 source('visualization_abstract_utils.R')
+source('visualization_abstract_new.R')
 
-seuratObj <- as.Seurat(BaronPancreasData('human'), data=NULL)
-seuratObj <- processSeurat(seuratObj, minFeatCells=5)
+ABS_TEXT_SIZE <- 10
+
+seuratObj <- qs_read('seuratPancGSA.qs2')
 
 DimPlot(seuratObj, group.by='label')
 
@@ -32,8 +34,8 @@ geneCellCountPlot(df, 'deepskyblue',
                          ' of cells\nthat highly express the gene'))
 
 eulerInput <- c(list(Cells = colnames(seuratObj)), cellSets[1:2])
-eulerPlot(eulerInput, '2. Assess cell set pairwise overlaps',
-          ' using hypergeometric tests')
+eulerPlot(eulerInput, paste0('2. Assess cell set pairwise overlaps',
+          ' using hypergeometric tests'))
 
 #4: Replace network plot with a vertical bar plot ranking the overlaps
 

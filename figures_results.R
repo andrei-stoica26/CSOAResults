@@ -43,7 +43,6 @@ devPlot(octoPlot, plotsPanc, plotsLung, plotsMerkel, plotsBlood, 20, 21)
 #############################Method similarity assessment#######################
 
 segWidth <- 0.1
-labelSize <- 1
 pointSize <- 0.05
 labelSegWidth <- 0.1
 maxOverlaps=Inf

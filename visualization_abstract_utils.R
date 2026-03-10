@@ -1,5 +1,3 @@
-ABS_TEXT_SIZE <- 7
-
 geneCellCountDF <- function(seed = 1,
                             nGenes = 30,
                             minCells = 1000,

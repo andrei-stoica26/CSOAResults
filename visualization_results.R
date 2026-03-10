@@ -1,5 +1,3 @@
-TEXT_SIZE <- 3
-
 editSubplot <- function(p, legendPos='right', legendTitle=NULL){
     if (legendPos == 'none')
         p <- p + easy_remove_axes() else{

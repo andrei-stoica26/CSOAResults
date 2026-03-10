@@ -25,3 +25,6 @@ source('run_methods.R')
 source('run_benchmark.R')
 source('run_shuffle.R')
 source('run_shuffle_benchmark.R')
+
+TEXT_SIZE <- 5
+labelSize <- 1.5
