@@ -28,8 +28,9 @@ vennInput <- c(cellSets[1:2], list(colnames(seuratPanc)))
 p2 <- ggvenn(vennInput,
              fill_color=c('red', 'yellow'),
              fill_alpha=0.8,
-             text_size = 0,
-             stroke_size = 0.8,
+             text_size = 1.5,
+             stroke_size = 0.1,
+             show_percentage = FALSE,
              set_name_size = 0)
 p2 <- centerTitle(p2, paste0('2. Assess the significance of cell set pairwise\n',
                              'overlaps using hypergeometric tests'))
@@ -133,15 +134,6 @@ p8 <- featurePlot(seuratPanc, 'CSOA_acinar', paste0('8. Sum all gene pair scores
           legend.text=element_text(size=ABS_TEXT_SIZE - 1),
           legend.key.size=unit(0.2, 'cm'))
 
-plots <- list(p1, p2, p3, p4, p5, p6, p7, p8)
-
-p <- (plots[[1]] | plots[[2]] ) / (plots[[3]] | plots[[4]]) /
-    (plots[[5]] | plots[[6]]) / (plots[[7]] | plots[[8]]) +
-    plot_annotation(tag_levels='A',
-                    theme=theme(plot.title=element_text(size=ABS_TEXT_SIZE - 2, hjust=-0.5, vjust=-0.5)))
-devPlot(p)
-
-class(p8)
 
 p <- wrap_plots(p1, p2, p3, p4, p5, p6, p7, p8, ncol=2, nrow=4,
                 widths = rep(1, 4), heights = rep(1, 4)) +

@@ -36,7 +36,7 @@ prerankPlot2 <- function(df, title=NULL){
 rankScorePlot <- function(df, title=NULL){
     p <- ggplot(df, aes(x = rank, y = score)) +
         geom_line(color = 'mediumpurple4') +
-        geom_point(color = 'red', size = 1) +
+        geom_point(color = 'red', size = 0.5) +
         labs(x = 'Overlap rank', y = 'Overlap score')
     p <- editAxes2(p)
     p <- centerTitle(p, title)
