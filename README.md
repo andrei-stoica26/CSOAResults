@@ -69,7 +69,7 @@ file contains the code used to generate the result figures.
 It sources the [visualization_results.R](https://github.com/andrei-stoica26/CSOAResults/blob/main/visualization_results.R)
 file, which provides plotting functions.
 
-The [figures_supplement.R](https://github.com/andrei-stoica26/CSOAResults/blob/main/figures_results.R)
+The [figures_supplement.R](https://github.com/andrei-stoica26/CSOAResults/blob/main/figures_supplement.R)
 file contains the code used to generate the supplementary figures.
 
 
