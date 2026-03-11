@@ -28,7 +28,7 @@ vennInput <- c(cellSets[1:2], list(colnames(seuratPanc)))
 p2 <- ggvenn(vennInput,
              fill_color=c('red', 'yellow'),
              fill_alpha=0.8,
-             text_size = 1.5,
+             text_size = 2,
              stroke_size = 0.1,
              show_percentage = FALSE,
              set_name_size = 0)
@@ -124,12 +124,12 @@ p7 <- p7 + theme(axis.text.y=element_blank(),
 
 #8
 seuratPanc <- runCSOA(seuratPanc, list(CSOA_acinar=acinarMarkers))
-p8 <- featurePlot(seuratPanc, 'CSOA_acinar', paste0('8. Sum all gene pair scores in each cell and\n',
+p8 <- featureWes(seuratPanc, 'CSOA_acinar', paste0('8. Sum all gene pair scores in each cell and\n',
                   'min-max-normalize the results to\n',
                   'obtain the CSOA score')) +
     theme(axis.title=element_text(size=ABS_TEXT_SIZE),
           axis.text=element_text(size=ABS_TEXT_SIZE),
-          plot.title=element_text(size=ABS_TEXT_SIZE),
+          plot.title=element_text(size=ABS_TEXT_SIZE, face='plain'),
           legend.title=element_text(size=ABS_TEXT_SIZE - 1),
           legend.text=element_text(size=ABS_TEXT_SIZE - 1),
           legend.key.size=unit(0.2, 'cm'))

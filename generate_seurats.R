@@ -96,15 +96,6 @@ seuratBlood <- subset(seuratBlood, subset = percent.mt < 5)
 seuratBlood <- processSeurat(seuratBlood, varsToRegress = 'percent.ribo')
 seuratBlood <- FindNeighbors(seuratBlood, reduction='umap', dims=1:2)
 seuratBlood <- FindClusters(seuratBlood, resolution=0.1)
-seuratBlood <- addMetadataCategory(seuratBlood,
-                                   'seurat_clusters',
-                                   'funct',
-                                   list(c(1,2,5,6,7,9,10),0,3,4,8),
-                                   c('Bulk.cells',
-                                     'immune.response.regulating.signaling.pathway',
-                                     'B.cell.receptor.signaling.pathway',
-                                     'cell.killing',
-                                     'positive.regulation.of.leukocyte.activation'))
 
 seuratBlood <- addMetadataCategory(seuratBlood,
                                    'seurat_clusters',

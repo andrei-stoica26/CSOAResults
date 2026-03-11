@@ -22,35 +22,43 @@ for (pair in list(c(8, 6), c(9, 10), c(19, 15), c(20, 21)))
             pair[1], pair[2])
 
 segWidth <- 0.1
-labelSize <- 1
+labelSize <- 1.5
 pointSize <- 0.05
 labelSegWidth <- 0.1
 maxOverlaps <- 10
 mdsPancShuffle <- mdsPlots(seuratPancShuffle, smrPancShuffle, pointSize=pointSize,
                            labelSize=labelSize, segWidth=segWidth,
-                           labelSegWidth=labelSegWidth, maxOverlaps=maxOverlaps)$aggregate
+                           labelSegWidth=labelSegWidth, maxOverlaps=maxOverlaps,
+                           drawNN=FALSE)$aggregate
 mdsLungShuffle <- mdsPlots(seuratLungShuffle, smrLungShuffle, pointSize=pointSize,
                            labelSize=labelSize, segWidth=segWidth,
-                           labelSegWidth=labelSegWidth, maxOverlaps=maxOverlaps)$aggregate
+                           labelSegWidth=labelSegWidth, maxOverlaps=maxOverlaps,
+                           drawNN=FALSE)$aggregate
 mdsMerkelShuffle <- mdsPlots(seuratMerkelShuffle, smrMerkelShuffle, pointSize=pointSize,
                              labelSize=labelSize, segWidth=segWidth,
-                             labelSegWidth=labelSegWidth, maxOverlaps=maxOverlaps)$aggregate
+                             labelSegWidth=labelSegWidth, maxOverlaps=maxOverlaps,
+                             drawNN=FALSE)$aggregate
 mdsBloodShuffle <- mdsPlots(seuratBloodShuffle, smrBloodShuffle, pointSize=pointSize,
                             labelSize=labelSize, segWidth=segWidth,
-                            labelSegWidth=labelSegWidth, maxOverlaps=maxOverlaps)$aggregate
+                            labelSegWidth=labelSegWidth, maxOverlaps=maxOverlaps,
+                            drawNN=FALSE)$aggregate
 
 jacPancShuffle <- predJaccardPlots(smrPancShuffle$predictions,
                                    labelSize=labelSize,
-                                   legendTitle='Jaccard')$aggregate
+                                   legendTitle='Jaccard',
+                                   limits=c(0, 1))$aggregate
 jacLungShuffle <- predJaccardPlots(smrLungShuffle$predictions,
                                    labelSize=labelSize,
-                                   legendTitle='Jaccard')$aggregate
+                                   legendTitle='Jaccard',
+                                   limits=c(0, 1))$aggregate
 jacMerkelShuffle <- predJaccardPlots(smrMerkelShuffle$predictions,
                                      labelSize=labelSize,
-                                     legendTitle='Jaccard')$aggregate
+                                     legendTitle='Jaccard',
+                                     limits=c(0, 1))$aggregate
 jacBloodShuffle <- predJaccardPlots(smrBloodShuffle$predictions,
                                     labelSize=labelSize,
-                                    legendTitle='Jaccard')$aggregate
+                                    legendTitle='Jaccard',
+                                    limits=c(0, 1))$aggregate
 
 devPlot(octoPlot,
         list(mdsPancShuffle, jacPancShuffle),
