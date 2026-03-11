@@ -14,7 +14,7 @@ The data necessary to reproduce our results is available online:
 
 - [Baron pancreas data (human)](https://bioconductor.org/packages/release/data/experiment/html/scRNAseq.html)
 - [Lung proximal airway stromal cells (SRA640325_SRS2769051)](https://www.panglaodb.se/view_data.php?sra=SRA640325&srs=SRS2769051)
-- [Breast cancer cell line (SRA704181_SRS3305832)](https://www.panglaodb.se/view_data.php?sra=SRA704181&srs=SRS3305832)
+- [Merkel cell carcinoma (SRA749327_SRS3693909)](https://panglaodb.se/view_data.php?sra=SRA749327&srs=SRS3693909)
 - [Peripheral blood mononuclear cells (SRA550660_SRS2089639)](https://www.panglaodb.se/view_data.php?sra=SRA550660&srs=SRS2089639)
 
 ### 1.2 Installing Github dependencies
@@ -37,7 +37,8 @@ file contains the code used to generate the Seurat objects on which the gene
 set analysis methods were run.
 
 The [gene_sets_blood.R](https://github.com/andrei-stoica26/CSOAResults/blob/main/gene_sets_blood.R), 
-[gene_sets_breast.R](https://github.com/andrei-stoica26/CSOAResults/blob/main/gene_sets_breast.R), [gene_sets_lung.R](https://github.com/andrei-stoica26/CSOAResults/blob/main/gene_sets_lung.R) 
+[gene_sets_merkel.R](https://github.com/andrei-stoica26/CSOAResults/blob/main/gene_sets_merkel.R), 
+[gene_sets_lung.R](https://github.com/andrei-stoica26/CSOAResults/blob/main/gene_sets_lung.R) 
 and [gene_sets_panc.R](https://github.com/andrei-stoica26/CSOAResults/blob/main/gene_sets_panc.R) 
 files contain the code used to create gene sets for each dataset.
 
@@ -48,11 +49,27 @@ file contains the code used to run the gene set analysis methods on each Seurat
 object and to save the resulting Seurat objects.
 
 The [run_benchmark.R](https://github.com/andrei-stoica26/CSOAResults/blob/main/run_benchmark.R) 
-contains the code used to run the benchmark on each Seurat object and to save 
+file contains the code used to run the benchmark on each Seurat object and to save 
 the benchmark results.
 
+The [run_shuffle.R](https://github.com/andrei-stoica26/CSOAResults/blob/main/run_shuffle.R) 
+file contains the code used to run CSOA at different choices of gene loss and noise.
+
+The [run_shuffle_benchmark.R](https://github.com/andrei-stoica26/CSOAResults/blob/main/run_shuffle_benchmark.R) 
+file contains the code used to benchmark CSOA runs effected at different choices of gene loss and noise.
+
 ## 3 Visualization
-The [figures.R](https://github.com/andrei-stoica26/CSOAResults/blob/main/figures.R)
-file contains the code used to generate the figures from the CSOA paper. It
-source the [visualization.R](https://github.com/andrei-stoica26/CSOAResults/blob/main/visualization.R)
+The [figures_abstract.R](https://github.com/andrei-stoica26/CSOAResults/blob/main/figures_abstract.R)
+file contains the code used to generate the CSOA graphical abstract. 
+It sources the [visualization_abstract.R](https://github.com/andrei-stoica26/CSOAResults/blob/main/visualization_abstract.R)
 file, which provides plotting functions.
+
+The [figures_results.R](https://github.com/andrei-stoica26/CSOAResults/blob/main/figures_results.R)
+file contains the code used to generate the result figures.
+It sources the [visualization_results.R](https://github.com/andrei-stoica26/CSOAResults/blob/main/visualization_results.R)
+file, which provides plotting functions.
+
+The [figures_supplement.R](https://github.com/andrei-stoica26/CSOAResults/blob/main/figures_results.R)
+file contains the code used to generate the supplementary figures.
+
+
