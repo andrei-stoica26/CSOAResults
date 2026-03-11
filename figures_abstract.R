@@ -1,14 +1,4 @@
-library(scRNAseq)
-library(Seurat)
-library(scLang)
-library(CSOA)
-library(ggplot2)
-library(henna)
-library(eulerr)
-library(ggplotify)
-library(patchwork)
-
-source('tools.R')
+source('load_all.R')
 source('visualization_abstract_utils.R')
 source('visualization_abstract.R')
 
@@ -33,10 +23,18 @@ p1 <- geneCellCountPlot(df, 'deepskyblue',
                                ' of cells\nthat highly express the gene'))
 
 #2
-eulerInput <- cellSets[1:2]
-p2 <- eulerPlot(eulerInput, paste0('2. Assess cell set pairwise overlaps',
-                                   ' using hypergeometric tests'))
 
+vennInput <- c(cellSets[1:2], list(colnames(seuratPanc)))
+p2 <- ggvenn(vennInput,
+             fill_color=c('red', 'yellow'),
+             fill_alpha=0.8,
+             text_size = 0,
+             stroke_size = 0.8,
+             set_name_size = 0)
+p2 <- centerTitle(p2, paste0('2. Assess the significance of cell set pairwise\n',
+                             'overlaps using hypergeometric tests'))
+p2 <- p2 + theme(plot.title=element_text(size=ABS_TEXT_SIZE,
+                                          color='black'))
 #3
 overlapDF <- generateOverlaps(mat)
 overlapDF <- CSOA:::prefilterOverlaps(overlapDF)
@@ -142,3 +140,13 @@ p <- (plots[[1]] | plots[[2]] ) / (plots[[3]] | plots[[4]]) /
     plot_annotation(tag_levels='A',
                     theme=theme(plot.title=element_text(size=ABS_TEXT_SIZE - 2, hjust=-0.5, vjust=-0.5)))
 devPlot(p)
+
+class(p8)
+
+p <- wrap_plots(p1, p2, p3, p4, p5, p6, p7, p8, ncol=2, nrow=4,
+                widths = rep(1, 4), heights = rep(1, 4)) +
+    plot_annotation(tag_levels='A',
+                    theme=theme(plot.title=element_text(size=ABS_TEXT_SIZE - 2, hjust=-0.5, vjust=-0.5)))
+
+devPlot(p)
+

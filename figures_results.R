@@ -81,17 +81,20 @@ mdsBlood <- mdsPlots(seuratBlood,
 
 jacPanc <- predJaccardPlots(smrPanc$predictions,
                             labelSize=labelSize,
-                            legendTitle='Jaccard')$aggregate
+                            legendTitle='Jaccard',
+                            limits=c(0, 1))$aggregate
 jacLung <- predJaccardPlots(smrLung$predictions,
                             labelSize=labelSize,
-                            legendTitle='Jaccard')$aggregate
+                            legendTitle='Jaccard',
+                            limits=c(0, 1))$aggregate
 jacMerkel <- predJaccardPlots(smrMerkel$predictions,
                               labelSize=labelSize,
-                              legendTitle='Jaccard')$aggregate
+                              legendTitle='Jaccard',
+                              limits=c(0, 1))$aggregate
 jacBlood <- predJaccardPlots(smrBlood$predictions,
                              labelSize=labelSize,
-                             legendTitle='Jaccard')$aggregate
-
+                             legendTitle='Jaccard',
+                             limits=c(0, 1))$aggregate
 devPlot(octoPlot,
         list(mdsPanc, jacPanc),
         list(mdsLung, jacLung),

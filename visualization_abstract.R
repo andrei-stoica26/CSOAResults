@@ -8,19 +8,6 @@ geneCellCountPlot <- function(df, fillColor, title){
     return(p)
 }
 
-eulerPlot <- function(geneSets,
-                      title,
-                      fills = c('red','yellow')){
-    eulerObj <- euler(geneSets)
-    p <- as.ggplot(plot(eulerObj, fills=fills,
-                        labels=NULL
-    ))
-    p <- centerTitle(p, title)
-    p <- p + theme(plot.title=element_text(size=ABS_TEXT_SIZE,
-                                           color='black'))
-    return(p)
-}
-
 prerankPlot <- function(df, title=NULL){
     p <- ggplot(df, aes(x = overlap, y = rank, fill = rankType)) +
         geom_col(position = "dodge") +
