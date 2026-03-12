@@ -2,7 +2,7 @@ source('load_all.R')
 source('visualization_abstract_utils.R')
 source('visualization_abstract.R')
 
-ABS_TEXT_SIZE <- 8
+ABS_TEXT_SIZE <- 9
 
 seuratPanc <- qs_read('seuratPanc.qs2')
 acinarMarkers <- c('KLK1', 'CTRC', 'PNLIP',
@@ -139,7 +139,7 @@ p8 <- featureWes(seuratPanc, 'CSOA_acinar', paste0('8. Sum all gene pair scores 
 p <- wrap_plots(p1, p2, p3, p4, p5, p6, p7, p8, ncol=2, nrow=4,
                 widths = rep(1, 4), heights = rep(1, 4)) +
     plot_annotation(tag_levels='A') &
-    theme(plot.tag=element_text(size=ABS_TEXT_SIZE + 4,
+    theme(plot.tag=element_text(size=ABS_TEXT_SIZE + 3,
                                 hjust=-0.5,
                                 vjust=-0.5,
                                 face = 'bold'))

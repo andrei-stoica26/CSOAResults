@@ -15,18 +15,6 @@ editSubplot <- function(p, legendPos='right', legendTitle=NULL){
     return(p)
 }
 
-quadPlot <- function(plots1, plots2, plots3, plots4, i,
-                     legendPos='bottom',
-                     legendTitle = NULL){
-    p <- (editSubplot(plots1[[i]], legendPos, legendTitle) |
-              editSubplot(plots2[[i]], legendPos, legendTitle)) /
-        (editSubplot(plots3[[i]], legendPos, legendTitle) |
-             editSubplot(plots4[[i]], legendPos, legendTitle)) +
-        plot_annotation(tag_levels='A',
-                        theme=theme(plot.title=element_text(size=TEXT_SIZE - 1, hjust=-0.5, vjust=-0.5)))
-    return(p)
-}
-
 octoPlot <- function(plots1, plots2, plots3, plots4, i, j,
                      legendPos='right',
                      legendTitle = NULL){
