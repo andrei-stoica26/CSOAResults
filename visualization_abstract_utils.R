@@ -9,7 +9,7 @@ editAxes <- function (p){
 }
 
 editLegend <- function(p){
-    p <- p + theme(legend.text = element_text(size = ABS_TEXT_SIZE - 1),
+    p <- p + theme(legend.text = element_text(size = ABS_TEXT_SIZE - 2),
                    legend.title = element_blank(),
                    legend.position = 'bottom',
                    legend.key.size = unit(0.2, 'cm'),

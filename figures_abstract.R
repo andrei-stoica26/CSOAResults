@@ -100,7 +100,7 @@ p5 <- overlapCutoffPlot(overlapDF, paste0(
                                   color='black'),
           legend.text=element_text(size=ABS_TEXT_SIZE - 1,
                                    color='black'),
-          legend.key.size=unit(0.2, 'cm'))
+          legend.key.size=unit(0.4, 'cm'))
 
 #6
 firstOutRawRank <- CSOA:::prepareFiltering(overlapDF)
@@ -122,7 +122,7 @@ p7 <- p7 + theme(axis.text.y=element_blank(),
                  plot.title=element_text(size=ABS_TEXT_SIZE),
                  legend.title=element_blank(),
                  legend.text=element_text(size=ABS_TEXT_SIZE - 1),
-                 legend.key.size=unit(0.2, 'cm'))+
+                 legend.key.size=unit(0.4, 'cm'))+
     labs(x = 'Cell', y = 'Gene pair score')
 
 #8
@@ -133,9 +133,9 @@ p8 <- featureWes(seuratPanc, 'CSOA_acinar', paste0('8. Sum all gene pair scores 
     theme(axis.title=element_text(size=ABS_TEXT_SIZE),
           axis.text=element_text(size=ABS_TEXT_SIZE),
           plot.title=element_text(size=ABS_TEXT_SIZE, face='plain'),
-          legend.title=element_text(size=ABS_TEXT_SIZE - 1),
-          legend.text=element_text(size=ABS_TEXT_SIZE - 1),
-          legend.key.size=unit(0.2, 'cm'))
+          legend.title=element_text(size=ABS_TEXT_SIZE - 2),
+          legend.text=element_text(size=ABS_TEXT_SIZE - 2),
+          legend.key.size=unit(0.4, 'cm'))
 
 
 p <- wrap_plots(p1, p2, p3, p4, p5, p6, p7, p8, ncol=4, nrow=2,
