@@ -25,13 +25,12 @@ p1 <- geneCellCountPlot(df, 'deepskyblue',
                                ' of cells\nthat highly express the gene'))
 
 #2
-
 vennInput <- c(cellSets[1:2], list(colnames(seuratPanc)))
 p2 <- ggvenn(vennInput,
              fill_color=c('red', 'yellow'),
              fill_alpha=0.8,
-             text_size = 2,
-             stroke_size = 0.1,
+             text_size = 3,
+             stroke_size = 0.2,
              show_percentage = FALSE,
              set_name_size = 0)
 p2 <- centerTitle(p2, paste0('2. Assess the significance of cell set pairwise\n',
@@ -98,7 +97,7 @@ p5 <- overlapCutoffPlot(overlapDF, paste0(
                                   color='black'),
           plot.title=element_text(size=ABS_TEXT_SIZE,
                                   color='black'),
-          legend.text=element_text(size=ABS_TEXT_SIZE - 1,
+          legend.text=element_text(size=ABS_TEXT_SIZE,
                                    color='black'),
           legend.key.size=unit(0.4, 'cm'))
 
@@ -121,7 +120,7 @@ p7 <- p7 + theme(axis.text.y=element_blank(),
                  axis.title=element_text(size=ABS_TEXT_SIZE),
                  plot.title=element_text(size=ABS_TEXT_SIZE),
                  legend.title=element_blank(),
-                 legend.text=element_text(size=ABS_TEXT_SIZE - 1),
+                 legend.text=element_text(size=ABS_TEXT_SIZE),
                  legend.key.size=unit(0.4, 'cm'))+
     labs(x = 'Cell', y = 'Gene pair score')
 
