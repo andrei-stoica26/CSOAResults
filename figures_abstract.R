@@ -87,6 +87,7 @@ overlapDF$rank <- rank(overlapDF$rawAggRank, ties.method='min')
 p5 <- overlapCutoffPlot(overlapDF, paste0(
     '5. Set the cutoff for selecting top\n',
     'overlaps based on rank frequencies'),
+    palette = c("purple", "red"),
     hullWidth=0.2,
     pointSize=0.5) +
     theme(axis.ticks=element_blank(),
@@ -137,8 +138,11 @@ p8 <- featureWes(seuratPanc, 'CSOA_acinar', paste0('8. Sum all gene pair scores 
 
 p <- wrap_plots(p1, p2, p3, p4, p5, p6, p7, p8, ncol=2, nrow=4,
                 widths = rep(1, 4), heights = rep(1, 4)) +
-    plot_annotation(tag_levels='A',
-                    theme=theme(plot.title=element_text(size=ABS_TEXT_SIZE - 2, hjust=-0.5, vjust=-0.5)))
+    plot_annotation(tag_levels='A') &
+    theme(plot.tag=element_text(size=ABS_TEXT_SIZE + 4,
+                                hjust=-0.5,
+                                vjust=-0.5,
+                                face = 'bold'))
 
 devPlot(p)
 
