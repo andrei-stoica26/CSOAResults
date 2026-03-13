@@ -132,8 +132,8 @@ p8 <- featureWes(seuratPanc, 'CSOA_acinar', paste0('8. Sum all gene pair scores 
     theme(axis.title=element_text(size=ABS_TEXT_SIZE),
           axis.text=element_text(size=ABS_TEXT_SIZE),
           plot.title=element_text(size=ABS_TEXT_SIZE, face='plain'),
-          legend.title=element_text(size=ABS_TEXT_SIZE - 2),
-          legend.text=element_text(size=ABS_TEXT_SIZE - 2),
+          legend.title=element_text(size=ABS_TEXT_SIZE),
+          legend.text=element_text(size=ABS_TEXT_SIZE),
           legend.key.size=unit(0.4, 'cm'))
 
 

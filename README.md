@@ -13,9 +13,9 @@ been installed.
 The data necessary to reproduce our results is available online:
 
 - [Baron pancreas data (human)](https://bioconductor.org/packages/release/data/experiment/html/scRNAseq.html)
-- [Lung proximal airway stromal cells (SRA640325_SRS2769051)](https://www.panglaodb.se/view_data.php?sra=SRA640325&srs=SRS2769051)
+- [Lung proximal airway stromal cells (SRA640325_SRS2769051)](https://panglaodb.se/view_data.php?sra=SRA640325&srs=SRS2769051)
 - [Merkel cell carcinoma (SRA749327_SRS3693909)](https://panglaodb.se/view_data.php?sra=SRA749327&srs=SRS3693909)
-- [Peripheral blood mononuclear cells (SRA550660_SRS2089639)](https://www.panglaodb.se/view_data.php?sra=SRA550660&srs=SRS2089639)
+- [Peripheral blood mononuclear cells (SRA550660_SRS2089639)](https://panglaodb.se/view_data.php?sra=SRA550660&srs=SRS2089639)
 
 ### 1.2 Installing Github dependencies
 
@@ -56,7 +56,7 @@ The [run_shuffle.R](https://github.com/andrei-stoica26/CSOAResults/blob/main/run
 file contains the code used to run CSOA at different choices of gene loss and noise.
 
 The [run_shuffle_benchmark.R](https://github.com/andrei-stoica26/CSOAResults/blob/main/run_shuffle_benchmark.R) 
-file contains the code used to benchmark CSOA runs effected at different choices of gene loss and noise.
+file contains the code used to benchmark CSOA runs performed at different choices of gene loss and noise.
 
 ## 3 Visualization
 The [figures_abstract.R](https://github.com/andrei-stoica26/CSOAResults/blob/main/figures_abstract.R)
