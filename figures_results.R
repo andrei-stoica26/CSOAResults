@@ -15,19 +15,9 @@ smrLung <- qs_read('smrLung.qs2')
 smrMerkel <- qs_read('smrMerkel.qs2')
 smrBlood <- qs_read('smrBlood.qs2')
 
-plotsPanc <- allBenchmarkPlots(smrPanc, pointSize=pointSize)
-plotsLung <- allBenchmarkPlots(smrLung, pointSize=pointSize)
-plotsMerkel <- allBenchmarkPlots(smrMerkel, pointSize=pointSize)
-plotsBlood <- allBenchmarkPlots(smrBlood, pointSize=pointSize)
-
-for (pair in list(c(8, 6), c(9, 10), c(19, 15)))
-    devPlot(octoPlot, plotsPanc, plotsLung, plotsMerkel, plotsBlood,
-            pair[1], pair[2])
-
 #############################Illustrating predictions###########################
 
 labelSize <- 1.5
-pointSize <- 0.5
 
 umapPanc <- umapPlots2(seuratPanc, smrPanc, 'label', 'acinar', labelSize)
 umapLung <- umapPlots2(seuratLung, smrLung, 'celltype', 'EpendymalCells',
@@ -38,6 +28,18 @@ umapMerkel <- umapPlots2(seuratMerkel, smrMerkel, 'funct',
 umapBlood <- umapPlots2(seuratBlood, smrBlood, 'funct', 'Cell.killing',
                         labelSize)
 devPlot(octoPlot2, umapPanc, umapLung, umapMerkel, umapBlood, 1, 2)
+
+#############################Correctness########################################
+
+plotsPanc <- allBenchmarkPlots(smrPanc, pointSize=pointSize)
+plotsLung <- allBenchmarkPlots(smrLung, pointSize=pointSize)
+plotsMerkel <- allBenchmarkPlots(smrMerkel, pointSize=pointSize)
+plotsBlood <- allBenchmarkPlots(smrBlood, pointSize=pointSize)
+
+for (pair in list(c(8, 6), c(9, 10), c(19, 15)))
+    devPlot(octoPlot, plotsPanc, plotsLung, plotsMerkel, plotsBlood,
+            pair[1], pair[2])
+
 
 #############################Computational efficiency###########################
 

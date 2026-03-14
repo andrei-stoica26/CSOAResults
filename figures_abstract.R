@@ -145,6 +145,6 @@ p <- wrap_plots(p1, p2, p3, p4, p5, p6, p7, p8, ncol=4, nrow=2,
                                 vjust=-0.5,
                                 face='bold'))
 
-pdf("myplot.pdf", width = 16, height = 10)
+pdf("abstract.pdf", width = 16, height = 10)
 p
 dev.off()
