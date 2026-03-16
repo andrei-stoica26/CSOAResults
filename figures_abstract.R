@@ -148,3 +148,12 @@ p <- wrap_plots(p1, p2, p3, p4, p5, p6, p7, p8, ncol=4, nrow=2,
 pdf("graphical_abstract.pdf", width = 20, height = 8)
 p
 dev.off()
+
+#Extracting, for each signature gene, the set of cells that highly express the gene (A)
+#Assessing the significance of cell set pairwise overlaps using hypergeometric tests (B)
+#Ranking the overlaps based on adjusted p-value and observed-over-expected size ratio (C)
+#Adjusting the ranks based on connectivity and average the new ranks to obtain the aggregate rank(D)
+#Set the cutoff for selecting top overlaps based on rank frequencies (E)
+#Map distinct overlap ranks to scores decreasing logaritmically from 1 towards 0' (F)
+#Computing per-cell gene pair scores by multiplying overlap scores with the min-max-normalized expression of the two genes (G)
+#Sum all gene pair scores in each cell and min-max-normalize the results to obtain the CSOA score (H)'

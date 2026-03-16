@@ -23,14 +23,17 @@ df <- data.frame(Gene = names(geneFreqs),
 p1 <- geneCellCountPlot(df, 'deepskyblue')
 
 #2
-vennInput <- c(cellSets[1:2], list(colnames(seuratPanc)))
+vennInput <- setNames(c(cellSets[1:2], list(colnames(seuratPanc))),
+                      c('Cell set 1',
+                      'Cell set 2',
+                      ''))
 p2 <- ggvenn(vennInput,
              fill_color=c('red', 'yellow'),
              fill_alpha=0.8,
-             text_size = 3,
+             text_size = 4,
              stroke_size = 0.2,
              show_percentage = FALSE,
-             set_name_size = 0)
+             set_name_size = 4)
 
 #3
 overlapDF <- generateOverlaps(mat)
