@@ -2,7 +2,7 @@ source('load_all.R')
 source('visualization_abstract_utils.R')
 source('visualization_abstract.R')
 
-ABS_TEXT_SIZE <- 10
+ABS_TEXT_SIZE <- 14
 
 ################################################################################
 
@@ -22,7 +22,7 @@ df <- data.frame(Gene = names(geneFreqs),
                  nCells = geneFreqs)
 p1 <- geneCellCountPlot(df, 'deepskyblue',
                         paste0('1. For each signature gene, extract the set',
-                               ' of cells\nthat highly express the gene'))
+                               ' \nof cells that highly express the gene'))
 
 #2
 vennInput <- c(cellSets[1:2], list(colnames(seuratPanc)))
@@ -107,15 +107,15 @@ overlapDF <- CSOA:::filterOverlaps(overlapDF, firstOutRawRank)
 overlapDF <- CSOA:::scoreOverlaps(overlapDF, 'log')
 df <- overlapDF[, c('rank', 'score')]
 p6 <- rankScorePlot(df, paste0('6. Map distinct overlap ranks to',
-                         ' scores decreasing\nlogaritmically from 1 towards 0'))
+                         ' scores\ndecreasing logaritmically from 1 towards 0'))
 
 #7
 normExp <- kerntools::minmax(mat[acinarMarkers, ], rows=TRUE)
 pairScores <- CSOA:::computePCPairScores(overlapDF, normExp)
 p7 <- basicHeatmap(as.matrix(pairScores), title = paste0(
-    '7. Compute per-cell gene pair scores by multiplying\n',
-    'overlap scores with the min-max-normalized\n',
-    'expression of the two genes'))
+    '7. Compute per-cell gene pair scores by\n',
+    'multiplying overlap scores with the \n',
+    'min-max-normalized expression of the two genes'))
 p7 <- p7 + theme(axis.text.y=element_blank(),
                  axis.title=element_text(size=ABS_TEXT_SIZE),
                  plot.title=element_text(size=ABS_TEXT_SIZE),
@@ -140,11 +140,11 @@ p8 <- featureWes(seuratPanc, 'CSOA_acinar', paste0('8. Sum all gene pair scores 
 p <- wrap_plots(p1, p2, p3, p4, p5, p6, p7, p8, ncol=4, nrow=2,
                 widths = rep(1, 4), heights = rep(1, 4)) +
     plot_annotation(tag_levels='A') &
-    theme(plot.tag=element_text(size=ABS_TEXT_SIZE + 2,
+    theme(plot.tag=element_text(size=ABS_TEXT_SIZE,
                                 hjust=-0.5,
                                 vjust=-0.5,
                                 face='bold'))
 
-pdf("abstract.pdf", width = 16, height = 10)
+pdf("graphical_abstract.pdf", width = 20, height = 8)
 p
 dev.off()

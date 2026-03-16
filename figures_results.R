@@ -1,7 +1,7 @@
 source('load_all.R')
 source('visualization_results.R')
 
-TEXT_SIZE <- 6
+TEXT_SIZE <- 5.3
 pointSize <- 0.5
 
 #############################Main results#######################################
