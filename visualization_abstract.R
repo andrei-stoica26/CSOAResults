@@ -1,10 +1,11 @@
-geneCellCountPlot <- function(df, fillColor, title){
+geneCellCountPlot <- function(df, fillColor, title=NULL){
     p <- ggplot(df, aes(x = Gene, y = nCells)) +
         geom_bar(stat = "identity", fill = fillColor, width = 0.6) +
         ylab('Number of cells') +
         xlab("Signature gene")
     p <- editAxes(p)
-    p <- centerTitle(p, title)
+    if (!is.null(title))
+        p <- centerTitle(p, title)
     return(p)
 }
 
@@ -15,7 +16,8 @@ prerankPlot <- function(df, title=NULL){
         scale_fill_manual(values = wes_palette('Darjeeling1')[c(2, 1)],
                           labels = c('p-value rank', 'Ratio rank'))
     p <- editAxes(p)
-    p <- centerTitle(p, title)
+    if (!is.null(title))
+        p <- centerTitle(p, title)
     p <- editLegend(p)
     return(p)
 }
@@ -28,7 +30,8 @@ prerankPlot2 <- function(df, title=NULL){
                           labels = c('p-value rank', 'Ratio rank',
                                      'Aggregate rank'))
     p <- editAxes(p)
-    p <- centerTitle(p, title)
+    if (!is.null(title))
+        p <- centerTitle(p, title)
     p <- editLegend(p)
     return(p)
 }
@@ -39,7 +42,8 @@ rankScorePlot <- function(df, title=NULL){
         geom_point(color = 'red', size = 0.5) +
         labs(x = 'Overlap rank', y = 'Overlap score')
     p <- editAxes2(p)
-    p <- centerTitle(p, title)
+    if (!is.null(title))
+        p <- centerTitle(p, title)
     return(p)
 }
 
