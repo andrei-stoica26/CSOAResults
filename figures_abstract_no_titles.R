@@ -30,10 +30,10 @@ vennInput <- setNames(c(cellSets[1:2], list(colnames(seuratPanc))),
 p2 <- ggvenn(vennInput,
              fill_color=c('red', 'yellow'),
              fill_alpha=0.8,
-             text_size = 4,
-             stroke_size = 0.2,
+             text_size = 5,
+             stroke_size = 0.3,
              show_percentage = FALSE,
-             set_name_size = 4)
+             set_name_size = 5)
 
 #3
 overlapDF <- generateOverlaps(mat)
@@ -82,8 +82,8 @@ p4 <- prerankPlot2(prerankDF)
 overlapDF$rank <- rank(overlapDF$rawAggRank, ties.method='min')
 p5 <- overlapCutoffPlot(overlapDF, NULL,
     palette = c("purple", "red"),
-    hullWidth=0.2,
-    pointSize=0.5) +
+    hullWidth=0.4,
+    pointSize=1) +
     theme(axis.ticks=element_blank(),
           axis.text=element_blank(),
           axis.title=element_text(size=ABS_TEXT_SIZE,
