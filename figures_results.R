@@ -28,7 +28,7 @@ umapMerkel <- umapPlots2(seuratMerkel, smrMerkel, 'funct',
 umapBlood <- umapPlots2(seuratBlood, smrBlood, 'funct', 'Cell.killing',
                         labelSize)
 p <- octoPlot2(umapPanc, umapLung, umapMerkel, umapBlood, 1, 2)
-pdf('2. Examples.pdf', width = 10, height = 8)
+pdf('Figure 2.pdf', width = 10, height = 8)
 p
 dev.off()
 
@@ -40,21 +40,21 @@ plotsBlood <- allBenchmarkPlots(smrBlood, pointSize=pointSize)
 
 invisible(mapply(function(i, plotName){
     p <- quadPlot(plotsPanc, plotsLung, plotsMerkel, plotsBlood, i)
-    pdf(paste0(plotName, '.pdf'), width = 10, height = 8)
+    pdf(paste0('Figure ', plotName, '.pdf'), width = 10, height = 8)
     print(p)
     dev.off()
 }, c(8, 6, 9, 10, 19, 15, 20, 21),
-c('3. boundary_benchmark', '4. score_coverage',
-  '5. comprehensive_mcc','6. direct_mcc',
-  '7. global_benchmark', '8. centrality',
-  '9. elapsed_time', '10. memory_usage')))
+c('3', 'S1',
+  '4','S2',
+  '5', 'S3',
+  '6', '7')))
 
 #############################Method similarity assessment#######################
 
 segWidth <- 0.1
-pointSize <- 0.05
+pointSize <- 0.5
 labelSegWidth <- 0.1
-maxOverlaps=5
+maxOverlaps=10
 mdsPanc <- mdsPlots(seuratPanc,
                     smrPanc,
                     pointSize=pointSize,
@@ -114,8 +114,8 @@ invisible(mapply(function(i, plotName){
                   list(mdsLung, jacLung),
                   list(mdsMerkel, jacMerkel),
                   list(mdsBlood, jacBlood), i)
-    pdf(paste0(plotName, '.pdf'), width = 10, height = 8)
+    pdf(paste0('Figure ', plotName, '.pdf'), width = 10, height = 8)
     print(p)
     dev.off()
 }, c(1, 2),
-c('11. mds_similarity', '12. jaccard_similarity')))
+c('S4', 'S5')))

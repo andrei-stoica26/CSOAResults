@@ -131,7 +131,7 @@ p <- wrap_plots(p1, p2, p3, p4, p5, p6, p7, p8, ncol=4, nrow=2,
                                 vjust=-0.5,
                                 face='bold'))
 
-pdf("1. graphical_abstract.pdf", width = 20, height = 8)
+pdf("Figure 1.pdf", width = 20, height = 8)
 p
 dev.off()
 
