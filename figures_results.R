@@ -2,7 +2,7 @@ source('load_all.R')
 source('visualization_results.R')
 
 TEXT_SIZE <- 8
-pointSize <- 0.5
+pointSize <- 1
 
 #############################Main results#######################################
 seuratPanc <- qs_read('seuratPancGSA.qs2')
@@ -17,7 +17,7 @@ smrBlood <- qs_read('smrBlood.qs2')
 
 #############################Illustrating predictions###########################
 
-labelSize <- 1.5
+labelSize <- 3
 
 umapPanc <- umapPlots2(seuratPanc, smrPanc, 'label', 'acinar', labelSize)
 umapLung <- umapPlots2(seuratLung, smrLung, 'celltype', 'EpendymalCells',
@@ -27,11 +27,12 @@ umapMerkel <- umapPlots2(seuratMerkel, smrMerkel, 'funct',
                          labelSize)
 umapBlood <- umapPlots2(seuratBlood, smrBlood, 'funct', 'Cell.killing',
                         labelSize)
-devPlot(octoPlot2, umapPanc, umapLung, umapMerkel, umapBlood, 1, 2)
+p <- octoPlot2(umapPanc, umapLung, umapMerkel, umapBlood, 1, 2)
+pdf('2. Examples.pdf', width = 10, height = 8)
+p
+dev.off()
 
-#############################Correctness########################################
-pointSize <- 1
-
+###########################Correctness and efficiency###########################
 plotsPanc <- allBenchmarkPlots(smrPanc, pointSize=pointSize)
 plotsLung <- allBenchmarkPlots(smrLung, pointSize=pointSize)
 plotsMerkel <- allBenchmarkPlots(smrMerkel, pointSize=pointSize)
@@ -39,23 +40,21 @@ plotsBlood <- allBenchmarkPlots(smrBlood, pointSize=pointSize)
 
 invisible(mapply(function(i, plotName){
     p <- quadPlot(plotsPanc, plotsLung, plotsMerkel, plotsBlood, i)
-    pdf(paste0(plotName, ".pdf"), width = 10, height = 8)
+    pdf(paste0(plotName, '.pdf'), width = 10, height = 8)
     print(p)
     dev.off()
-}, c(8, 6, 9, 10, 19, 15), c('2. boundary_benchmark', '3. score_coverage',
-                             '4. comprehensive_mcc','5. direct_mcc',
-                             '6. global_benchmark', '7. centrality')))
-
-#############################Computational efficiency###########################
-
-devPlot(octoPlot, plotsPanc, plotsLung, plotsMerkel, plotsBlood, 20, 21)
+}, c(8, 6, 9, 10, 19, 15, 20, 21),
+c('3. boundary_benchmark', '4. score_coverage',
+  '5. comprehensive_mcc','6. direct_mcc',
+  '7. global_benchmark', '8. centrality',
+  '9. elapsed_time', '10. memory_usage')))
 
 #############################Method similarity assessment#######################
 
 segWidth <- 0.1
 pointSize <- 0.05
 labelSegWidth <- 0.1
-maxOverlaps=Inf
+maxOverlaps=5
 mdsPanc <- mdsPlots(seuratPanc,
                     smrPanc,
                     pointSize=pointSize,
@@ -92,22 +91,31 @@ mdsBlood <- mdsPlots(seuratBlood,
 jacPanc <- predJaccardPlots(smrPanc$predictions,
                             labelSize=labelSize,
                             legendTitle='Jaccard',
-                            limits=c(0, 1))$aggregate
+                            limits=c(0, 1),
+                            showNumbers=FALSE)$aggregate
 jacLung <- predJaccardPlots(smrLung$predictions,
                             labelSize=labelSize,
                             legendTitle='Jaccard',
-                            limits=c(0, 1))$aggregate
+                            limits=c(0, 1),
+                            showNumbers=FALSE)$aggregate
 jacMerkel <- predJaccardPlots(smrMerkel$predictions,
                               labelSize=labelSize,
                               legendTitle='Jaccard',
-                              limits=c(0, 1))$aggregate
+                              limits=c(0, 1),
+                              showNumbers=FALSE)$aggregate
 jacBlood <- predJaccardPlots(smrBlood$predictions,
                              labelSize=labelSize,
                              legendTitle='Jaccard',
-                             limits=c(0, 1))$aggregate
-devPlot(octoPlot,
-        list(mdsPanc, jacPanc),
-        list(mdsLung, jacLung),
-        list(mdsMerkel, jacMerkel),
-        list(mdsBlood, jacBlood),
-        1, 2)
+                             limits=c(0, 1),
+                             showNumbers=FALSE)$aggregate
+
+invisible(mapply(function(i, plotName){
+    p <- quadPlot(list(mdsPanc, jacPanc),
+                  list(mdsLung, jacLung),
+                  list(mdsMerkel, jacMerkel),
+                  list(mdsBlood, jacBlood), i)
+    pdf(paste0(plotName, '.pdf'), width = 10, height = 8)
+    print(p)
+    dev.off()
+}, c(1, 2),
+c('11. mds_similarity', '12. jaccard_similarity')))

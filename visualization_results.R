@@ -55,8 +55,8 @@ umapPlots <- function(seuratObj, smr, labelCol, label, pointSize = 0.5,
 
 umapPlots2 <- function(seuratObj, smr, labelCol, label, labelSize=2, pointSize=0.5){
     cells <- which(smr$predictions[[label]][, 'CSOA'] == 1)
-    p1 <- featureWes(seuratObj, paste0('CSOA_', label), idClass=labelCol,
-                     repel=TRUE, labelSize=labelSize, pt.size=pointSize) + ggtitle(NULL) +
+    p1 <- featureWes(seuratObj, paste0('CSOA_', label), pt.size=pointSize,
+                     palette=paletteer_c("grDevices::Plasma", 30)) + ggtitle(NULL) +
         NoLegend()
     p2 <- DimPlot(subset(seuratObj, cells=cells), group.by=labelCol, label=TRUE,
                          repel=TRUE, label.size=labelSize, pt.size=pointSize) + NoLegend() + ggtitle(NULL)
