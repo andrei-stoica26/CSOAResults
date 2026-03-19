@@ -1,9 +1,6 @@
 source('load_all.R')
 source('visualization_results.R')
 
-TEXT_SIZE <- 8
-pointSize <- 1
-
 #############################Main results#######################################
 seuratPanc <- qs_read('seuratPancGSA.qs2')
 seuratLung <- qs_read('seuratLungGSA.qs2')
@@ -15,9 +12,12 @@ smrLung <- qs_read('smrLung.qs2')
 smrMerkel <- qs_read('smrMerkel.qs2')
 smrBlood <- qs_read('smrBlood.qs2')
 
+TEXT_SIZE <- 10
+pointSize <- 1
+labelSize <- 3
+
 #############################Illustrating predictions###########################
 
-labelSize <- 3
 
 umapPanc <- umapPlots2(seuratPanc, smrPanc, 'label', 'acinar', labelSize)
 umapLung <- umapPlots2(seuratLung, smrLung, 'celltype', 'EpendymalCells',
