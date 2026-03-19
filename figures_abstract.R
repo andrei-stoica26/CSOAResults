@@ -110,7 +110,7 @@ p7 <- p7 + theme(axis.text.y=element_blank(),
                  legend.title=element_blank(),
                  legend.text=element_text(size=ABS_TEXT_SIZE),
                  legend.key.size=unit(0.4, 'cm'))+
-    labs(x = 'Cell', y = 'Gene pair score')
+    labs(x = 'Cell', y = 'Gene pair')
 
 #8
 seuratPanc <- runCSOA(seuratPanc, list(CSOA_acinar=acinarMarkers))
