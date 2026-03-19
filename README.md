@@ -65,11 +65,11 @@ It sources the [visualization_abstract.R](https://github.com/andrei-stoica26/CSO
 file, which provides plotting functions.
 
 The [figures_results.R](https://github.com/andrei-stoica26/CSOAResults/blob/main/figures_results.R)
-file contains the code used to generate the result figures.
+file contains the code used to generate the main result figures.
 It sources the [visualization_results.R](https://github.com/andrei-stoica26/CSOAResults/blob/main/visualization_results.R)
 file, which provides plotting functions.
 
-The [figures_supplement.R](https://github.com/andrei-stoica26/CSOAResults/blob/main/figures_supplement.R)
-file contains the code used to generate the supplementary figures.
+The [figures_results_gln.R](https://github.com/andrei-stoica26/CSOAResults/blob/main/figures_results_gln.R)
+file contains the code used to generate the figures for the gene loss and noise tolerance assessment.
 
 

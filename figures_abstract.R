@@ -114,14 +114,14 @@ p7 <- p7 + theme(axis.text.y=element_blank(),
 
 #8
 seuratPanc <- runCSOA(seuratPanc, list(CSOA_acinar=acinarMarkers))
-p8 <- featurePlot(seuratPanc, 'CSOA_acinar') +
+p8 <- featurePlot(seuratPanc, 'CSOA_acinar',
+                  palette=paletteer_c("grDevices::Plasma", 30)) +
     theme(axis.title=element_text(size=ABS_TEXT_SIZE),
           axis.text=element_text(size=ABS_TEXT_SIZE),
           plot.title=element_blank(),
           legend.title=element_text(size=ABS_TEXT_SIZE),
           legend.text=element_text(size=ABS_TEXT_SIZE),
           legend.key.size=unit(0.4, 'cm'))
-
 
 p <- wrap_plots(p1, p2, p3, p4, p5, p6, p7, p8, ncol=4, nrow=2,
                 widths = rep(1, 4), heights = rep(1, 4)) +
@@ -131,7 +131,7 @@ p <- wrap_plots(p1, p2, p3, p4, p5, p6, p7, p8, ncol=4, nrow=2,
                                 vjust=-0.5,
                                 face='bold'))
 
-pdf("graphical_abstract.pdf", width = 20, height = 8)
+pdf("1. graphical_abstract.pdf", width = 20, height = 8)
 p
 dev.off()
 

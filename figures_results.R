@@ -1,7 +1,7 @@
 source('load_all.R')
 source('visualization_results.R')
 
-TEXT_SIZE <- 5.3
+TEXT_SIZE <- 8
 pointSize <- 0.5
 
 #############################Main results#######################################
@@ -30,16 +30,21 @@ umapBlood <- umapPlots2(seuratBlood, smrBlood, 'funct', 'Cell.killing',
 devPlot(octoPlot2, umapPanc, umapLung, umapMerkel, umapBlood, 1, 2)
 
 #############################Correctness########################################
+pointSize <- 1
 
 plotsPanc <- allBenchmarkPlots(smrPanc, pointSize=pointSize)
 plotsLung <- allBenchmarkPlots(smrLung, pointSize=pointSize)
 plotsMerkel <- allBenchmarkPlots(smrMerkel, pointSize=pointSize)
 plotsBlood <- allBenchmarkPlots(smrBlood, pointSize=pointSize)
 
-for (pair in list(c(8, 6), c(9, 10), c(19, 15)))
-    devPlot(octoPlot, plotsPanc, plotsLung, plotsMerkel, plotsBlood,
-            pair[1], pair[2])
-
+invisible(mapply(function(i, plotName){
+    p <- quadPlot(plotsPanc, plotsLung, plotsMerkel, plotsBlood, i)
+    pdf(paste0(plotName, ".pdf"), width = 10, height = 8)
+    print(p)
+    dev.off()
+}, c(8, 6, 9, 10, 19, 15), c('2. boundary_benchmark', '3. score_coverage',
+                             '4. comprehensive_mcc','5. direct_mcc',
+                             '6. global_benchmark', '7. centrality')))
 
 #############################Computational efficiency###########################
 

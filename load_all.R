@@ -19,6 +19,7 @@ library(withr)
 library(reshape2)
 library(enResUtils)
 library(scLang)
+library(paletteer)
 
 source('tools.R')
 source('run_methods.R')
