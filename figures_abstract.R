@@ -14,29 +14,26 @@ acinarMarkers <- c('KLK1', 'CTRC', 'PNLIP',
                    'PLA2G1B', 'CLPS', 'SYCN')
 mat <- scExpMat(seuratPanc, genes=acinarMarkers)
 
-
 #1
 cellSets <- percentileSets(mat)
 geneFreqs <- lengths(cellSets)
 df <- data.frame(Gene = names(geneFreqs),
                  nCells = geneFreqs)
-p1 <- geneCellCountPlot(df, 'deepskyblue',
-                        paste0('1. For each signature gene, extract the set',
-                               ' \nof cells that highly express the gene'))
+p1 <- geneCellCountPlot(df, 'deepskyblue')
 
 #2
-vennInput <- c(cellSets[1:2], list(colnames(seuratPanc)))
+vennInput <- setNames(c(cellSets[1:2], list(colnames(seuratPanc))),
+                      c('Cell set 1',
+                      'Cell set 2',
+                      ''))
 p2 <- ggvenn(vennInput,
              fill_color=c('red', 'yellow'),
              fill_alpha=0.8,
-             text_size = 3,
-             stroke_size = 0.2,
+             text_size = 5,
+             stroke_size = 0.3,
              show_percentage = FALSE,
-             set_name_size = 0)
-p2 <- centerTitle(p2, paste0('2. Assess the significance of cell set pairwise\n',
-                             'overlaps using hypergeometric tests'))
-p2 <- p2 + theme(plot.title=element_text(size=ABS_TEXT_SIZE,
-                                          color='black'))
+             set_name_size = 5)
+
 #3
 overlapDF <- generateOverlaps(mat)
 overlapDF <- CSOA:::prefilterOverlaps(overlapDF)
@@ -56,9 +53,8 @@ prerankDF <- do.call(rbind, apply(df, 1, function(x)
                rankType = c('p-value rank',
                             'Ratio rank'))))
 prerankDF$overlap <- seq(nrow(prerankDF))
-p3 <- prerankPlot(prerankDF,
-            paste0('3. Rank the overlaps based on adjusted p-value\n',
-                              'and observed-over-expected size ratio'))
+p3 <- prerankPlot(prerankDF)
+
 #4
 geneConn <- CSOA:::geneBestEdgeRank(overlapDF)
 overlapDF$pvalRank <- (geneConn[overlapDF$gene1, 1] +
@@ -79,18 +75,14 @@ prerankDF <- do.call(rbind, apply(df, 1, function(x)
                             'Raw aggregate rank'))))
 prerankDF$overlap <- seq(nrow(prerankDF))
 
-p4 <- prerankPlot2(prerankDF,
-            paste0('4. Adjust the ranks based on connectivity and',
-                   ' average\nthe new ranks to obtain the aggregate rank'))
+p4 <- prerankPlot2(prerankDF)
 
 #5
 overlapDF$rank <- rank(overlapDF$rawAggRank, ties.method='min')
-p5 <- overlapCutoffPlot(overlapDF, paste0(
-    '5. Set the cutoff for selecting top\n',
-    'overlaps based on rank frequencies'),
+p5 <- overlapCutoffPlot(overlapDF, NULL,
     palette = c("purple", "red"),
-    hullWidth=0.2,
-    pointSize=0.5) +
+    hullWidth=0.4,
+    pointSize=1) +
     theme(axis.ticks=element_blank(),
           axis.text=element_blank(),
           axis.title=element_text(size=ABS_TEXT_SIZE,
@@ -106,16 +98,12 @@ firstOutRawRank <- CSOA:::prepareFiltering(overlapDF)
 overlapDF <- CSOA:::filterOverlaps(overlapDF, firstOutRawRank)
 overlapDF <- CSOA:::scoreOverlaps(overlapDF, 'log')
 df <- overlapDF[, c('rank', 'score')]
-p6 <- rankScorePlot(df, paste0('6. Map distinct overlap ranks to',
-                         ' scores\ndecreasing logaritmically from 1 towards 0'))
+p6 <- rankScorePlot(df)
 
 #7
 normExp <- kerntools::minmax(mat[acinarMarkers, ], rows=TRUE)
 pairScores <- CSOA:::computePCPairScores(overlapDF, normExp)
-p7 <- basicHeatmap(as.matrix(pairScores), title = paste0(
-    '7. Compute per-cell gene pair scores by\n',
-    'multiplying overlap scores with the \n',
-    'min-max-normalized expression of the two genes'))
+p7 <- basicHeatmap(as.matrix(pairScores), title=NULL)
 p7 <- p7 + theme(axis.text.y=element_blank(),
                  axis.title=element_text(size=ABS_TEXT_SIZE),
                  plot.title=element_text(size=ABS_TEXT_SIZE),
@@ -126,12 +114,10 @@ p7 <- p7 + theme(axis.text.y=element_blank(),
 
 #8
 seuratPanc <- runCSOA(seuratPanc, list(CSOA_acinar=acinarMarkers))
-p8 <- featureWes(seuratPanc, 'CSOA_acinar', paste0('8. Sum all gene pair scores in each cell and\n',
-                  'min-max-normalize the results to\n',
-                  'obtain the CSOA score')) +
+p8 <- featurePlot(seuratPanc, 'CSOA_acinar') +
     theme(axis.title=element_text(size=ABS_TEXT_SIZE),
           axis.text=element_text(size=ABS_TEXT_SIZE),
-          plot.title=element_text(size=ABS_TEXT_SIZE, face='plain'),
+          plot.title=element_blank(),
           legend.title=element_text(size=ABS_TEXT_SIZE),
           legend.text=element_text(size=ABS_TEXT_SIZE),
           legend.key.size=unit(0.4, 'cm'))
@@ -149,11 +135,11 @@ pdf("graphical_abstract.pdf", width = 20, height = 8)
 p
 dev.off()
 
-#Extracting, for each signature gene, the set of cells that highly express the gene (A)
-#Assessing the significance of cell set pairwise overlaps using hypergeometric tests (B)
-#Ranking the overlaps based on adjusted p-value and observed-over-expected size ratio (C)
-#Adjusting the ranks based on connectivity and average the new ranks to obtain the aggregate rank(D)
+#Extract, for each signature gene, the set of cells that highly express the gene (A)
+#Assess the significance of cell set pairwise overlaps using hypergeometric tests (B)
+#Rank the overlaps based on adjusted p-value and observed-over-expected size ratio (C)
+#Adjust the ranks based on connectivity and average the new ranks to obtain the aggregate rank(D)
 #Set the cutoff for selecting top overlaps based on rank frequencies (E)
-#Map distinct overlap ranks to scores decreasing logaritmically from 1 towards 0' (F)
-#Computing per-cell gene pair scores by multiplying overlap scores with the min-max-normalized expression of the two genes (G)
-#Sum all gene pair scores in each cell and min-max-normalize the results to obtain the CSOA score (H)'
+#Map distinct overlap ranks to scores decreasing logaritmically from 1 towards 0 (F)
+#Compute per-cell gene pair scores by multiplying overlap scores with the min-max-normalized expression of the two genes (G)
+#Sum all gene pair scores in each cell and min-max-normalize the results to obtain the CSOA score (H)

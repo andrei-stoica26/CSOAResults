@@ -1,7 +1,7 @@
 geneCellCountPlot <- function(df, fillColor, title=NULL){
     p <- ggplot(df, aes(x = Gene, y = nCells)) +
         geom_bar(stat = "identity", fill = fillColor, width = 0.6) +
-        ylab('Number of cells highly\nexpressing gene') +
+        ylab('Number of cells highly\nexpressing the gene') +
         xlab("Signature gene")
     p <- editAxes(p)
     if (!is.null(title))
