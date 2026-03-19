@@ -33,7 +33,7 @@ octoPlot2 <- function(plots1, plots2, plots3, plots4, i, j,
         (editSubplot(plots3[[i]], legendPos, legendTitle) | editSubplot(plots3[[j]], legendPos, legendTitle)) /
         (editSubplot(plots4[[i]], legendPos, legendTitle) | editSubplot(plots4[[j]], legendPos, legendTitle)) +
         plot_annotation(tag_levels='A',
-                        theme=theme(plot.title=element_text(size=TEXT_SIZE - 1)))
+                        theme=theme(plot.title=element_text(size=TEXT_SIZE + 5)))
     return(p)
 }
 
