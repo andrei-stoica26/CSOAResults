@@ -11,17 +11,20 @@ smrLungShuffle <- qs_read('smrLungShuffle.qs2')
 smrMerkelShuffle <- qs_read('smrMerkelShuffle.qs2')
 smrBloodShuffle <- qs_read('smrBloodShuffle.qs2')
 
-plotsPancShuffle <- allBenchmarkPlots(smrPancShuffle, pointSize=0.5)
-plotsLungShuffle <- allBenchmarkPlots(smrLungShuffle, pointSize=0.5)
-plotsMerkelShuffle <- allBenchmarkPlots(smrMerkelShuffle, pointSize=0.5)
-plotsBloodShuffle <- allBenchmarkPlots(smrBloodShuffle, pointSize=0.5)
+TEXT_SIZE <- 10
+pointSize <- 1
+
+plotsPancShuffle <- allBenchmarkPlots(smrPancShuffle, pointSize=pointSize)
+plotsLungShuffle <- allBenchmarkPlots(smrLungShuffle, pointSize=pointSize)
+plotsMerkelShuffle <- allBenchmarkPlots(smrMerkelShuffle, pointSize=pointSize)
+plotsBloodShuffle <- allBenchmarkPlots(smrBloodShuffle, pointSize=pointSize)
 
 
 invisible(mapply(function(i, plotName){
     p <- quadPlot(plotsPancShuffle, plotsLungShuffle,
                   plotsMerkelShuffle, plotsBloodShuffle, i)
-    pdf(paste0('Figure ', plotName, '.pdf'), width = 10, height = 8)
+    pdf(paste0('Figure ', plotName, '.pdf'), width = 12, height = 8)
     print(p)
     dev.off()
-}, c(8, 9, 19, 15, 20, 21),
+}, c(8, 9, 19),
 c('S6', 'S7', 'S8')))

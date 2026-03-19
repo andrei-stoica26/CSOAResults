@@ -28,7 +28,7 @@ umapMerkel <- umapPlots2(seuratMerkel, smrMerkel, 'funct',
 umapBlood <- umapPlots2(seuratBlood, smrBlood, 'funct', 'Cell.killing',
                         labelSize)
 p <- octoPlot2(umapPanc, umapLung, umapMerkel, umapBlood, 1, 2)
-pdf('Figure 2.pdf', width = 10, height = 8)
+pdf('Figure 2.pdf', width = 12, height = 8)
 p
 dev.off()
 
@@ -40,7 +40,7 @@ plotsBlood <- allBenchmarkPlots(smrBlood, pointSize=pointSize)
 
 invisible(mapply(function(i, plotName){
     p <- quadPlot(plotsPanc, plotsLung, plotsMerkel, plotsBlood, i)
-    pdf(paste0('Figure ', plotName, '.pdf'), width = 10, height = 8)
+    pdf(paste0('Figure ', plotName, '.pdf'), width = 12, height = 8)
     print(p)
     dev.off()
 }, c(8, 6, 9, 10, 19, 15, 20, 21),
@@ -114,7 +114,7 @@ invisible(mapply(function(i, plotName){
                   list(mdsLung, jacLung),
                   list(mdsMerkel, jacMerkel),
                   list(mdsBlood, jacBlood), i)
-    pdf(paste0('Figure ', plotName, '.pdf'), width = 10, height = 8)
+    pdf(paste0('Figure ', plotName, '.pdf'), width = 12, height = 8)
     print(p)
     dev.off()
 }, c(1, 2),
