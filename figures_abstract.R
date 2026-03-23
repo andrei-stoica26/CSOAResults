@@ -126,8 +126,8 @@ p <- wrap_plots(p1, p2, p3, p4, p5, p6, p7, p8, ncol=4, nrow=2,
                 widths = rep(1, 4), heights = rep(1, 4)) +
     plot_annotation(tag_levels='A') &
     theme(plot.tag=element_text(size=ABS_TEXT_SIZE,
-                                hjust=-0.5,
-                                vjust=-0.5,
+                                hjust=0.5,
+                                vjust=0.5,
                                 face='bold'))
 
 pdf("Figure 1.pdf", width = 20, height = 8)
@@ -137,7 +137,7 @@ dev.off()
 #Extract, for each signature gene, the set of cells that highly express the gene (A)
 #Assess the significance of cell set pairwise overlaps using hypergeometric tests (B)
 #Rank the overlaps based on adjusted p-value and observed-over-expected size ratio (C)
-#Adjust the ranks based on connectivity and average the new ranks to obtain the aggregate rank(D)
+#Adjust the ranks based on connectivity and average the new ranks to obtain the aggregate rank (D)
 #Set the cutoff for selecting top overlaps based on rank frequencies (E)
 #Map distinct overlap ranks to scores decreasing logarithmically from 1 towards 0 (F)
 #Compute per-cell gene pair scores by multiplying overlap scores with the min-max-normalized expression of the two genes (G)
