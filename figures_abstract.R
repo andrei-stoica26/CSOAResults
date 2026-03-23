@@ -2,7 +2,7 @@ source('load_all.R')
 source('visualization_abstract_utils.R')
 source('visualization_abstract.R')
 
-ABS_TEXT_SIZE <- 14
+ABS_TEXT_SIZE <- 12
 
 ################################################################################
 
@@ -80,7 +80,7 @@ p4 <- prerankPlot2(prerankDF)
 #5
 overlapDF$rank <- rank(overlapDF$rawAggRank, ties.method='min')
 p5 <- overlapCutoffPlot(overlapDF, NULL,
-    palette = c("purple", "red"),
+    alpha=0.5,
     hullWidth=0.4,
     pointSize=1) +
     theme(axis.ticks=element_blank(),
@@ -107,10 +107,9 @@ p7 <- basicHeatmap(as.matrix(pairScores), title=NULL)
 p7 <- p7 + theme(axis.text.y=element_blank(),
                  axis.title=element_text(size=ABS_TEXT_SIZE),
                  plot.title=element_text(size=ABS_TEXT_SIZE),
-                 legend.title=element_blank(),
-                 legend.text=element_text(size=ABS_TEXT_SIZE),
+                 legend.text=element_text(size=ABS_TEXT_SIZE - 1),
                  legend.key.size=unit(0.4, 'cm'))+
-    labs(x = 'Cell', y = 'Gene pair')
+    labs(x='Cell', y='Gene pair', fill='Score')
 
 #8
 seuratPanc <- runCSOA(seuratPanc, list(CSOA_acinar=acinarMarkers))
@@ -120,8 +119,8 @@ p8 <- featurePlot(seuratPanc, 'CSOA_acinar',
           axis.text=element_text(size=ABS_TEXT_SIZE),
           plot.title=element_blank(),
           legend.title=element_text(size=ABS_TEXT_SIZE),
-          legend.text=element_text(size=ABS_TEXT_SIZE),
-          legend.key.size=unit(0.4, 'cm'))
+          legend.text=element_text(size=ABS_TEXT_SIZE - 1),
+          legend.key.size=unit(0.4, 'cm')) + labs(color='Score')
 
 p <- wrap_plots(p1, p2, p3, p4, p5, p6, p7, p8, ncol=4, nrow=2,
                 widths = rep(1, 4), heights = rep(1, 4)) +

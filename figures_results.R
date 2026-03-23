@@ -1,7 +1,7 @@
 source('load_all.R')
 source('visualization_results.R')
 
-#############################Main results#######################################
+#################################Main results###################################
 seuratPanc <- qs_read('seuratPancGSA.qs2')
 seuratLung <- qs_read('seuratLungGSA.qs2')
 seuratMerkel <- qs_read('seuratMerkelGSA.qs2')
@@ -28,7 +28,7 @@ umapMerkel <- umapPlots2(seuratMerkel, smrMerkel, 'funct',
 umapBlood <- umapPlots2(seuratBlood, smrBlood, 'funct', 'Cell.killing',
                         labelSize)
 p <- octoPlot2(umapPanc, umapLung, umapMerkel, umapBlood, 1, 2)
-pdf('Figure 2.pdf', width = 12, height = 8)
+pdf('Figure 2.pdf', width = 8, height = 8)
 p
 dev.off()
 
@@ -54,7 +54,7 @@ c('3', 'S1',
 segWidth <- 0.1
 pointSize <- 0.5
 labelSegWidth <- 0.1
-maxOverlaps=8
+maxOverlaps=7
 mdsPanc <- mdsPlots(seuratPanc,
                     smrPanc,
                     pointSize=pointSize,
