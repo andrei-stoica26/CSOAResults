@@ -4,7 +4,7 @@ editSubplot <- function(p,
                         removeYLab=TRUE){
     if (legendPos == 'none')
         p <- p + easy_remove_axes() else{
-            p <- p + labs(y=NULL, title=legendTitle) +
+            p <- p + labs(title=legendTitle) +
                 theme(axis.text=element_text(size=TEXT_SIZE, color='black'),
                       axis.title=element_text(size=TEXT_SIZE, color='black'))
             p <- p + theme(legend.position=legendPos,

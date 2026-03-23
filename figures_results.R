@@ -54,7 +54,7 @@ c('3', 'S1',
 segWidth <- 0.1
 pointSize <- 0.5
 labelSegWidth <- 0.1
-maxOverlaps=10
+maxOverlaps=8
 mdsPanc <- mdsPlots(seuratPanc,
                     smrPanc,
                     pointSize=pointSize,
