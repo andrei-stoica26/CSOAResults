@@ -62,7 +62,9 @@ mdsPanc <- mdsPlots(seuratPanc,
                     segWidth=segWidth,
                     labelSegWidth=labelSegWidth,
                     maxOverlaps=maxOverlaps,
-                    drawNN=FALSE)$aggregate
+                    drawNN=FALSE,
+                    xLab = 'MDS_1',
+                    yLab = 'MDS_2')$aggregate
 mdsLung <- mdsPlots(seuratLung,
                     smrLung,
                     pointSize=pointSize,
@@ -70,7 +72,9 @@ mdsLung <- mdsPlots(seuratLung,
                     segWidth=segWidth,
                     labelSegWidth=labelSegWidth,
                     maxOverlaps=maxOverlaps,
-                    drawNN=FALSE)$aggregate
+                    drawNN=FALSE,
+                    xLab = 'MDS_1',
+                    yLab = 'MDS_2')$aggregate
 mdsMerkel <- mdsPlots(seuratMerkel,
                       smrMerkel,
                       pointSize=pointSize,
@@ -78,7 +82,9 @@ mdsMerkel <- mdsPlots(seuratMerkel,
                       segWidth=segWidth,
                       labelSegWidth=labelSegWidth,
                       maxOverlaps=maxOverlaps,
-                      drawNN=FALSE)$aggregate
+                      drawNN=FALSE,
+                      xLab = 'MDS_1',
+                      yLab = 'MDS_2')$aggregate
 mdsBlood <- mdsPlots(seuratBlood,
                      smrBlood,
                      pointSize=pointSize,
@@ -86,7 +92,9 @@ mdsBlood <- mdsPlots(seuratBlood,
                      segWidth=segWidth,
                      labelSegWidth=labelSegWidth,
                      maxOverlaps=maxOverlaps,
-                     drawNN=FALSE)$aggregate
+                     drawNN=FALSE,
+                     xLab = 'MDS_1',
+                     yLab = 'MDS_2')$aggregate
 
 jacPanc <- predJaccardPlots(smrPanc$predictions,
                             labelSize=labelSize,
@@ -113,7 +121,7 @@ invisible(mapply(function(i, plotName){
     p <- quadPlot(list(mdsPanc, jacPanc),
                   list(mdsLung, jacLung),
                   list(mdsMerkel, jacMerkel),
-                  list(mdsBlood, jacBlood), i)
+                  list(mdsBlood, jacBlood), i, removeYLab=FALSE)
     pdf(paste0('Figure ', plotName, '.pdf'), width = 12, height = 8)
     print(p)
     dev.off()

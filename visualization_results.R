@@ -1,4 +1,7 @@
-editSubplot <- function(p, legendPos='right', legendTitle=NULL){
+editSubplot <- function(p,
+                        legendPos = 'right',
+                        legendTitle = NULL,
+                        removeYLab=TRUE){
     if (legendPos == 'none')
         p <- p + easy_remove_axes() else{
             p <- p + labs(y=NULL, title=legendTitle) +
@@ -12,16 +15,22 @@ editSubplot <- function(p, legendPos='right', legendTitle=NULL){
                            legend.location='plot',
                            legend.margin=margin(0, 0, 0, 0))
         }
+    if (removeYLab)
+        p <- p + labs(y=NULL)
     return(p)
 }
 
 quadPlot <- function(plots1, plots2, plots3, plots4, i,
                      legendPos='right',
-                     legendTitle = NULL){
-    p <- (editSubplot(plots1[[i]], legendPos, legendTitle) | editSubplot(plots2[[i]], legendPos, legendTitle)) /
-        (editSubplot(plots3[[i]], legendPos, legendTitle) | editSubplot(plots4[[i]], legendPos, legendTitle)) +
+                     legendTitle = NULL,
+                     removeYLab = TRUE){
+    p <- (editSubplot(plots1[[i]], legendPos, legendTitle, removeYLab) |
+              editSubplot(plots2[[i]], legendPos, legendTitle, removeYLab)) /
+        (editSubplot(plots3[[i]], legendPos, legendTitle, removeYLab) |
+             editSubplot(plots4[[i]], legendPos, legendTitle, removeYLab)) +
         plot_annotation(tag_levels='A') &
-        theme(plot.tag=element_text(size=TEXT_SIZE + 5, hjust=-0.5, vjust=-0.5, face='bold'))
+        theme(plot.tag=element_text(size=TEXT_SIZE + 5,
+                                    hjust=-0.5, vjust=-0.5, face='bold'))
     return(p)
 }
 
