@@ -2,16 +2,14 @@ source('load_all.R')
 source('visualization_abstract_utils.R')
 source('visualization_abstract.R')
 
-ABS_TEXT_SIZE <- 12
+ABS_TEXT_SIZE <- 10
 
 ################################################################################
 
 seuratPanc <- qs_read('seuratPanc.qs2')
-acinarMarkers <- c('KLK1', 'CTRC', 'PNLIP',
-                   'CELA3A','SPINK1',
-                   'CELA2A', 'CPB1',
-                   'PNLIPRP1', 'CPA2','CPA1', 'CELA3B',
-                   'PLA2G1B', 'CLPS', 'SYCN')
+acinarPremarkers <- c('KLK1', 'CTRC', 'PNLIP','CELA3A','SPINK1','CELA2A', 'CPB1', 'PNLIPRP1', 'CPA2','CPA1', 'CELA3B', 'PLA2G1B', 'CLPS', 'SYCN')
+acinarMarkers <- withr::with_seed(2, sample(acinarPremarkers, 6))
+
 mat <- scExpMat(seuratPanc, genes=acinarMarkers)
 
 #1
@@ -29,10 +27,10 @@ vennInput <- setNames(c(cellSets[1:2], list(colnames(seuratPanc))),
 p2 <- ggvenn(vennInput,
              fill_color=c('red', 'yellow'),
              fill_alpha=0.8,
-             text_size = 5,
+             text_size = 3.5,
              stroke_size = 0.3,
              show_percentage = FALSE,
-             set_name_size = 5)
+             set_name_size = 3.5)
 
 #3
 overlapDF <- generateOverlaps(mat)
@@ -122,7 +120,7 @@ p8 <- featurePlot(seuratPanc, 'CSOA_acinar',
           legend.text=element_text(size=ABS_TEXT_SIZE - 1),
           legend.key.size=unit(0.4, 'cm')) + labs(color='Score')
 
-p <- wrap_plots(p1, p2, p3, p4, p5, p6, p7, p8, ncol=4, nrow=2,
+p <- wrap_plots(p1, p2, p3, p4, p5, p6, p7, p8, ncol=2, nrow=4,
                 widths = rep(1, 4), heights = rep(1, 4)) +
     plot_annotation(tag_levels='A') &
     theme(plot.tag=element_text(size=ABS_TEXT_SIZE,
@@ -130,7 +128,7 @@ p <- wrap_plots(p1, p2, p3, p4, p5, p6, p7, p8, ncol=4, nrow=2,
                                 vjust=0.5,
                                 face='bold'))
 
-pdf("Figure 1.pdf", width = 20, height = 8)
+pdf("Figure 1.pdf", width = 6.5, height = 9.5)
 p
 dev.off()
 
