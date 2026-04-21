@@ -27,8 +27,17 @@ umapMerkel <- umapPlots2(seuratMerkel, smrMerkel, 'funct',
                          labelSize)
 umapBlood <- umapPlots2(seuratBlood, smrBlood, 'funct', 'Cell.killing',
                         labelSize)
-p <- octoPlot2(umapPanc, umapLung, umapMerkel, umapBlood, 1, 2)
-pdf('Figure 2.pdf', width = 8, height = 8)
+umaps <- c(umapPanc, umapLung, umapMerkel, umapBlood)
+
+p <- wrap_plots(umaps, ncol=2, nrow=4,
+                widths = rep(1, 4), heights = rep(1, 4)) +
+    plot_annotation(tag_levels='A') &
+    theme(plot.tag=element_text(size=ABS_TEXT_SIZE,
+                                hjust=0.5,
+                                vjust=0.5,
+                                face='bold'))
+
+pdf('Figure 2.pdf', width = 6.5, height = 9.5)
 p
 dev.off()
 

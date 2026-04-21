@@ -66,9 +66,15 @@ umapPlots2 <- function(seuratObj, smr, labelCol, label, labelSize=2, pointSize=0
     cells <- which(smr$predictions[[label]][, 'CSOA'] == 1)
     p1 <- featureWes(seuratObj, paste0('CSOA_', label), pt.size=pointSize,
                      palette=paletteer_c("grDevices::Plasma", 30)) + ggtitle(NULL) +
-        NoLegend()
+        theme(axis.text=element_text(size=TEXT_SIZE),
+              axis.title=element_text(size=TEXT_SIZE),
+              legend.text=element_text(size=TEXT_SIZE - 1),
+              legend.title=element_text(size=TEXT_SIZE - 1),
+              legend.key.size=unit(0.4, 'cm'))
     p2 <- DimPlot(subset(seuratObj, cells=cells), group.by=labelCol, label=TRUE,
-                         repel=TRUE, label.size=labelSize, pt.size=pointSize) + NoLegend() + ggtitle(NULL)
+                         repel=TRUE, label.size=labelSize, pt.size=pointSize) + NoLegend() + ggtitle(NULL) +
+        theme(axis.text=element_text(size=TEXT_SIZE),
+              axis.title=element_text(size=TEXT_SIZE))
     return(list(p1, p2))
 }
 
