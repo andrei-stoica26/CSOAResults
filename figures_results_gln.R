@@ -27,4 +27,4 @@ invisible(mapply(function(i, plotName){
     print(p)
     dev.off()
 }, c(8, 9, 19),
-c('S6', 'S7', 'S8')))
+c('S1', 'S2', 'S3')))

@@ -1,0 +1,5 @@
+library(qs2)
+smr <- qs_read('smrMerkel.qs2')
+View(smr$MCC$boundaryMCC)
+smr <- qs_read('smrBlood.qs2')
+View(smr$MCC$boundaryMCC)

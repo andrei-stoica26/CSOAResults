@@ -140,3 +140,4 @@ dev.off()
 #Map distinct overlap ranks to scores decreasing logarithmically from 1 towards 0 (F)
 #Compute per-cell gene pair scores by multiplying overlap scores with the min-max-normalized expression of the two genes (G)
 #Sum all gene pair scores in each cell and min-max-normalize the results to obtain the CSOA score (H)
+
