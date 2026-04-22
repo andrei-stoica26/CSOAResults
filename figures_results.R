@@ -13,7 +13,7 @@ smrMerkel <- qs_read('smrMerkel.qs2')
 smrBlood <- qs_read('smrBlood.qs2')
 
 TEXT_SIZE <- 10
-pointSize <- 1
+pointSize <- 2
 labelSize <- 3
 
 #############################Illustrating predictions###########################
@@ -32,7 +32,7 @@ umaps <- c(umapPanc, umapLung, umapMerkel, umapBlood)
 p <- wrap_plots(umaps, ncol=2, nrow=4,
                 widths = rep(1, 4), heights = rep(1, 4)) +
     plot_annotation(tag_levels='A') &
-    theme(plot.tag=element_text(size=ABS_TEXT_SIZE,
+    theme(plot.tag=element_text(size=TEXT_SIZE,
                                 hjust=0.5,
                                 vjust=0.5,
                                 face='bold'))

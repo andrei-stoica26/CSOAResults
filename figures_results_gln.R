@@ -12,7 +12,7 @@ smrMerkelShuffle <- qs_read('smrMerkelShuffle.qs2')
 smrBloodShuffle <- qs_read('smrBloodShuffle.qs2')
 
 TEXT_SIZE <- 10
-pointSize <- 1
+pointSize <- 2
 
 plotsPancShuffle <- allBenchmarkPlots(smrPancShuffle, pointSize=pointSize)
 plotsLungShuffle <- allBenchmarkPlots(smrLungShuffle, pointSize=pointSize)
