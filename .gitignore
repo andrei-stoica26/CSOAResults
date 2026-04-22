@@ -1,7 +1,7 @@
 .Rbuildignore
 .Rhistory
 .Rproj.user
-R/.test_code.R
+.test_code.R
 *.Rproj
 *.qs
 *.qs2
