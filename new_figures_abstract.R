@@ -111,5 +111,7 @@ p <- wrap_plots(p1, p2, p3, p4, p5, p6, ncol=2, nrow=3,
                                 hjust=0.5,
                                 vjust=0.5,
                                 face='bold'))
+
+pdf("Figure 1.pdf", width = 7, height = 9)
 p
-devPlot(p)
+dev.off()

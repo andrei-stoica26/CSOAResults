@@ -53,9 +53,9 @@ invisible(mapply(function(i, plotName){
     print(p)
     dev.off()
 }, c(8, 6, 9, 10, 19, 15, 20, 21),
-c('3', 'S6',
-  '4','S7',
-  '5', 'S8',
+c('3', 'S7',
+  '4','S8',
+  '5', 'S9',
   '6', '7')))
 
 #############################Method similarity assessment#######################
@@ -135,4 +135,4 @@ invisible(mapply(function(i, plotName){
     print(p)
     dev.off()
 }, c(1, 2),
-c('S4', 'S5')))
+c('S5', 'S6')))
