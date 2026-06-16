@@ -16,7 +16,7 @@ geneFreqs <- lengths(cellSets)
 df <- data.frame(Gene = names(geneFreqs),
                  nCells = geneFreqs)
 p1 <- geneCellCountPlot(df, 'deepskyblue')
-p1 <- centerTitle(p1, 'For each signature gene, extract the set\nof cells highly expressing the gene',
+p1 <- centerTitle(p1, '1. For each signature gene, extract the set\nof cells highly expressing the gene',
                   size=ABS_TEXT_SIZE)
 
 #2
@@ -31,7 +31,7 @@ p2 <- ggvenn(vennInput,
              stroke_size = 0.3,
              show_percentage = FALSE,
              set_name_size = 3)
-p2 <- centerTitle(p2, 'Assess the statistical significance of cell set overlaps',
+p2 <- centerTitle(p2, '2. Assess the statistical significance of cell set overlaps',
                   size=ABS_TEXT_SIZE)
 
 #3
@@ -63,7 +63,7 @@ prerankDF <- do.call(rbind, apply(df, 1, function(x)
 prerankDF$overlap <- seq(nrow(prerankDF))
 
 p3 <- prerankPlot2(prerankDF)
-p3 <- centerTitle(p3, 'Rank the overlaps based on adjusted p-value\nand observed-over-expected size ratio',
+p3 <- centerTitle(p3, '3. Rank the overlaps based on adjusted p-value\nand observed-over-expected size ratio',
                   size=ABS_TEXT_SIZE)
 
 #4
@@ -73,7 +73,7 @@ overlapDF <- CSOA:::filterOverlaps(overlapDF, firstOutRawRank)
 overlapDF <- CSOA:::scoreOverlaps(overlapDF, 'log')
 df <- overlapDF[, c('rank', 'score')]
 p4 <- rankScorePlot(df)
-p4 <- centerTitle(p4, 'Map distinct overlap ranks to scores decreasing\nlogarithmically from 1 towards 0',
+p4 <- centerTitle(p4, '4. Map distinct overlap ranks to scores decreasing\nlogarithmically from 1 towards 0',
                   size=ABS_TEXT_SIZE)
 
 #5
@@ -87,7 +87,7 @@ p5 <- p5 + theme(axis.text.y=element_blank(),
                  legend.text=element_text(size=ABS_TEXT_SIZE - 1),
                  legend.key.size=unit(0.4, 'cm'))+
     labs(x='Cell', y='Gene pair', fill='Score')
-p5 <- centerTitle(p5, 'Compute per-cell gene pair scores based on overlap\nscores and the expression of the two genes',
+p5 <- centerTitle(p5, '5. Compute per-cell gene pair scores using overlap\nscores and the expression of the two genes',
                   size=ABS_TEXT_SIZE)
 
 
@@ -101,16 +101,11 @@ p6 <- featurePlot(seuratPanc, 'CSOA_acinar',
           legend.title=element_text(size=ABS_TEXT_SIZE),
           legend.text=element_text(size=ABS_TEXT_SIZE - 1),
           legend.key.size=unit(0.4, 'cm')) + labs(color='Score')
-p6 <- centerTitle(p6, 'Sum all gene pair scores in each cell and normalize\nthe results to obtain the CSOA score',
+p6 <- centerTitle(p6, '6. Sum all gene pair scores in each cell and normalize\nthe results to obtain the CSOA score',
                   size=ABS_TEXT_SIZE)
 
 p <- wrap_plots(p1, p2, p3, p4, p5, p6, ncol=2, nrow=3,
-                widths = rep(1, 4), heights = rep(1, 4)) +
-    plot_annotation(tag_levels='A') &
-    theme(plot.tag=element_text(size=ABS_TEXT_SIZE,
-                                hjust=0.5,
-                                vjust=0.5,
-                                face='bold'))
+                widths = rep(1, 4), heights = rep(1, 4))
 
 pdf("Figure 1.pdf", width = 7, height = 9)
 p

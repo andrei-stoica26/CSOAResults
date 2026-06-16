@@ -66,6 +66,7 @@ umapPlots2 <- function(seuratObj, smr, labelCol, label, labelSize=2, pointSize=0
     cells <- which(smr$predictions[[label]][, 'CSOA'] == 1)
     p1 <- featureWes(seuratObj, paste0('CSOA_', label), pt.size=pointSize,
                      palette=paletteer_c("grDevices::Plasma", 30)) + ggtitle(NULL) +
+        labs(color='Score') +
         theme(axis.text=element_text(size=TEXT_SIZE),
               axis.title=element_text(size=TEXT_SIZE),
               legend.text=element_text(size=TEXT_SIZE - 1),
