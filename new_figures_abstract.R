@@ -73,7 +73,7 @@ overlapDF <- CSOA:::filterOverlaps(overlapDF, firstOutRawRank)
 overlapDF <- CSOA:::scoreOverlaps(overlapDF, 'log')
 df <- overlapDF[, c('rank', 'score')]
 p4 <- rankScorePlot(df)
-p4 <- centerTitle(p4, '4. Map distinct overlap ranks to scores decreasing\nlogarithmically from 1 towards 0',
+p4 <- centerTitle(p4, '4. Map distinct overlap ranks to weights decreasing\nlogarithmically from 1 towards 0',
                   size=ABS_TEXT_SIZE)
 
 #5
@@ -87,7 +87,7 @@ p5 <- p5 + theme(axis.text.y=element_blank(),
                  legend.text=element_text(size=ABS_TEXT_SIZE - 1),
                  legend.key.size=unit(0.4, 'cm'))+
     labs(x='Cell', y='Gene pair', fill='Score')
-p5 <- centerTitle(p5, '5. Compute per-cell gene pair scores using overlap\nscores and the expression of the two genes',
+p5 <- centerTitle(p5, '5. Compute per-cell gene pair scores using overlap\nweights and the expression of the two genes',
                   size=ABS_TEXT_SIZE)
 
 
