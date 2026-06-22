@@ -6,7 +6,7 @@ source('visualization_abstract.R')
 ABS_TEXT_SIZE <- 9
 seuratPanc <- qs_read('seuratPanc.qs2')
 acinarPremarkers <- c('KLK1', 'CTRC', 'PNLIP','CELA3A','SPINK1','CELA2A', 'CPB1', 'PNLIPRP1', 'CPA2','CPA1', 'CELA3B', 'PLA2G1B', 'CLPS', 'SYCN')
-acinarMarkers <- withr::with_seed(2, sample(acinarPremarkers, 6))
+acinarMarkers <- withr::with_seed(20, sample(acinarPremarkers, 10))
 
 mat <- scExpMat(seuratPanc, genes=acinarMarkers)
 
