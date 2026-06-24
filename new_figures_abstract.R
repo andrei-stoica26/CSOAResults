@@ -11,15 +11,12 @@ acinarMarkers <- withr::with_seed(2, sample(acinarPremarkers, 6))
 mat <- scExpMat(seuratPanc, genes=acinarMarkers)
 
 #1
-cellSets <- percentileSets(mat)
-geneFreqs <- lengths(cellSets)
-df <- data.frame(Gene = names(geneFreqs),
-                 nCells = geneFreqs)
-p1 <- geneCellCountPlot(df, 'deepskyblue')
+p1 <- drawCellSets()
 p1 <- centerTitle(p1, '1. Build a high-expression cell set\nfor each signature gene',
                   size=ABS_TEXT_SIZE)
 
 #2
+cellSets <- percentileSets(mat)
 vennInput <- setNames(c(cellSets[1:2], list(colnames(seuratPanc))),
                       c('Cell set 1',
                         'Cell set 2',
