@@ -19,7 +19,6 @@ plotsLungShuffle <- allBenchmarkPlots(smrLungShuffle, pointSize=pointSize)
 plotsMerkelShuffle <- allBenchmarkPlots(smrMerkelShuffle, pointSize=pointSize)
 plotsBloodShuffle <- allBenchmarkPlots(smrBloodShuffle, pointSize=pointSize)
 
-
 invisible(mapply(function(i, plotName){
     p <- quadPlot(plotsPancShuffle, plotsLungShuffle,
                   plotsMerkelShuffle, plotsBloodShuffle, i)

@@ -24,7 +24,7 @@ prerankPlot <- function(df, title=NULL){
 
 prerankPlot2 <- function(df, title=NULL){
     p <- ggplot(df, aes(x = overlap, y = rank, fill = rankType)) +
-        geom_col(position = "dodge") +
+        geom_col(width = 0.5, position = position_dodge()) +
         labs(x = "Overlap", y = "Rank", fill = "Rank type") +
         scale_fill_manual(values = wes_palette('Darjeeling1')[c(2, 1, 3)],
                           labels = c('p-value rank', 'Ratio rank',
