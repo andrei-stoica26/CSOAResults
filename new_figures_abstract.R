@@ -16,7 +16,7 @@ geneFreqs <- lengths(cellSets)
 df <- data.frame(Gene = names(geneFreqs),
                  nCells = geneFreqs)
 p1 <- geneCellCountPlot(df, 'deepskyblue')
-p1 <- centerTitle(p1, '1. For each signature gene, extract the set\nof cells highly expressing the gene',
+p1 <- centerTitle(p1, '1. Build a high-expression cell set\nfor each signature gene',
                   size=ABS_TEXT_SIZE)
 
 #2
@@ -73,7 +73,7 @@ overlapDF <- CSOA:::filterOverlaps(overlapDF, firstOutRawRank)
 overlapDF <- CSOA:::scoreOverlaps(overlapDF, 'log')
 df <- overlapDF[, c('rank', 'score')]
 p4 <- rankScorePlot(df)
-p4 <- centerTitle(p4, '4. Map distinct overlap ranks to weights decreasing\nlogarithmically from 1 towards 0',
+p4 <- centerTitle(p4, '4. Convert overlap ranks to weights between 0 and 1',
                   size=ABS_TEXT_SIZE)
 
 #5
