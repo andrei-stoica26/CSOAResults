@@ -84,7 +84,7 @@ p5 <- p5 + theme(axis.text.y=element_blank(),
                  legend.text=element_text(size=ABS_TEXT_SIZE - 1),
                  legend.key.size=unit(0.4, 'cm'))+
     labs(x='Cell', y='Gene pair', fill='Score')
-p5 <- centerTitle(p5, '5. Compute per-cell gene pair scores using overlap\nweights and the expression of the two genes',
+p5 <- centerTitle(p5, '5. Compute gene pair scores for each cell\nusing overlap weights and the expression\nof the two genes',
                   size=ABS_TEXT_SIZE)
 
 

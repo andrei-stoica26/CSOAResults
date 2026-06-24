@@ -1,5 +1,6 @@
 library(ggplot2)
 library(ggforce)
+library(Seurat)
 
 drawCellSets <- function(lnWidth=0.3, textSize=3, arrowAngle=20, arrowLen=0.3){
     rectDF <- data.frame(xmin = c(0, 0, 0),
@@ -28,20 +29,17 @@ drawCellSets <- function(lnWidth=0.3, textSize=3, arrowAngle=20, arrowLen=0.3){
     p <- ggplot() +
         theme_void() +
         geom_rect(data=rectDF,
-                  aes(xmin=xmin, xmax=xmax, ymin=ymin, ymax=ymax),
-                  fill='white', color=rectDF$color, linewidth=lnWidth) +
+                  aes(xmin=xmin, xmax=xmax, ymin=ymin, ymax=ymax, color=color),
+                  fill='white', linewidth=lnWidth) +
         geom_text(data=rectDF, aes(x=xmin + 1.5, y=ymin + 1, label=label),
                   size=textSize) +
-        geom_ellipse(data=ellipseDF, aes(x0=x0, y0=y0, a=a, b=b, angle=angle),
+        geom_ellipse(data=ellipseDF, aes(x0=x0, y0=y0, a=a, b=b, angle=angle,
+                                         color=color),
                      fill='white', linewidth=lnWidth) +
         geom_text(data=ellipseDF, aes(x=x0, y=y0, label=label), size=textSize) +
         geom_segment(data=arrowDF, aes(x=x, y=y, xend=xend),
                      arrow=arrow(angle=arrowAngle, length = unit(arrowLen, "cm")),
                      linewidth=lnWidth) +
-        geom_point(data=pointDF, aes(x=x, y=y))
+        geom_point(data=pointDF, aes(x=x, y=y)) + NoLegend()
     return(p)
 }
-
-
-
-
