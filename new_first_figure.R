@@ -32,7 +32,7 @@ drawCellSets <- function(lnWidth=0.3, textSize=3, arrowAngle=20, arrowLen=0.3){
                   aes(xmin=xmin, xmax=xmax, ymin=ymin, ymax=ymax, color=color),
                   fill='white', linewidth=lnWidth) +
         geom_text(data=rectDF, aes(x=xmin + 1.5, y=ymin + 1, label=label),
-                  size=textSize) +
+                  size=textSize) + scale_color_discrete(palette=c('purple', 'blue', 'red')) +
         geom_ellipse(data=ellipseDF, aes(x0=x0, y0=y0, a=a, b=b, angle=angle,
                                          color=color),
                      fill='white', linewidth=lnWidth) +
@@ -43,3 +43,5 @@ drawCellSets <- function(lnWidth=0.3, textSize=3, arrowAngle=20, arrowLen=0.3){
         geom_point(data=pointDF, aes(x=x, y=y)) + NoLegend()
     return(p)
 }
+
+drawCellSets()
