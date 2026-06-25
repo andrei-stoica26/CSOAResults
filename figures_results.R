@@ -15,6 +15,7 @@ smrBlood <- qs_read('smrBlood.qs2')
 TEXT_SIZE <- 10
 pointSize <- 2
 labelSize <- 3
+palette <- 'viridis::turbo'
 
 #############################Illustrating predictions###########################
 
@@ -42,10 +43,10 @@ p
 dev.off()
 
 ###########################Correctness and efficiency###########################
-plotsPanc <- allBenchmarkPlots(smrPanc, pointSize=pointSize)
-plotsLung <- allBenchmarkPlots(smrLung, pointSize=pointSize)
-plotsMerkel <- allBenchmarkPlots(smrMerkel, pointSize=pointSize)
-plotsBlood <- allBenchmarkPlots(smrBlood, pointSize=pointSize)
+plotsPanc <- allBenchmarkPlots(smrPanc, pointSize=pointSize, palette=palette)
+plotsLung <- allBenchmarkPlots(smrLung, pointSize=pointSize, palette=palette)
+plotsMerkel <- allBenchmarkPlots(smrMerkel, pointSize=pointSize, palette=palette)
+plotsBlood <- allBenchmarkPlots(smrBlood, pointSize=pointSize, palette=palette)
 
 invisible(mapply(function(i, plotName){
     p <- quadPlot(plotsPanc, plotsLung, plotsMerkel, plotsBlood, i)

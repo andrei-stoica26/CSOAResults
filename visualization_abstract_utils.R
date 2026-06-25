@@ -29,3 +29,16 @@ editAxes2 <- function (p){
 
     return(p)
 }
+
+editAxes3 <- function (p){
+    p <- p + theme_classic() + theme(axis.text.x=element_text(size=ABS_TEXT_SIZE,
+                                                              color='black'),
+                                     axis.text.y=element_text(size=ABS_TEXT_SIZE,
+                                                              color='black'),
+                                     axis.title=element_text(size=ABS_TEXT_SIZE,
+                                                             color='black'),
+                                     plot.title=element_text(size=ABS_TEXT_SIZE,
+                                                             color='black'))
+
+    return(p)
+}

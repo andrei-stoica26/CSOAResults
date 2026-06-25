@@ -41,7 +41,7 @@ rankScorePlot <- function(df, title=NULL){
         geom_line(color = 'mediumpurple4') +
         geom_point(color = 'red', size = 1) +
         labs(x = 'Overlap rank', y = 'Overlap weight')
-    p <- editAxes2(p)
+    p <- editAxes3(p)
     if (!is.null(title))
         p <- centerTitle(p, title)
     return(p)

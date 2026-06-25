@@ -13,11 +13,12 @@ smrBloodShuffle <- qs_read('smrBloodShuffle.qs2')
 
 TEXT_SIZE <- 10
 pointSize <- 2
+palette <- 'viridis::turbo'
 
-plotsPancShuffle <- allBenchmarkPlots(smrPancShuffle, pointSize=pointSize)
-plotsLungShuffle <- allBenchmarkPlots(smrLungShuffle, pointSize=pointSize)
-plotsMerkelShuffle <- allBenchmarkPlots(smrMerkelShuffle, pointSize=pointSize)
-plotsBloodShuffle <- allBenchmarkPlots(smrBloodShuffle, pointSize=pointSize)
+plotsPancShuffle <- allBenchmarkPlots(smrPancShuffle, pointSize=pointSize, palette=palette)
+plotsLungShuffle <- allBenchmarkPlots(smrLungShuffle, pointSize=pointSize, palette=palette)
+plotsMerkelShuffle <- allBenchmarkPlots(smrMerkelShuffle, pointSize=pointSize, palette=palette)
+plotsBloodShuffle <- allBenchmarkPlots(smrBloodShuffle, pointSize=pointSize, palette=palette)
 
 invisible(mapply(function(i, plotName){
     p <- quadPlot(plotsPancShuffle, plotsLungShuffle,

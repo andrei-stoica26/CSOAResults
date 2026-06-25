@@ -1,6 +1,7 @@
 source('load_all.R')
 source('visualization_abstract_utils.R')
 source('visualization_abstract.R')
+source('new_first_figure.R')
 
 
 ABS_TEXT_SIZE <- 9
@@ -98,7 +99,7 @@ p6 <- featurePlot(seuratPanc, 'CSOA_acinar',
           legend.title=element_text(size=ABS_TEXT_SIZE),
           legend.text=element_text(size=ABS_TEXT_SIZE - 1),
           legend.key.size=unit(0.4, 'cm')) + labs(color='Score')
-p6 <- centerTitle(p6, '6. Sum all gene pair scores in each cell and normalize\nthe results to obtain the CSOA score',
+p6 <- centerTitle(p6, '6. Normalize the summed gene-pair scores for each\ncell to obtain the CSOA score',
                   size=ABS_TEXT_SIZE)
 
 p <- wrap_plots(p1, p2, p3, p4, p5, p6, ncol=2, nrow=3,
