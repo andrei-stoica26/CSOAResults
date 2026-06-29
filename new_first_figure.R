@@ -2,7 +2,11 @@ library(ggplot2)
 library(ggforce)
 library(Seurat)
 
-drawCellSets <- function(lnWidth=0.3, textSize=3, arrowAngle=20, arrowLen=0.3){
+drawCellSets <- function(lnWidth=0.3,
+                         textSize=3,
+                         arrowAngle=20,
+                         arrowLen=0.3,
+                         pointSize=0.5){
     rectDF <- data.frame(xmin = c(0, 0, 0),
                          xmax = c(3, 3, 3),
                          ymin = c(0, 4, 7),
@@ -40,7 +44,7 @@ drawCellSets <- function(lnWidth=0.3, textSize=3, arrowAngle=20, arrowLen=0.3){
         geom_segment(data=arrowDF, aes(x=x, y=y, xend=xend),
                      arrow=arrow(angle=arrowAngle, length = unit(arrowLen, "cm")),
                      linewidth=lnWidth) +
-        geom_point(data=pointDF, aes(x=x, y=y)) + NoLegend()
+        geom_point(data=pointDF, aes(x=x, y=y), size=pointSize) + NoLegend()
     return(p)
 }
 
