@@ -15,7 +15,18 @@ smrBlood <- qs_read('smrBlood.qs2')
 TEXT_SIZE <- 10
 pointSize <- 2
 labelSize <- 3
-palette <- 'viridis::turbo'
+palette <- c(rgb(169/255, 169/255, 169/255),
+             rgb(247/255, 147/255, 30/255),
+             rgb(220/255, 20/255, 60/255),
+             rgb(150/255, 206/255, 180/255),
+             rgb(3/255, 161/255, 198/255),
+             rgb(192/255, 193/255, 48/255),
+             rgb(255/255, 191/255, 15/255),
+             rgb(157/255, 115/255, 194/255),
+             rgb(183/255, 76/255, 171/255),
+             rgb(140/255, 198/255, 63/255),
+             rgb(103/255, 199/255, 193/255),
+             rgb(97/255, 156/255, 255/255))
 
 #############################Illustrating predictions###########################
 
@@ -43,10 +54,21 @@ p
 dev.off()
 
 ###########################Correctness and efficiency###########################
-plotsPanc <- allBenchmarkPlots(smrPanc, pointSize=pointSize, palette=palette)
-plotsLung <- allBenchmarkPlots(smrLung, pointSize=pointSize, palette=palette)
-plotsMerkel <- allBenchmarkPlots(smrMerkel, pointSize=pointSize, palette=palette)
-plotsBlood <- allBenchmarkPlots(smrBlood, pointSize=pointSize, palette=palette)
+plotsPanc <- allBenchmarkPlots(smrPanc, pointSize=pointSize)
+plotsPanc <- lapply(plotsPanc, function(p)
+    p + scale_color_manual(values=palette))
+
+plotsLung <- allBenchmarkPlots(smrLung, pointSize=pointSize)
+plotsLung <- lapply(plotsLung, function(p)
+    p + scale_color_manual(values=palette))
+
+plotsMerkel <- allBenchmarkPlots(smrMerkel, pointSize=pointSize)
+plotsMerkel <- lapply(plotsMerkel, function(p)
+    p + scale_color_manual(values=palette))
+
+plotsBlood <- allBenchmarkPlots(smrBlood, pointSize=pointSize)
+plotsBlood <- lapply(plotsBlood, function(p)
+    p + scale_color_manual(values=palette))
 
 invisible(mapply(function(i, plotName){
     p <- quadPlot(plotsPanc, plotsLung, plotsMerkel, plotsBlood, i)
