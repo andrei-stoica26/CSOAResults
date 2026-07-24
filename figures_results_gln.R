@@ -45,7 +45,10 @@ plotsBloodShuffle <- lapply(plotsBloodShuffle, function(p)
 invisible(mapply(function(i, plotName){
     p <- quadPlot(plotsPancShuffle, plotsLungShuffle,
                   plotsMerkelShuffle, plotsBloodShuffle, i)
-    pdf(paste0('Figure ', plotName, '.pdf'), width = 12, height = 8)
+    pdf(paste0('Figure ', plotName, '.pdf'), width=8.27, height=11.69)
+    print(p)
+    dev.off()
+    png(paste0('Figure ', plotName, '.png'), width=595, height=842)
     print(p)
     dev.off()
 }, c(8, 9, 19),

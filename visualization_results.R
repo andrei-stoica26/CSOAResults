@@ -21,7 +21,7 @@ editSubplot <- function(p,
 }
 
 quadPlot <- function(plots1, plots2, plots3, plots4, i,
-                     legendPos='right',
+                     legendPos='bottom',
                      legendTitle = NULL,
                      removeYLab = TRUE){
     p <- (editSubplot(plots1[[i]], legendPos, legendTitle, removeYLab) |

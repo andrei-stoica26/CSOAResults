@@ -49,7 +49,11 @@ p <- wrap_plots(umaps, ncol=2, nrow=4,
                                 vjust=0.5,
                                 face='bold'))
 
-pdf('Figure 2.pdf', width = 6.5, height = 9.5)
+pdf('Figure 2.pdf', width=8.27, height=11.69)
+p
+dev.off()
+
+png('Figure 2.png', width=595, height=842)
 p
 dev.off()
 
@@ -72,7 +76,10 @@ plotsBlood <- lapply(plotsBlood, function(p)
 
 invisible(mapply(function(i, plotName){
     p <- quadPlot(plotsPanc, plotsLung, plotsMerkel, plotsBlood, i)
-    pdf(paste0('Figure ', plotName, '.pdf'), width = 12, height = 8)
+    pdf(paste0('Figure ', plotName, '.pdf'), width=8.27, height=11.69)
+    print(p)
+    dev.off()
+    png(paste0('Figure ', plotName, '.png'), width=595, height=842)
     print(p)
     dev.off()
 }, c(8, 6, 9, 10, 19, 15, 20, 21),
@@ -128,34 +135,43 @@ mdsBlood <- mdsPlots(seuratBlood,
                      xLab = 'MDS_1',
                      yLab = 'MDS_2')$aggregate
 
+xAngle <- 60
 jacPanc <- predJaccardPlots(smrPanc$predictions,
                             labelSize=labelSize,
                             legendTitle='Jaccard',
                             limits=c(0, 1),
-                            showNumbers=FALSE)$aggregate
+                            showNumbers=FALSE,
+                            xAngle=xAngle)$aggregate
 jacLung <- predJaccardPlots(smrLung$predictions,
                             labelSize=labelSize,
                             legendTitle='Jaccard',
                             limits=c(0, 1),
-                            showNumbers=FALSE)$aggregate
+                            showNumbers=FALSE,
+                            xAngle=xAngle)$aggregate
 jacMerkel <- predJaccardPlots(smrMerkel$predictions,
                               labelSize=labelSize,
                               legendTitle='Jaccard',
                               limits=c(0, 1),
-                              showNumbers=FALSE)$aggregate
+                              showNumbers=FALSE,
+                              xAngle=xAngle)$aggregate
 jacBlood <- predJaccardPlots(smrBlood$predictions,
                              labelSize=labelSize,
                              legendTitle='Jaccard',
                              limits=c(0, 1),
-                             showNumbers=FALSE)$aggregate
+                             showNumbers=FALSE,
+                             xAngle=xAngle)$aggregate
 
 invisible(mapply(function(i, plotName){
     p <- quadPlot(list(mdsPanc, jacPanc),
                   list(mdsLung, jacLung),
                   list(mdsMerkel, jacMerkel),
                   list(mdsBlood, jacBlood), i, removeYLab=FALSE)
-    pdf(paste0('Figure ', plotName, '.pdf'), width = 12, height = 8)
+    pdf(paste0('Figure ', plotName, '.pdf'), width=8.27, height=11.69)
+    print(p)
+    dev.off()
+    png(paste0('Figure ', plotName, '.png'), width=595, height=842)
     print(p)
     dev.off()
 }, c(1, 2),
 c('S5', 'S6')))
+
