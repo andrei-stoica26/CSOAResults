@@ -8,7 +8,7 @@ sensAnalysis <- function(seuratObj, geneSets, labelCol){
     for (percVal in c(70, 75, 80, 85, 90, 95)){
         markerSetNames <- paste0('CSOA', percVal, '_', types)
         names(geneSets) <- markerSetNames
-        seuratObj <- runCSOA(seuratObj, geneSets, percentile=percVal)
+        seuratObj <- runCSOA(seuratObj, geneSets, percentile=percVal, adjustRanks=TRUE)
     }
     names(geneSets) <- types
     smr <- runBenchmark(seuratObj,
@@ -28,12 +28,13 @@ seuratObj <- qs_read('seuratPanc.qs2')
 geneSets <- qs_read('geneSetsPanc.qs2')
 labelCol <- 'label'
 smr <- sensAnalysis(seuratObj, geneSets, labelCol)
+smr2 <- sensAnalysis(seuratObj, geneSets, labelCol)
 
 View(smr$boundary$avg)
+View(smr2$boundary$avg)
 View(smr$MCC$boundaryMCC)
 View(smr$MCC$directMCC)
 View(smr$global$avg)
-View(smr$efficiency$space)
 
 seuratObj <- qs_read('seuratLung.qs2')
 geneSets <- qs_read('geneSetsLung.qs2')
@@ -44,4 +45,12 @@ View(smr$boundary$avg)
 View(smr$MCC$boundaryMCC)
 View(smr$MCC$directMCC)
 View(smr$global$avg)
-View(smr$efficiency$space)
+
+seuratObj <- qs_read('seuratPanc.qs2')
+geneSets <- qs_read('geneSetsPanc.qs2')
+genes <- Reduce(union, geneSets)
+geneSetExp <- expMat(seuratObj, genes)
+overlapDF <- generateOverlaps(geneSetExp)
+overlapDF <- CSOA:::prefilterOverlaps(overlapDF)
+overlapDF <- CSOA:::rankOverlaps(overlapDF)
+View(overlapDF)

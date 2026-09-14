@@ -45,68 +45,23 @@ seuratLung <- addMetadataCategory(seuratLung,
                                     'HepaticStellateCells'))
 qs_save(seuratLung, 'seuratLung.qs2')
 
-###############################Merkel cell carcinoma############################
-load('SRA749327_SRS3693909.sparse.RData')
+#############################Lung proximal airway stromal#######################
+load('SRA653146_SRS3044244.sparse.RData')
 rownames(sm) <- make.unique(gsub('_.*', '', rownames(sm)))
-seuratMerkel <- CreateSeuratObject(sm, project='merkel')
-
-seuratMerkel  <- PercentageFeatureSet(seuratMerkel,
-                                      pattern = "^MT-",
-                                      col.name = "percent.mt")
-seuratMerkel <- PercentageFeatureSet(seuratMerkel,
-                                     pattern="^RP[SL][[:digit:]]|^RPLP[[:digit:]]|^RPSA",
-                                     col.name="percent.ribo")
-
-seuratMerkel <- subset(seuratMerkel, percent.mt < 10)
-seuratMerkel <- processSeurat(seuratMerkel)
-seuratMerkel <- FindNeighbors(seuratMerkel, reduction='umap', dims=1:2)
-seuratMerkel <- FindClusters(seuratMerkel, resolution=0.4)
-seuratMerkel <- addMetadataCategory(seuratMerkel,
-                                    'seurat_clusters',
-                                    'funct',
-                                    list(c(0, 2, 14, 8, 5),
-                                         c(4, 12, 10, 13, 1, 3, 6, 7, 9, 11),
-                                         c(15, 16),
-                                         17),
-                                    c('Chromosome.segregation',
-                                      'Other.cells',
-                                      'Antigen.processing',
-                                      'ECM.organization'))
-qs_save(seuratMerkel, 'seuratMerkel.qs2')
-
-########################Peripheral blood mononuclear cells######################
-load('SRA550660_SRS2089639.sparse.RData')
-rownames(sm) <- make.unique(gsub('_.*', '', rownames(sm)))
-clusterInfo <- read.table("SRA550660_SRS2089639.clusters.txt")
+clusterInfo <- read.table('SRA653146_SRS3044244.clusters.txt')
 sm <- sm[, clusterInfo$V1]
+seuratLiver <- CreateSeuratObject(sm, project='liver')
+seuratLiver$cluster <- clusterInfo$V2
+seuratLiver <- subset(seuratLiver, cluster != 9)
+seuratLiver <- processSeurat(seuratLiver)
+seuratLiver <- addMetadataCategory(seuratLiver,
+                                  'cluster',
+                                  'celltype',
+                                  list(seq(0, 6),
+                                       7,
+                                       8),
+                                  c('Hepatocytes',
+                                    'EndothelialCells',
+                                    'KupfferCells'))
+qs_save(seuratLiver, 'seuratLiver.qs2')
 
-seuratBlood <- CreateSeuratObject(counts = sm, project = "pbmc")
-seuratBlood$seurat_clusters <- clusterInfo$V2
-seuratBlood <- subset(seuratBlood, subset = !(seurat_clusters %in% c("8", "12")))
-
-
-seuratBlood  <- PercentageFeatureSet(seuratBlood,
-                                     pattern = "^MT-",
-                                     col.name = "percent.mt")
-seuratBlood  <- PercentageFeatureSet(seuratBlood,
-                                     pattern="^RP[SL][[:digit:]]|^RPLP[[:digit:]]|^RPSA",
-                                     col.name="percent.ribo")
-
-seuratBlood <- subset(seuratBlood, subset = percent.mt < 5)
-seuratBlood <- processSeurat(seuratBlood, varsToRegress = 'percent.ribo')
-seuratBlood <- FindNeighbors(seuratBlood, reduction='umap', dims=1:2)
-seuratBlood <- FindClusters(seuratBlood, resolution=0.1)
-
-seuratBlood <- addMetadataCategory(seuratBlood,
-                                   'seurat_clusters',
-                                   'funct',
-                                   list(0,
-                                       c(1, 2, 3, 5, 7, 8, 9),
-                                       c(4, 10),
-                                       6),
-                                   c('Chemotaxis',
-                                     'Other.cells',
-                                     'Cell.killing',
-                                     'Positive.regulation.of.cell.activation'))
-
-qs_save(seuratBlood,'seuratBlood.qs2')
