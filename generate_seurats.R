@@ -45,7 +45,7 @@ seuratLung <- addMetadataCategory(seuratLung,
                                     'HepaticStellateCells'))
 qs_save(seuratLung, 'seuratLung.qs2')
 
-#############################Lung proximal airway stromal#######################
+######################################Liver#####################################
 load('SRA653146_SRS3044244.sparse.RData')
 rownames(sm) <- make.unique(gsub('_.*', '', rownames(sm)))
 clusterInfo <- read.table('SRA653146_SRS3044244.clusters.txt')
