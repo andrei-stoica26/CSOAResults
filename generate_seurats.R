@@ -46,22 +46,25 @@ seuratLung <- addMetadataCategory(seuratLung,
 qs_save(seuratLung, 'seuratLung.qs2')
 
 ######################################Liver#####################################
-load('SRA653146_SRS3044244.sparse.RData')
+load('SRA653146_SRS2874275.sparse.RData')
 rownames(sm) <- make.unique(gsub('_.*', '', rownames(sm)))
-clusterInfo <- read.table('SRA653146_SRS3044244.clusters.txt')
+clusterInfo <- read.table('SRA653146_SRS2874275.clusters.txt')
 sm <- sm[, clusterInfo$V1]
 seuratLiver <- CreateSeuratObject(sm, project='liver')
 seuratLiver$cluster <- clusterInfo$V2
-seuratLiver <- subset(seuratLiver, cluster != 9)
 seuratLiver <- processSeurat(seuratLiver)
 seuratLiver <- addMetadataCategory(seuratLiver,
                                   'cluster',
                                   'celltype',
-                                  list(seq(0, 6),
-                                       7,
-                                       8),
-                                  c('Hepatocytes',
-                                    'EndothelialCells',
-                                    'KupfferCells'))
+                                  list(0,
+                                       c(1, 3:5, 7:8, 10:15),
+                                       2,
+                                       6,
+                                       9),
+                                  c('EndothelialCells',
+                                    'Hepatocytes',
+                                    'KupfferCells',
+                                    'TMemoryCells',
+                                    'BCells'))
 qs_save(seuratLiver, 'seuratLiver.qs2')
 

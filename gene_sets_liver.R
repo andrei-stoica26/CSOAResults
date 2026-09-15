@@ -12,16 +12,22 @@ generateMarkers <- function(df, cellType){
     return(markers)
 }
 
-hepatocyteMarkers <- generateMarkers(df, 'Hepatocytes')
 endothelialMarkers <- generateMarkers(df, 'Endothelial cells')
+hepatocyteMarkers <- generateMarkers(df, 'Hepatocytes')
 kupfferMarkers <- generateMarkers(df, 'Kupffer cells')
+tmemoryMarkers <- generateMarkers(df, 'T memory cells')
+bMarkers <- generateMarkers(df, 'B cells')
 
-geneSetsLiver <- list(hepatocyteMarkers, endothelialMarkers, kupfferMarkers)
+geneSetsLiver <- list(endothelialMarkers, hepatocyteMarkers,
+                      kupfferMarkers, tmemoryMarkers,
+                      bMarkers)
 
 geneSetsLiver <- lapply(geneSetsLiver, function(x)
     intersect(x, rownames(seuratLiver)))
-names(geneSetsLiver) <- c('Hepatocytes',
-                         'EndothelialCells',
-                         'KupfferCells')
+names(geneSetsLiver) <- c('EndothelialCells',
+                          'Hepatocytes',
+                          'KupfferCells',
+                          'TMemoryCells',
+                          'BCells')
 qs_save(geneSetsLiver, 'geneSetsLiver.qs2')
 
