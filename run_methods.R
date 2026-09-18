@@ -1,11 +1,11 @@
 runMethods <- function(){
     seuratPanc <- qs_read('seuratPanc.qs2')
     seuratLung <- qs_read('seuratLung.qs2')
-    seuratLiver <- qs_read('seuratLiver.qs2')
+    seuratBrain <- qs_read('seuratBrain.qs2')
 
     geneSetsPanc <- qs_read('geneSetsPanc.qs2')
     geneSetsLung <- qs_read('geneSetsLung.qs2')
-    geneSetsLiver <- qs_read('geneSetsLiver.qs2')
+    geneSetsBrain <- qs_read('geneSetsBrain.qs2')
 
     gsaMethods <- supportedMethods()
 
@@ -16,7 +16,7 @@ runMethods <- function(){
                                 gsaMethods)
     qs_save(seuratLung, 'seuratLungGSA.qs2')
 
-    seuratLiver <- runGSAMethods(seuratLiver, 'celltype', geneSetsLiver,
+    seuratBrain <- runGSAMethods(seuratBrain, 'celltype', geneSetsBrain,
                                   gsaMethods)
-    qs_save(seuratLiver, 'seuratLiverGSA.qs2')
+    qs_save(seuratBrain, 'seuratBrainGSA.qs2')
 }

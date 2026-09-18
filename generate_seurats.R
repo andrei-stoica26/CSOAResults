@@ -45,26 +45,32 @@ seuratLung <- addMetadataCategory(seuratLung,
                                     'HepaticStellateCells'))
 qs_save(seuratLung, 'seuratLung.qs2')
 
-######################################Liver#####################################
-load('SRA653146_SRS2874275.sparse.RData')
+######################################Brain#####################################
+load('SRA866994_SRS4545962.sparse.RData')
 rownames(sm) <- make.unique(gsub('_.*', '', rownames(sm)))
-clusterInfo <- read.table('SRA653146_SRS2874275.clusters.txt')
+clusterInfo <- read.table('SRA866994_SRS4545962.clusters.txt')
 sm <- sm[, clusterInfo$V1]
-seuratLiver <- CreateSeuratObject(sm, project='liver')
-seuratLiver$cluster <- clusterInfo$V2
-seuratLiver <- processSeurat(seuratLiver)
-seuratLiver <- addMetadataCategory(seuratLiver,
+seuratBrain <- CreateSeuratObject(sm, project='brain')
+seuratBrain$cluster <- clusterInfo$V2
+seuratBrain <- processSeurat(seuratBrain)
+seuratBrain <- addMetadataCategory(seuratBrain,
                                   'cluster',
                                   'celltype',
-                                  list(0,
-                                       c(1, 3:5, 7:8, 10:15),
-                                       2,
-                                       6,
-                                       9),
-                                  c('EndothelialCells',
-                                    'Hepatocytes',
-                                    'KupfferCells',
+                                  list(c(0, 1, 5, 15),
+                                       c(2, 10),
+                                       c(3, 16),
+                                       c(4, 6, 9, 11),
+                                       c(7, 12),
+                                       c(8, 13),
+                                       c(14, 18),
+                                       17),
+                                  c('Microglia',
+                                    'TCells',
+                                    'BCells',
+                                    'Macrophages',
+                                    'NKCells',
                                     'TMemoryCells',
-                                    'BCells'))
-qs_save(seuratLiver, 'seuratLiver.qs2')
+                                    'Neutrophils',
+                                    'Nuocytes'))
+qs_save(seuratBrain, 'seuratBrain.qs2')
 
